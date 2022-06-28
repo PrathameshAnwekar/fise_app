@@ -1,11 +1,16 @@
 // FLUTTER IMPORTS
+import 'package:firebase_core/firebase_core.dart';
+import 'package:fise_app/firebase_options.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 // FILE IMPORTS
 import 'package:fise_app/constants/constants.dart';
 
-void main() {
+void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); //PRESERVE SPLASH SCREEN WHILE INITIALIZATION
   // FlutterNativeSplash.remove();
 
@@ -17,8 +22,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: AppThemeData.lightThemeData,
+      theme: AppThemeData.themeData(
+          AppThemeData.lightColorScheme, AppThemeData.lightFocusColor),
       home: InitializerWidget(),
     );
   }

@@ -25,17 +25,17 @@ class AppThemeData {
   static const _lightFillColor = Colors.black;
   static const _darkFillColor = Colors.white;
 
-  static final Color _lightFocusColor = Colors.black.withOpacity(0.12);
-  static final Color _darkFocusColor = Colors.white.withOpacity(0.12);
+  static final Color lightFocusColor = Colors.black.withOpacity(0.12);
+  static final Color darkFocusColor = Colors.white.withOpacity(0.12);
 
   static ThemeData lightThemeData =
-      themeData(lightColorScheme, _lightFocusColor);
-  static ThemeData darkThemeData = themeData(darkColorScheme, _darkFocusColor);
+      themeData(lightColorScheme, lightFocusColor);
+  static ThemeData darkThemeData = themeData(darkColorScheme, darkFocusColor);
 
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
     return ThemeData(
       colorScheme: colorScheme,
-      textTheme: _textTheme,
+      textTheme: textTheme,
       // Matches manifest.json colors and background color.
       primaryColor: const Color(0xFF030303),
       appBarTheme: AppBarTheme(
@@ -54,7 +54,7 @@ class AppThemeData {
           _lightFillColor.withOpacity(0.80),
           _darkFillColor,
         ),
-        contentTextStyle: _textTheme.subtitle1!.apply(color: _darkFillColor),
+        contentTextStyle: textTheme.subtitle1!.apply(color: _darkFillColor),
       ),
     );
   }
@@ -97,7 +97,7 @@ class AppThemeData {
   static const _semiBold = FontWeight.w600;
   static const _bold = FontWeight.w700;
 
-  static final TextTheme _textTheme = TextTheme(
+  static final TextTheme textTheme = TextTheme(
     headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
     caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
     headline5: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),

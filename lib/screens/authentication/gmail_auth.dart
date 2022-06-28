@@ -1,7 +1,8 @@
-import 'package:fise_app/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/authentication/google_button.dart';
+
 
 class GmailAuthScreen extends StatefulWidget {
   const GmailAuthScreen({Key? key}) : super(key: key);
@@ -18,11 +19,23 @@ class _GmailAuthScreenState extends State<GmailAuthScreen> {
         Container(
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/login/gmail_screen.png'),
                   fit: BoxFit.cover)),
-        )
+        ),
+        Container(
+          margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.1,
+              SizeConfig.screenHeight * 0.35, SizeConfig.screenWidth * 0.1, 0),
+          child: Text(
+              'For seamless one-tap logins, please use your Google account to continue.',
+              style: AppThemeData.textTheme.headline4),
+        ),
+        Container(
+          margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.45,
+              SizeConfig.screenHeight * 0.5, 0, 0),
+          child: GoogleButton(),),
+        
       ]),
     );
   }
