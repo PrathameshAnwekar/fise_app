@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fise_app/screens/authentication/phone_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -14,8 +15,8 @@ class GoogleButton extends StatefulWidget {
 class _GoogleButtonState extends State<GoogleButton> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-
-  Future<void> signUp() async {
+////// FUNCTION FOR HANDLING GOOGLE SIGN-IN /////////
+  Future<void> signUp() async {      
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
@@ -41,16 +42,16 @@ class _GoogleButtonState extends State<GoogleButton> {
       child: InkWell(
         borderRadius: BorderRadius.circular(40),
         onTap: () async {
-          await signUp();
-          // await Navigator.of(context)
-          //     .pushReplacementNamed(InitializerWidget.routeName);
+          // await signUp();
+          await Navigator.of(context)
+              .pushReplacementNamed(PhoneAuth.routename);
         },
         splashColor: Colors.black,
         child: CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.grey[350],
+          backgroundColor: Colors.white,
           child: CircleAvatar(
-            backgroundColor: Colors.grey[300],
+            backgroundColor: Colors.white,
             radius: 25,
             backgroundImage: Image.asset(
               'assets/images/login/google_logo.png',

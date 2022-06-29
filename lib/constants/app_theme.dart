@@ -98,7 +98,9 @@ class AppThemeData {
   static const _bold = FontWeight.w700;
 
   static final TextTheme textTheme = TextTheme(
-    headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
+    headline2: GoogleFonts.montserrat(fontSize: 20),
+    headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 35.0),
+    headline3: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 35.0, color: Colors.grey),
     caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
     headline5: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),
     subtitle1: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
