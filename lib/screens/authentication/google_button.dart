@@ -42,7 +42,7 @@ class _GoogleButtonState extends State<GoogleButton> {
       child: InkWell(
         borderRadius: BorderRadius.circular(40),
         onTap: () async {
-          // await signUp();
+          await signUp();
           await Navigator.of(context)
               .pushReplacementNamed(PhoneAuth.routename);
         },

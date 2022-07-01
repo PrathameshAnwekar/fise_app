@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "460532146091",
+    "project_id": "fise-app-319c9",
+    "storage_bucket": "fise-app-319c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460532146091:android:e123bd8afbe3696a957cee",
+        "android_client_info": {
+          "package_name": "com.example.fise_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460532146091-e6bdf30jps60ej0ufis8apit9f2f7sgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFMX4e0erOkCrHMFhZZP2qRAN4mvnMPEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460532146091-e6bdf30jps60ej0ufis8apit9f2f7sgg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "460532146091-b1itivfrlr7bmcamcfkor56bv0brk8o5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fiseApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,25 +1,39 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/authentication/otp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 
-class PhoneAuth extends StatelessWidget {
+class PhoneAuth extends StatefulWidget {
   PhoneAuth({Key? key}) : super(key: key);
 
   static const routename = 'phoneauth';
+
+  @override
+  State<PhoneAuth> createState() => _PhoneAuthState();
+}
+
+class _PhoneAuthState extends State<PhoneAuth> {
   final phoneNumberController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(
-                  'assets/images/login/enter_number_bg.png',
-                )),
-          ),
-          child: Stack(children: [
+      extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(
+                      'assets/images/login/enter_number_bg.png',
+                    )),
+              ),
+            ),
             Container(
               margin:
                   EdgeInsets.fromLTRB(0, SizeConfig.screenHeight * 0.25, 0, 0),
@@ -42,49 +56,75 @@ class PhoneAuth extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.1,
                   SizeConfig.screenHeight * 0.45, 0, 0),
-              child: Row(children: [
-                Text(
-                  '+91',
-                  style: AppThemeData.textTheme.headline4,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Container(
-                    width: SizeConfig.screenWidth * 0.6,
-                    child: TextFormField(
-                      style: AppThemeData.textTheme.headline4,
-                      smartDashesType: SmartDashesType.enabled,
-                      controller: phoneNumberController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          isCollapsed: true,
-                          hintText: '9876543210',
-                          hintStyle: AppThemeData.textTheme.headline3),
-                      keyboardType: TextInputType.phone,
-                    ))
-              ]),
+              child: Container(
+                height: 100,
+                child: Row(children: [
+                  Text(
+                    '+91',
+                    style: AppThemeData.textTheme.headline4,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                    height: 50,
+                  ),
+                  Container(
+                      width: SizeConfig.screenWidth * 0.6,
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          validator: ((value) {
+                            if (value == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          "Please enter a valid 10 digit number")));
+                            } else if (value.length < 10 ||
+                                int.tryParse(value) == null ||
+                                value.length > 10) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          "Please enter a valid 10 digit number")));
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => OTPAuth(
+                                      phoneNumber:
+                                          phoneNumberController.text)));
+                            }
+                          }),
+                          style: AppThemeData.textTheme.headline4,
+                          controller: phoneNumberController,
+                          decoration: InputDecoration(
+                              counter: null,
+                              border: InputBorder.none,
+                              isCollapsed: true,
+                              hintText: '9876543210',
+                              hintStyle: AppThemeData.textTheme.headline3),
+                          keyboardType: TextInputType.phone,
+                        ),
+                      ))
+                ]),
+              ),
             ),
             Container(
-              clipBehavior: Clip.antiAlias,
+                clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
-                  
-                  color: AppThemeData.lightColorScheme.primary,
-                  borderRadius: BorderRadius.circular(20)
-                ),
+                    color: AppThemeData.lightColorScheme.primary,
+                    borderRadius: BorderRadius.circular(20)),
                 width: SizeConfig.screenWidth * 0.8,
                 height: SizeConfig.screenHeight * 0.05,
                 margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.1,
                     SizeConfig.screenHeight * 0.9, 0, 0),
                 child: OutlinedButton(
-                  
-                  onPressed: () {},
+                  onPressed: () {
+                    _formKey.currentState!.validate();
+                  },
                   child: const Text(
                     'Continue',
                     style: const TextStyle(color: Colors.white),
                   ),
-                ))
-          ]),
+                )),
+          ],
         ));
   }
 }
