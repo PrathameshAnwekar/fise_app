@@ -7,7 +7,7 @@ import 'package:pinput/pinput.dart';
 class PhoneAuth extends StatefulWidget {
   PhoneAuth({Key? key}) : super(key: key);
 
-  static const routename = 'phoneauth';
+  static const routeName = 'phoneauth';
 
   @override
   State<PhoneAuth> createState() => _PhoneAuthState();

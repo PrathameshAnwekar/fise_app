@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
-import 'package:fise_app/screens/authentication/phone_auth.dart';
-import 'package:fise_app/screens/home_page.dart';
+import 'package:fise_app/screens/homescreen/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+///THIS FILE IS INTENTIONALLY EMBEDDED WITH ALL NEEDED FUNCTIONS, ITS MESSY BUT MAKES SURE IT WORKS////
 
 class OTPAuth extends StatefulWidget {
   const OTPAuth({Key? key, required this.phoneNumber}) : super(key: key);
@@ -41,16 +41,6 @@ class _OTPAuthState extends State<OTPAuth> {
     errorController!.close();
 
     super.dispose();
-  }
-
-  // snackBar Widget
-  snackBar(String? message) {
-    return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message!),
-        duration: const Duration(seconds: 2),
-      ),
-    );
   }
 
   @override
@@ -170,52 +160,59 @@ class _OTPAuthState extends State<OTPAuth> {
                     onCompleted: (v) async {
                       debugPrint("Completed");
                       if (v.length == 6) {
-                try {
-                  final credential = PhoneAuthProvider.credential(
-                      verificationId: _verificationCode, smsCode: v);
-                  final userCredential = await FirebaseAuth.instance.currentUser
-                      ?.linkWithCredential(credential);
-                } on FirebaseAuthException catch (e) {
-                  switch (e.code) {
-                    case "provider-already-linked":
-                      print(
-                          "The provider has already been linked to the user.");
-                      break;
-                    case "invalid-credential":
-                      print("The provider's credential is not valid.");
-                      break;
-                    case "credential-already-in-use":
-                      print(
-                          "The account corresponding to the credential already exists, "
-                          "or is already linked to a Firebase User.");
-                      break;
-                    // See the API reference for the full list of error codes.
-                    default:
-                      print("Unknown error.");
-                  }
-                }
-                try {
-                  final guser = await FirebaseAuth.instance.currentUser;
+                        try {
+                          final credential = PhoneAuthProvider.credential(
+                              ////Function for linking with gmail account
+                              verificationId: _verificationCode,
+                              smsCode: v);
+                          final userCredential = await FirebaseAuth
+                              .instance.currentUser
+                              ?.linkWithCredential(credential);
+                        } on FirebaseAuthException catch (e) {
+                          switch (e.code) {
+                            case "provider-already-linked":
+                              print(
+                                  "The provider has already been linked to the user.");
+                              break;
+                            case "invalid-credential":
+                              print("The provider's credential is not valid.");
+                              break;
+                            case "credential-already-in-use":
+                              print(
+                                  "The account corresponding to the credential already exists, "
+                                  "or is already linked to a Firebase User.");
+                              break;
+                            // See the API reference for the full list of error codes.
+                            default:
+                              print("Unknown error.");
+                          }
+                        }
+                        try {
+                          final guser = await FirebaseAuth.instance.currentUser;
 
-                  await FirebaseAuth.instance
-                      .signInWithCredential(PhoneAuthProvider.credential(
-                          verificationId: _verificationCode, smsCode: v))
-                      .then((value) async {
-                    if (value.user != null) {
-                      print('correct pin, logging in.');
-                      await FirebaseFirestore.instance
-                          .collection('Profiles')
-                          .doc(guser!.uid)
-                          .set({'phoneNumber': widget.phoneNumber},
-                              SetOptions(merge: true));
-                      await Navigator.of(context)
-                          .pushReplacementNamed(HomePage.routeName);
-                    }
-                  });
-                } catch (e) {
-                  errorSnackbar(context, 'Invalid OTP');
-                }
-                      }},
+                          await FirebaseAuth
+                              .instance ////Sign in manually and initialise userprofiile
+                              .signInWithCredential(
+                                  PhoneAuthProvider.credential(
+                                      verificationId: _verificationCode,
+                                      smsCode: v))
+                              .then((value) async {
+                            if (value.user != null) {
+                              print('correct pin, logging in.');
+                              await FirebaseFirestore.instance
+                                  .collection('Profiles')
+                                  .doc(guser!.uid)
+                                  .set({'phoneNumber': widget.phoneNumber},
+                                      SetOptions(merge: true));
+                              await Navigator.of(context)
+                                  .pushReplacementNamed(HomeScreen.routeName);
+                            }
+                          });
+                        } catch (e) {
+                          errorSnackbar(context, 'Invalid OTP');
+                        }
+                      }
+                    },
                     // onTap: () {
                     //   print("Pressed");
                     // },
@@ -241,6 +238,7 @@ class _OTPAuthState extends State<OTPAuth> {
   final idToken = FirebaseAuth.instance.currentUser!.getIdToken();
 
   _verifyPhone() async {
+    ////Verify phone function
     FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91' + widget.phoneNumber,
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
@@ -277,7 +275,7 @@ class _OTPAuthState extends State<OTPAuth> {
                   .set({'phoneNumber': widget.phoneNumber},
                       SetOptions(merge: true));
               await Navigator.of(context)
-                  .pushReplacementNamed(HomePage.routeName);
+                  .pushReplacementNamed(HomeScreen.routeName);
             }
           });
         },
@@ -295,14 +293,13 @@ class _OTPAuthState extends State<OTPAuth> {
           });
         });
   }
-  
-errorSnackbar(BuildContext context, String text) {
-  return ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(text),
-      backgroundColor: const Color.fromRGBO(237, 92, 90, 1),
-    ),
-  );
-}
 
+  errorSnackbar(BuildContext context, String text) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        backgroundColor: const Color.fromRGBO(237, 92, 90, 1),
+      ),
+    );
+  }
 }

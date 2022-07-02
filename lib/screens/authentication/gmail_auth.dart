@@ -6,7 +6,7 @@ import 'package:fise_app/screens/authentication/google_button.dart';
 class GmailAuthScreen extends StatefulWidget {
   const GmailAuthScreen({Key? key}) : super(key: key);
 
-  static const routename = 'gmailauth';
+  static const routeName = 'gmailauth';
 
   @override
   State<GmailAuthScreen> createState() => _GmailAuthScreenState();
