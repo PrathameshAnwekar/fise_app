@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
 import '../constants/constants.dart';
@@ -20,7 +19,6 @@ class _InitializerWidgetState extends State<InitializerWidget> {
       builder: (context, orientation) {
         return LayoutBuilder(builder: (context, orientation) {
           SizeConfig().init(context);
-          FlutterNativeSplash.remove();
 
           return GmailAuthScreen();
         });

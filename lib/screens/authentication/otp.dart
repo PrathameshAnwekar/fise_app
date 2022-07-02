@@ -205,7 +205,7 @@ class _OTPAuthState extends State<OTPAuth> {
                                   .set({'phoneNumber': widget.phoneNumber},
                                       SetOptions(merge: true));
                               await Navigator.of(context)
-                                  .pushReplacementNamed(HomeScreen.routeName);
+                                  .pushNamedAndRemoveUntil(HomeScreen.routeName, (Route<dynamic> route) => false);
                             }
                           });
                         } catch (e) {

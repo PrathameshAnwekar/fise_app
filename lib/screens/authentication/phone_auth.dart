@@ -86,10 +86,10 @@ class _PhoneAuthState extends State<PhoneAuth> {
                                       content: Text(
                                           "Please enter a valid 10 digit number")));
                             } else {
-                              Navigator.of(context).push(MaterialPageRoute(
+                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                                   builder: (context) => OTPAuth(
                                       phoneNumber:
-                                          phoneNumberController.text)));
+                                          phoneNumberController.text)),(Route<dynamic> route) => false);
                             }
                           }),
                           style: AppThemeData.textTheme.headline4,

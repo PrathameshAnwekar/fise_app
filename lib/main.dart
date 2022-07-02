@@ -5,7 +5,6 @@ import 'package:fise_app/screens/homescreen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fise_app/firebase_options.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 
 // FILE IMPORTS
@@ -17,9 +16,7 @@ void main() async {
   await FlutterDisplayMode.setHighRefreshRate();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  FlutterNativeSplash.preserve(
-      widgetsBinding:
-          widgetsBinding); //PRESERVE SPLASH SCREEN WHILE INITIALIZATION
+
 
   runApp(const MyApp());
 }
