@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fise_app/screens/authentication/otp.dart';
 import 'package:fise_app/screens/authentication/phone_auth.dart';
 import 'package:fise_app/screens/homescreen/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,9 +43,9 @@ class _GoogleButtonState extends State<GoogleButton> {
       child: InkWell(
         borderRadius: BorderRadius.circular(40),
         onTap: () async {
-          await signUp();
+          // await signUp();
           await Navigator.of(context)
-              .pushNamedAndRemoveUntil(PhoneAuth.routeName,(Route<dynamic> route) => false);
+              .pushReplacementNamed(HomeScreen.routeName);
         },
         splashColor: Colors.black,
         child: CircleAvatar(
