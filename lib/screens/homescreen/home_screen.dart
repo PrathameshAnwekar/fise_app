@@ -1,6 +1,7 @@
 import 'package:fise_app/constants/constants.dart';
-import 'package:fise_app/screens/homescreen/general_return_widget.dart';
+import 'package:fise_app/screens/homescreen/general_returns_widget.dart';
 import 'package:fise_app/screens/homescreen/general_status_widget.dart';
+import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,7 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Hi Akshat'),
           actions: [
             IconButton(
-                onPressed: null,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(SettingsPage.routeName);
+                },
                 icon: FaIcon(FontAwesomeIcons.circleUser, color: Colors.black))
           ],
         ),
@@ -45,33 +48,65 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(20))),
-                  height: SizeConfig.screenHeight * 0.8,
+                  // height: SizeConfig.screenHeight * 0.8,
                   child: ListView(
+                    shrinkWrap: true,
                     children: [
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 30),
-                        child: ListTile(
-                          
-                          title: Text('Crypto'),
-                          subtitle: Text('Invested 700.29'),
-                          leading: Icon(
-                            Icons.monetization_on_outlined,
-                            size: 50,
-                          ),
-                          trailing: Column(mainAxisAlignment: MainAxisAlignment.center,children: [
-                            Text(
-                              '+25.02',
-                              style: AppThemeData.textTheme.labelSmall,
-                            ),
-                            Text('+2.3%',style: AppThemeData.textTheme.labelSmall,)
-                          ]),
-                        ),
-                      ), Divider(thickness: 2,)
+                      FinancialAssetTile(),
+                      Divider(
+                        thickness: 2,
+                      ),
+                      FinancialAssetTile(),
+                      Divider(
+                        thickness: 2,
+                      ),
+                      FinancialAssetTile(),
+                      Divider(
+                        thickness: 2,
+                      ),
+                      FinancialAssetTile(),
+                      Divider(
+                        thickness: 2,
+                      ),
+                      FinancialAssetTile(),
                     ],
                   )),
             )
           ]),
         ));
+  }
+}
+
+class FinancialAssetTile extends StatelessWidget {
+  const FinancialAssetTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+      child: ListTile(
+        title: Text('Crypto'),
+        subtitle: Text('Invested 700.29'),
+        leading: Icon(
+          Icons.monetization_on_outlined,
+          size: 50,
+        ),
+        trailing: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '+25.02',
+                style: AppThemeData.textTheme.labelSmall,
+              ),
+              Text(
+                '+2.3%',
+                style: AppThemeData.textTheme.labelSmall,
+              )
+            ]),
+      ),
+    );
   }
 }

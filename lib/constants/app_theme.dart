@@ -108,7 +108,7 @@ class AppThemeData {
     bodyText1: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 35.0, color: Colors.white),
     subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
     bodyText2: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
-    headline6: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 16.0),
+    headline6: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 35.0),
     button: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
   );
 }

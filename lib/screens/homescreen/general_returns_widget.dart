@@ -14,8 +14,7 @@ class GeneralReturnsWidget extends StatelessWidget {
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomLeft: Radius.circular(20))),
+              topLeft: Radius.circular(20), bottomLeft: Radius.circular(20))),
       child: Padding(
         padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
         child: Column(
@@ -35,8 +34,7 @@ class GeneralReturnsWidget extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
-                      color:
-                          AppThemeData.lightColorScheme.primary)),
+                      color: AppThemeData.lightColorScheme.primary)),
               Container(
                 height: 2,
               ),

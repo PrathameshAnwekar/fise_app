@@ -2,6 +2,7 @@
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
 import 'package:fise_app/screens/authentication/phone_auth.dart';
 import 'package:fise_app/screens/homescreen/home_screen.dart';
+import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fise_app/firebase_options.dart';
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
         InitializerWidget.routeName: (context) => InitializerWidget(),
         GmailAuthScreen.routeName: (context) => GmailAuthScreen(),
         PhoneAuth.routeName: (context) => PhoneAuth(),
-        HomeScreen.routeName: (context) => HomeScreen()
+        HomeScreen.routeName: (context) => HomeScreen(),
+        SettingsPage.routeName: (context) => SettingsPage() 
       },
     );
   }

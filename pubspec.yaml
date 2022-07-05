@@ -72,6 +72,7 @@ flutter:
     - assets/images/login/gmail_screen.png
     - assets/images/login/google_logo.png
     - assets/images/login/enter_number_bg.png
+    - assets/images/test.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
