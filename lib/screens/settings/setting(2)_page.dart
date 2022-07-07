@@ -1,3 +1,4 @@
+import 'package:fise_app/screens/settings/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,17 +16,13 @@ class _Setting_page2State extends State<Setting_page2> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        //
-        leading: Icon(Icons.arrow_back_ios),
         bottom: PreferredSize(
             preferredSize: const Size.fromHeight(4.0),
             child: Container(
               color: Colors.black26,
               height: 1.0,
             )),
-
         //
         backgroundColor: Colors.white,
         title: Text(
@@ -36,8 +33,6 @@ class _Setting_page2State extends State<Setting_page2> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 100),
-//
             setting_Tile(
               title: 'Personal Info',
               tile_Icon: 'assets/images/setting_icons/personal_info.svg',
@@ -64,6 +59,9 @@ class _Setting_page2State extends State<Setting_page2> {
               tile_Icon: 'assets/images/setting_icons/privacy.svg',
               routeLink: () {
                 //              Route here
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return Transactions_Page();
+                })));
               },
             ),
 

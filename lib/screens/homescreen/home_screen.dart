@@ -99,7 +99,7 @@ class FinancialAssetTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
       child: ListTile(
         title: Text('Crypto'),
         subtitle: Text('Invested 700.29'),
