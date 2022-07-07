@@ -44,6 +44,7 @@ dependencies:
   cloud_firestore: ^3.2.1
   pin_code_fields: ^7.4.0
   font_awesome_flutter: ^10.1.0
+  flutter_svg: ^1.1.1+1
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,7 @@ flutter:
     - assets/images/login/google_logo.png
     - assets/images/login/enter_number_bg.png
     - assets/images/test.png
+    - assets/images/setting_icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
