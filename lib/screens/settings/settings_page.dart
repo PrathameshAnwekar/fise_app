@@ -13,7 +13,7 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.fitHeight,
                 image: AssetImage(
@@ -28,12 +28,12 @@ class SettingsPage extends StatelessWidget {
               style: AppThemeData.textTheme.headline6,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
@@ -48,139 +48,139 @@ class SettingsPage extends StatelessWidget {
               ),
               child: SingleChildScrollView(
                   child: Column(
-                children: [
+                children: const [
                   ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
-              ListTile(
-                title: Text('abcd'),
-              ),
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
+                  ListTile(
+                    title: Text('abcd'),
+                  ),
                 ],
               )),
             ),
