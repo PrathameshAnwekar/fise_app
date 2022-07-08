@@ -1,8 +1,6 @@
 import 'package:fise_app/screens/settings/personalInfo_page.dart';
 import 'package:fise_app/screens/settings/transactions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../constants/app_theme.dart';
 
 class Setting_page2 extends StatefulWidget {
@@ -36,7 +34,7 @@ class _Setting_page2State extends State<Setting_page2> {
           children: [
             setting_Tile(
               title: 'Personal Info',
-              tile_Icon: 'assets/images/setting_icons/personal_info2.svg',
+              tile_Icon: 'assets/images/setting_icons/personal.png',
               routeLink: () {
                 //              Route here
                 Navigator.push(context, MaterialPageRoute(builder: ((context) {
@@ -46,21 +44,21 @@ class _Setting_page2State extends State<Setting_page2> {
             ),
             setting_Tile(
               title: 'Privacy and Security',
-              tile_Icon: 'assets/images/setting_icons/privacy.svg',
+              tile_Icon: 'assets/images/setting_icons/privacy.png',
               routeLink: () {
                 //              Route here
               },
             ),
             setting_Tile(
               title: 'Payment Settings',
-              tile_Icon: 'assets/images/setting_icons/payment.svg',
+              tile_Icon: 'assets/images/setting_icons/payment.png',
               routeLink: () {
                 //              Route here
               },
             ),
             setting_Tile(
               title: 'Transactions',
-              tile_Icon: 'assets/images/setting_icons/privacy.svg',
+              tile_Icon: 'assets/images/setting_icons/transactions.png',
               routeLink: () {
                 //              Route here
                 Navigator.push(context, MaterialPageRoute(builder: ((context) {
@@ -77,28 +75,28 @@ class _Setting_page2State extends State<Setting_page2> {
 
             setting_Tile(
               title: 'App Settings',
-              tile_Icon: 'assets/images/setting_icons/App_Settings.svg',
+              tile_Icon: 'assets/images/setting_icons/App_settings.png',
               routeLink: () {
                 //              Route here
               },
             ),
             setting_Tile(
               title: 'Connected Accounts',
-              tile_Icon: 'assets/images/setting_icons/User_Account.svg',
+              tile_Icon: 'assets/images/setting_icons/User_Account.png',
               routeLink: () {
                 //              Route here
               },
             ),
             setting_Tile(
               title: 'Notification and Emails',
-              tile_Icon: 'assets/images/setting_icons/Notification.svg',
+              tile_Icon: 'assets/images/setting_icons/Notification.png',
               routeLink: () {
                 //              Route here
               },
             ),
             setting_Tile(
               title: 'Help and Support',
-              tile_Icon: 'assets/images/setting_icons/Help.svg',
+              tile_Icon: 'assets/images/setting_icons/Help.png',
               routeLink: () {
                 //              Route here
               },
@@ -112,28 +110,28 @@ class _Setting_page2State extends State<Setting_page2> {
 
             setting_Tile(
               title: 'About Us',
-              tile_Icon: 'assets/images/setting_icons/Info.svg',
+              tile_Icon: 'assets/images/setting_icons/Info.png',
               routeLink: () {
                 //              Route here
               },
             ),
             setting_Tile(
               title: 'Privacy Policy',
-              tile_Icon: 'assets/images/setting_icons/Privacy_Policy.svg',
+              tile_Icon: 'assets/images/setting_icons/Privacy_Policy.png',
               routeLink: () {
                 //              Route here
               },
             ),
             setting_Tile(
               title: 'Terms and Conditions',
-              tile_Icon: 'assets/images/setting_icons/Terms_and_Conditions.svg',
+              tile_Icon: 'assets/images/setting_icons/Terms_and_Conditions.png',
               routeLink: () {
                 //              Route here
               },
             ),
             setting_Tile(
               title: 'Feedback',
-              tile_Icon: 'assets/images/setting_icons/Feedback.svg',
+              tile_Icon: 'assets/images/setting_icons/Feedback.png',
               routeLink: () {
                 //              Route here
               },
@@ -166,11 +164,7 @@ class setting_Tile extends StatelessWidget {
         title,
         style: AppThemeData.textTheme.subtitle1,
       ),
-      leading: SvgPicture.asset(
-        tile_Icon,
-        height: 32,
-        color: Colors.grey,
-      ),
+      leading: Image.asset(tile_Icon, height: 27),
       trailing: const Icon(
         Icons.arrow_forward_ios,
         size: 18,
