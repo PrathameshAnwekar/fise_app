@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/app_theme.dart';
 
@@ -17,8 +16,8 @@ class _Transactions_PageState extends State<Transactions_Page> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
-          SvgPicture.asset(
-            'assets/images/setting_icons/privacy.svg',
+          Image.asset(
+            "assets/images/setting_icons/transactions.png",
           )
         ],
         bottom: PreferredSize(
@@ -34,7 +33,8 @@ class _Transactions_PageState extends State<Transactions_Page> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
           children: const [
             Transactions_tiles(
               deducted_from: 'State Bank of India',
@@ -109,7 +109,7 @@ class Transactions_tiles extends StatelessWidget {
       child: ListTile(
         title: Text(
           deducted_from,
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
         subtitle: Text("spent - ₹ " + spent),
         trailing: Column(

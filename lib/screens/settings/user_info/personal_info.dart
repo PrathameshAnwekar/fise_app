@@ -32,24 +32,61 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
         SizedBox(
           height: SizeConfig.screenHeight * 0.05,
         ),
-        Container(
-          width: SizeConfig.screenWidth,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(16.0, 0, 8, 0),
-                child:
-                    Text('Name', style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              Container(
-                height: SizeConfig.screenHeight * 0.05,
-                child: Text('Akshat Agarwal'),
-              ),
-            ],
-          ),
-        )
+        personalInfoTile('Name', 'Akshat Agarwal'),
+        personalInfoTile('Email', 'sample@gmail.com'),
+        personalInfoTile('Phone', '1234567890'),
+        personalInfoTile('DOB  ', '01/01/2002'),
+        personalInfoTile('Address', '1234567890'),
+        personalInfoTile('Aadhar', '1234567890'),
+        personalInfoTile('PAN    ', '1234567890'),
+        personalInfoTile('KYC    ', '1234567890'),
+        Expanded(
+          child: Container(),
+        ),
+        const Text("To change personal info on this page"),
+            TextButton(
+              onPressed: () {
+                //
+              },
+              child: const Text("Contact Us"),
+            ),
+
       ]),
+    );
+  }
+
+  Widget personalInfoTile(title, data) {
+    return Container(
+      width: SizeConfig.screenWidth,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: EdgeInsets.fromLTRB(25, 10, 15, 10),
+              child: Text(title,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            ),
+          ),
+          Expanded(
+            flex: 6,
+            child: Container(
+              padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+              child: Text(
+                data,
+                overflow: TextOverflow.fade,
+                style: TextStyle(
+                  fontSize: 18,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
