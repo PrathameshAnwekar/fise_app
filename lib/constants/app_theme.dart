@@ -98,14 +98,20 @@ class AppThemeData {
   static const _bold = FontWeight.w700;
 
   static final TextTheme textTheme = TextTheme(
-    headline2: GoogleFonts.montserrat(fontSize: 20, color: AppThemeData.lightColorScheme.primary,fontWeight: _bold),
+    headline2: GoogleFonts.montserrat(
+        fontSize: 20,
+        color: AppThemeData.lightColorScheme.primary,
+        fontWeight: _bold),
     headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 35.0),
-    headline3: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 35.0, color: Colors.grey),
+    headline3: GoogleFonts.montserrat(
+        fontWeight: _bold, fontSize: 35.0, color: Colors.grey),
     caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
-    headline5: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0, color: Colors.white),
+    headline5: GoogleFonts.montserrat(
+        fontWeight: _medium, fontSize: 16.0, color: Colors.white),
     subtitle1: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
     overline: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
-    bodyText1: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 35.0, color: Colors.white),
+    bodyText1: GoogleFonts.montserrat(
+        fontWeight: _bold, fontSize: 35.0, color: Colors.white),
     subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
     bodyText2: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
     headline6: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 35.0),
