@@ -1,7 +1,6 @@
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/homescreen/general_returns_widget.dart';
 import 'package:fise_app/screens/homescreen/general_status_widget.dart';
-import 'package:fise_app/screens/settings/setting(2)_page.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,13 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: AppThemeData.lightColorScheme.primary,
       appBar: AppBar(
-        title: Text('Hi Akshat'),
+        title: Text('Hi Akshat', style: TextStyle(fontSize: 20),),
         actions: [
           IconButton(
             onPressed: () {
               //
               Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                return Setting_page2();
+                return SettingsPage();
               })));
             },
             //

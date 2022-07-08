@@ -62,9 +62,9 @@ class AppThemeData {
   static const ColorScheme lightColorScheme = ColorScheme(
     primary: Color(0xFF286F6C),
     primaryContainer: Color(0xFF9e1718),
-    secondary: Color(0xFFEFF3F3),
-    secondaryContainer: Color(0xFFFAFBFB),
-    background: Color(0xFFE6EBEB),
+    secondary: Colors.white,
+    secondaryContainer: Colors.white,
+    background: Colors.white,
     surface: Color(0xFFFAFBFB),
     onBackground: Colors.white,
     error: _lightFillColor,
@@ -105,16 +105,16 @@ class AppThemeData {
     headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 35.0),
     headline3: GoogleFonts.montserrat(
         fontWeight: _bold, fontSize: 35.0, color: Colors.grey),
-    caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
     headline5: GoogleFonts.montserrat(
         fontWeight: _medium, fontSize: 16.0, color: Colors.white),
+    headline6: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 35.0),
+    caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
     subtitle1: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
+    subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
     overline: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
     bodyText1: GoogleFonts.montserrat(
         fontWeight: _bold, fontSize: 35.0, color: Colors.white),
-    subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
     bodyText2: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
-    headline6: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 35.0),
     button: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
   );
 }
