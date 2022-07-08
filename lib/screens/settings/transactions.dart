@@ -37,51 +37,51 @@ class _Transactions_PageState extends State<Transactions_Page> {
           shrinkWrap: true,
           children: const [
             Transactions_tiles(
-              deducted_from: 'State Bank of India',
+              deductedFrom: 'State Bank of India',
               spent: '20',
-              debited_On: '06 July 2022',
+              debitedOn: '06 July 2022',
             ),
             Divider(thickness: 1),
             Transactions_tiles(
-              deducted_from: 'State Bank of India',
+              deductedFrom: 'State Bank of India',
               spent: '20',
-              debited_On: '06 July 2022',
+              debitedOn: '06 July 2022',
             ),
             Divider(thickness: 1),
             Transactions_tiles(
-              deducted_from: 'State Bank of India',
+              deductedFrom: 'State Bank of India',
               spent: '20',
-              debited_On: '06 July 2022',
+              debitedOn: '06 July 2022',
             ),
             Divider(thickness: 1),
             Transactions_tiles(
-              deducted_from: 'State Bank of India',
+              deductedFrom: 'State Bank of India',
               spent: '20',
-              debited_On: '06 July 2022',
+              debitedOn: '06 July 2022',
             ),
             Divider(thickness: 1),
             Transactions_tiles(
-              deducted_from: 'State Bank of India',
+              deductedFrom: 'State Bank of India',
               spent: '20',
-              debited_On: '06 July 2022',
+              debitedOn: '06 July 2022',
             ),
             Divider(thickness: 1),
             Transactions_tiles(
-              deducted_from: 'State Bank of India',
+              deductedFrom: 'State Bank of India',
               spent: '20',
-              debited_On: '06 July 2022',
+              debitedOn: '06 July 2022',
             ),
             Divider(thickness: 1),
             Transactions_tiles(
-              deducted_from: 'State Bank of India',
+              deductedFrom: 'State Bank of India',
               spent: '20',
-              debited_On: '06 July 2022',
+              debitedOn: '06 July 2022',
             ),
             Divider(thickness: 1),
             Transactions_tiles(
-              deducted_from: 'State Bank of India',
+              deductedFrom: 'State Bank of India',
               spent: '20',
-              debited_On: '06 July 2022',
+              debitedOn: '06 July 2022',
             ),
           ],
         ),
@@ -93,14 +93,14 @@ class _Transactions_PageState extends State<Transactions_Page> {
 class Transactions_tiles extends StatelessWidget {
   const Transactions_tiles(
       {Key? key,
-      required this.deducted_from,
+      required this.deductedFrom,
       required this.spent,
-      required this.debited_On})
+      required this.debitedOn})
       : super(key: key);
 
-  final String deducted_from;
+  final String deductedFrom;
   final String spent;
-  final String debited_On;
+  final String debitedOn;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class Transactions_tiles extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
       child: ListTile(
         title: Text(
-          deducted_from,
+          deductedFrom,
           style: const TextStyle(fontSize: 20),
         ),
         subtitle: Text("spent - ₹ " + spent),
@@ -121,7 +121,7 @@ class Transactions_tiles extends StatelessWidget {
               style: AppThemeData.textTheme.titleMedium,
             ),
             Text(
-              debited_On,
+              debitedOn,
               style: AppThemeData.textTheme.labelSmall,
             )
           ],
