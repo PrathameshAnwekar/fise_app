@@ -1,16 +1,13 @@
 // FLUTTER IMPORTS
-import 'package:fise_app/screens/authentication/gmail_auth.dart';
-import 'package:fise_app/screens/authentication/phone_auth.dart';
-import 'package:fise_app/screens/homescreen/home_screen.dart';
-import 'package:fise_app/screens/settings/settings_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fise_app/firebase_options.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-
 // FILE IMPORTS
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/util/initializer.dart';
+import 'package:fise_app/util/custom_routes.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -32,13 +29,7 @@ class MyApp extends StatelessWidget {
       theme: AppThemeData.themeData(
           AppThemeData.lightColorScheme, AppThemeData.lightFocusColor),
       home: InitializerWidget(),
-      routes: {
-        InitializerWidget.routeName: (context) => InitializerWidget(),
-        GmailAuthScreen.routeName: (context) => GmailAuthScreen(),
-        PhoneAuth.routeName: (context) => PhoneAuth(),
-        HomeScreen.routeName: (context) => HomeScreen(),
-        SettingsPage.routeName: (context) => SettingsPage() 
-      },
+      routes: customRoutes,
     );
   }
 }

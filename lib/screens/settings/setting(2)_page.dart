@@ -1,4 +1,5 @@
 import 'package:fise_app/screens/settings/transactions.dart';
+import 'package:fise_app/screens/settings/user_info/personal_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -33,28 +34,28 @@ class _Setting_page2State extends State<Setting_page2> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            setting_Tile(
+            SettingTile(
               title: 'Personal Info',
               tile_Icon: 'assets/images/setting_icons/personal_info.svg',
               routeLink: () {
-                //              Route here
+                Navigator.of(context).pushNamed(PersonalInfoPage.routeName);
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Privacy and Security',
               tile_Icon: 'assets/images/setting_icons/privacy.svg',
               routeLink: () {
                 //              Route here
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Payment Settings',
               tile_Icon: 'assets/images/setting_icons/payment.svg',
               routeLink: () {
                 //              Route here
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Transactions',
               tile_Icon: 'assets/images/setting_icons/privacy.svg',
               routeLink: () {
@@ -71,28 +72,28 @@ class _Setting_page2State extends State<Setting_page2> {
               endIndent: 40,
             ),
 
-            setting_Tile(
+            SettingTile(
               title: 'App Settings',
               tile_Icon: 'assets/images/setting_icons/App_Settings.svg',
               routeLink: () {
                 //              Route here
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Connected Accounts',
               tile_Icon: 'assets/images/setting_icons/User_Account.svg',
               routeLink: () {
                 //              Route here
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Notification and Emails',
               tile_Icon: 'assets/images/setting_icons/Notification.svg',
               routeLink: () {
                 //              Route here
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Help and Support',
               tile_Icon: 'assets/images/setting_icons/Help.svg',
               routeLink: () {
@@ -106,28 +107,28 @@ class _Setting_page2State extends State<Setting_page2> {
               endIndent: 40,
             ),
 
-            setting_Tile(
+            SettingTile(
               title: 'About Us',
               tile_Icon: 'assets/images/setting_icons/Info.svg',
               routeLink: () {
                 //              Route here
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Privacy Policy',
               tile_Icon: 'assets/images/setting_icons/Privacy_Policy.svg',
               routeLink: () {
                 //              Route here
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Terms and Conditions',
               tile_Icon: 'assets/images/setting_icons/Terms_and_Conditions.svg',
               routeLink: () {
                 //              Route here
               },
             ),
-            setting_Tile(
+            SettingTile(
               title: 'Feedback',
               tile_Icon: 'assets/images/setting_icons/Feedback.svg',
               routeLink: () {
@@ -143,8 +144,8 @@ class _Setting_page2State extends State<Setting_page2> {
   }
 }
 
-class setting_Tile extends StatelessWidget {
-  const setting_Tile(
+class SettingTile extends StatelessWidget {
+  const SettingTile(
       {Key? key,
       required this.title,
       required this.tile_Icon,
