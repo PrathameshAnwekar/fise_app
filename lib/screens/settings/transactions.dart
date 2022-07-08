@@ -34,7 +34,8 @@ class _Transactions_PageState extends State<Transactions_Page> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
           children: const [
             Transactions_tiles(
               deducted_from: 'State Bank of India',

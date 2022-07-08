@@ -1,3 +1,4 @@
+import 'package:fise_app/screens/settings/personalInfo_page.dart';
 import 'package:fise_app/screens/settings/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,9 +36,12 @@ class _Setting_page2State extends State<Setting_page2> {
           children: [
             setting_Tile(
               title: 'Personal Info',
-              tile_Icon: 'assets/images/setting_icons/personal_info.svg',
+              tile_Icon: 'assets/images/setting_icons/personal_info2.svg',
               routeLink: () {
                 //              Route here
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return Personal_Info_Page();
+                })));
               },
             ),
             setting_Tile(
@@ -164,6 +168,8 @@ class setting_Tile extends StatelessWidget {
       ),
       leading: SvgPicture.asset(
         tile_Icon,
+        height: 32,
+        color: Colors.grey,
       ),
       trailing: const Icon(
         Icons.arrow_forward_ios,
