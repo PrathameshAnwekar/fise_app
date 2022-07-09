@@ -15,21 +15,27 @@ class InitializerWidget extends StatefulWidget {
 }
 
 class _InitializerWidgetState extends State<InitializerWidget> {
+  @override
   void initState() {
-    super.initState();
     _userCheck();
+    super.initState();
   }
 
   _userCheck() async {
-    await Future.delayed(Duration(milliseconds: 5000), () {});
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     if (user == null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => GmailAuthScreen()));
+      print('here1');
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => GmailAuthScreen()));
+      });
     } else {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      print('here2');
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      });
     }
   }
 
