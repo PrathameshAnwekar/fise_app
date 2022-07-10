@@ -1,18 +1,15 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PersonalInfoPage extends StatefulWidget {
+class PersonalInfoPage extends ConsumerWidget {
   const PersonalInfoPage({Key? key}) : super(key: key);
-
   static const routeName = '/personal-info';
 
   @override
-  State<PersonalInfoPage> createState() => _PersonalInfoPageState();
-}
-
-class _PersonalInfoPageState extends State<PersonalInfoPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var _userData = ref.watch(currentUserDataProvider);
     return Scaffold(
       appBar: AppBar(
           title: Text(
@@ -32,25 +29,24 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
         SizedBox(
           height: SizeConfig.screenHeight * 0.05,
         ),
-        personalInfoTile('Name', 'Akshat Agarwal'),
-        personalInfoTile('Email', 'sample@gmail.com'),
-        personalInfoTile('Phone', '1234567890'),
-        personalInfoTile('DOB  ', '01/01/2002'),
-        personalInfoTile('Address', '1234567890'),
-        personalInfoTile('Aadhar', '1234567890'),
-        personalInfoTile('PAN    ', '1234567890'),
-        personalInfoTile('KYC    ', '1234567890'),
+        personalInfoTile('Name', _userData?.username ?? 'not set'),
+        personalInfoTile('Email', _userData?.email ?? 'not set'),
+        personalInfoTile('Phone', _userData?.phoneNumber ?? 'not set'),
+        personalInfoTile('DOB  ', _userData?.dob ?? 'not set'),
+        personalInfoTile('Address', _userData?.address ?? 'not set'),
+        personalInfoTile('Aadhar', _userData?.aadhar ?? 'not set'),
+        personalInfoTile('PAN    ', _userData?.pancard ?? 'not set'),
+        personalInfoTile('KYC    ', _userData?.kyc ?? 'not set'),
         Expanded(
           child: Container(),
         ),
         const Text("To change personal info on this page"),
-            TextButton(
-              onPressed: () {
-                //
-              },
-              child: const Text("Contact Us"),
-            ),
-
+        TextButton(
+          onPressed: () {
+            //
+          },
+          child: const Text("Contact Us"),
+        ),
       ]),
     );
   }

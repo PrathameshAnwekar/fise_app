@@ -166,7 +166,7 @@ class SettingsPage extends StatelessWidget {
                       tile_Icon: 'assets/images/setting_icons/Feedback.png',
                       routeLink: () async {
                         await auth.signOut();
-                         WidgetsBinding.instance.addPostFrameCallback((_) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               InitializerWidget.routeName,
                               (Route<dynamic> route) => false);
