@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/authentication/gmail_auth.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 
@@ -187,6 +188,12 @@ class _OTPAuthState extends State<OTPAuth> {
                             default:
                               print("Unknown error.");
                           }
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                '${widget.phoneNumber} is already linked to another account, please use another phone number.'),
+                          ));
+                          Navigator.of(context)
+                              .pushNamedAndRemoveUntil(GmailAuthScreen.routeName, (route) => false);
                         }
                         try {
                           final guser = await FirebaseAuth.instance.currentUser;
@@ -208,7 +215,8 @@ class _OTPAuthState extends State<OTPAuth> {
                                 'email': guser.email
                               }, SetOptions(merge: true));
                               await Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(InitializerWidget.routeName,
+                                  .pushNamedAndRemoveUntil(
+                                      InitializerWidget.routeName,
                                       (Route<dynamic> route) => false);
                             }
                           });
@@ -277,8 +285,7 @@ class _OTPAuthState extends State<OTPAuth> {
               await FirebaseFirestore.instance
                   .collection('Profiles')
                   .doc(user!.uid)
-                  .set(
-                      {'phoneNumber': widget.phoneNumber, 'email': user.email},
+                  .set({'phoneNumber': widget.phoneNumber, 'email': user.email},
                       SetOptions(merge: true));
               await Navigator.of(context)
                   .pushReplacementNamed(InitializerWidget.routeName);
