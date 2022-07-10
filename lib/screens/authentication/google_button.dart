@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/screens/authentication/phone_auth.dart';
 import 'package:fise_app/screens/homescreen/home_screen.dart';
+import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -49,7 +50,7 @@ class _GoogleButtonState extends State<GoogleButton> {
               .doc(user!.uid)
               .get();
           if (doc.exists) {
-            Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+            Navigator.of(context).pushReplacementNamed(InitializerWidget.routeName);
           } else {
             Navigator.of(context).pushReplacementNamed(PhoneAuth.routeName);
           }
