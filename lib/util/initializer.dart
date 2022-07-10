@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/constants.dart';
 
 final currentUserDataProvider = Provider((ref) => userData);
-late UserData? userData;
+UserData? userData;
 
 class InitializerWidget extends StatefulWidget {
   const InitializerWidget({Key? key}) : super(key: key);
@@ -30,6 +30,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
   userCheck() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
+    print(user?.uid);
     final ref = FirebaseFirestore.instance
         .collection('Profiles')
         .doc(user?.uid)
@@ -43,6 +44,8 @@ class _InitializerWidgetState extends State<InitializerWidget> {
         });
       } else {
         print('here2');
+        print(user?.uid);
+
         userData = UserData.fromDocument(value);
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacement(

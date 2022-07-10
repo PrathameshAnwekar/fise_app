@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
-import 'package:fise_app/screens/homescreen/home_screen.dart';
+import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -208,7 +208,7 @@ class _OTPAuthState extends State<OTPAuth> {
                                 'email': guser.email
                               }, SetOptions(merge: true));
                               await Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(HomeScreen.routeName,
+                                  .pushNamedAndRemoveUntil(InitializerWidget.routeName,
                                       (Route<dynamic> route) => false);
                             }
                           });
@@ -281,7 +281,7 @@ class _OTPAuthState extends State<OTPAuth> {
                       {'phoneNumber': widget.phoneNumber, 'email': user.email},
                       SetOptions(merge: true));
               await Navigator.of(context)
-                  .pushReplacementNamed(HomeScreen.routeName);
+                  .pushReplacementNamed(InitializerWidget.routeName);
             }
           });
         },
