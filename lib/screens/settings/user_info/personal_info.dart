@@ -44,13 +44,12 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
           child: Container(),
         ),
         const Text("To change personal info on this page"),
-            TextButton(
-              onPressed: () {
-                //
-              },
-              child: const Text("Contact Us"),
-            ),
-
+        TextButton(
+          onPressed: () {
+            //
+          },
+          child: const Text("Contact Us"),
+        ),
       ]),
     );
   }
