@@ -19,8 +19,11 @@ class _GoogleButtonState extends State<GoogleButton> {
 ////// FUNCTION FOR HANDLING GOOGLE SIGN-IN /////////
   Future<void> signUp() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleSignInAccount1 =
-        await googleSignIn.disconnect();
+    try {
+          await googleSignIn.disconnect();
+    } catch (e) {
+      print(e);
+    }
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
     if (googleSignInAccount != null) {
@@ -50,7 +53,8 @@ class _GoogleButtonState extends State<GoogleButton> {
               .doc(user!.uid)
               .get();
           if (doc.exists) {
-            Navigator.of(context).pushReplacementNamed(InitializerWidget.routeName);
+            Navigator.of(context)
+                .pushReplacementNamed(InitializerWidget.routeName);
           } else {
             Navigator.of(context).pushReplacementNamed(PhoneAuth.routeName);
           }

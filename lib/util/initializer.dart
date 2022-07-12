@@ -44,7 +44,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
         });
       } else {
         print('here2');
-        print(user?.uid);
+        print(user.uid);
 
         userData = UserData.fromDocument(value);
         WidgetsBinding.instance.addPostFrameCallback((_) {
