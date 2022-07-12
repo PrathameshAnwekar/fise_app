@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fise_app/firebase_options.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // FILE IMPORTS
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/util/initializer.dart';
@@ -12,11 +13,9 @@ import 'package:fise_app/util/custom_routes.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await FlutterDisplayMode.setHighRefreshRate();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

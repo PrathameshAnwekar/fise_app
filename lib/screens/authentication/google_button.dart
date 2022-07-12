@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/screens/authentication/phone_auth.dart';
 import 'package:fise_app/screens/homescreen/home_screen.dart';
+import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-
 
 class GoogleButton extends StatefulWidget {
   const GoogleButton({Key? key}) : super(key: key);
@@ -14,11 +14,13 @@ class GoogleButton extends StatefulWidget {
 }
 
 class _GoogleButtonState extends State<GoogleButton> {
-
+  User? user;
   final FirebaseAuth auth = FirebaseAuth.instance;
 ////// FUNCTION FOR HANDLING GOOGLE SIGN-IN /////////
-  Future<void> signUp() async {      
+  Future<void> signUp() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount1 =
+        await googleSignIn.disconnect();
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
     if (googleSignInAccount != null) {
@@ -28,12 +30,11 @@ class _GoogleButtonState extends State<GoogleButton> {
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken);
       UserCredential result = await auth.signInWithCredential(authCredential);
-      User? user = result.user;
+      user = result.user;
 
       // Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +45,15 @@ class _GoogleButtonState extends State<GoogleButton> {
         borderRadius: BorderRadius.circular(40),
         onTap: () async {
           await signUp();
-          await Navigator.of(context)
-              .pushReplacementNamed(HomeScreen.routeName);
+          var doc = await FirebaseFirestore.instance
+              .collection('Profiles')
+              .doc(user!.uid)
+              .get();
+          if (doc.exists) {
+            Navigator.of(context).pushReplacementNamed(InitializerWidget.routeName);
+          } else {
+            Navigator.of(context).pushReplacementNamed(PhoneAuth.routeName);
+          }
         },
         splashColor: Colors.black,
         child: CircleAvatar(

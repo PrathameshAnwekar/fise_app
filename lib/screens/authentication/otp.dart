@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
-import 'package:fise_app/screens/homescreen/home_screen.dart';
+import 'package:fise_app/screens/authentication/gmail_auth.dart';
+import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -24,6 +25,7 @@ class _OTPAuthState extends State<OTPAuth> {
 
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
+  late final guser = FirebaseAuth.instance.currentUser;
 
   bool hasError = false;
   String currentText = "";
@@ -186,6 +188,12 @@ class _OTPAuthState extends State<OTPAuth> {
                             default:
                               print("Unknown error.");
                           }
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                '${widget.phoneNumber} is already linked to another account, please use another phone number.'),
+                          ));
+                          Navigator.of(context)
+                              .pushNamedAndRemoveUntil(GmailAuthScreen.routeName, (route) => false);
                         }
                         try {
                           final guser = await FirebaseAuth.instance.currentUser;
@@ -202,10 +210,14 @@ class _OTPAuthState extends State<OTPAuth> {
                               await FirebaseFirestore.instance
                                   .collection('Profiles')
                                   .doc(guser!.uid)
-                                  .set({'phoneNumber': widget.phoneNumber},
-                                      SetOptions(merge: true));
+                                  .set({
+                                'phoneNumber': widget.phoneNumber,
+                                'email': guser.email
+                              }, SetOptions(merge: true));
                               await Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(HomeScreen.routeName, (Route<dynamic> route) => false);
+                                  .pushNamedAndRemoveUntil(
+                                      InitializerWidget.routeName,
+                                      (Route<dynamic> route) => false);
                             }
                           });
                         } catch (e) {
@@ -263,6 +275,7 @@ class _OTPAuthState extends State<OTPAuth> {
                 print("Unknown error.");
             }
           }
+
           FirebaseAuth.instance
               .signInWithCredential(phoneAuthCredential)
               .then((value) async {
@@ -272,10 +285,10 @@ class _OTPAuthState extends State<OTPAuth> {
               await FirebaseFirestore.instance
                   .collection('Profiles')
                   .doc(user!.uid)
-                  .set({'phoneNumber': widget.phoneNumber},
+                  .set({'phoneNumber': widget.phoneNumber, 'email': user.email},
                       SetOptions(merge: true));
               await Navigator.of(context)
-                  .pushReplacementNamed(HomeScreen.routeName);
+                  .pushReplacementNamed(InitializerWidget.routeName);
             }
           });
         },
