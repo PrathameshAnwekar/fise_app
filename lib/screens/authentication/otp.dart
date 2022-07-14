@@ -95,10 +95,12 @@ class _OTPAuthState extends State<OTPAuth> {
                   SizeConfig.screenWidth * 0.1,
                   0),
               child: AutoSizeText(
-                'we have sent you an OTP on ${widget.phoneNumber}.',
-                maxLines: 2,
-                  style: TextStyle(color: AppThemeData.lightColorScheme.primary, fontSize: 25, fontWeight: FontWeight.bold)
-              )),
+                  'we have sent you an OTP on ${widget.phoneNumber}.',
+                  maxLines: 2,
+                  style: TextStyle(
+                      color: AppThemeData.lightColorScheme.primary,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold))),
           Container(
               margin: EdgeInsets.fromLTRB(
                   SizeConfig.screenWidth * 0.1,
@@ -137,15 +139,15 @@ class _OTPAuthState extends State<OTPAuth> {
                       }
                     },
                     pinTheme: PinTheme(
-                      inactiveColor: Colors.grey.shade500,
-                      activeColor: Colors.black,
+                      inactiveColor: Colors.black,
+                      activeColor: Colors.transparent,
                       shape: PinCodeFieldShape.box,
                       selectedColor: Colors.black,
                       errorBorderColor: Colors.grey.shade500,
                       borderRadius: BorderRadius.circular(5),
                       fieldHeight: 50,
                       fieldWidth: 40,
-                      activeFillColor: Colors.grey.shade300,
+                      activeFillColor: Colors.transparent,
                     ),
                     cursorColor: Colors.black,
                     animationDuration: const Duration(milliseconds: 300),
@@ -154,13 +156,7 @@ class _OTPAuthState extends State<OTPAuth> {
                     errorAnimationController: errorController,
                     controller: textEditingController,
                     keyboardType: TextInputType.number,
-                    boxShadows: const [
-                      BoxShadow(
-                        offset: Offset(0, 1),
-                        color: Colors.black12,
-                        blurRadius: 10,
-                      )
-                    ],
+
                     onCompleted: (v) async {
                       debugPrint("Completed");
                       if (v.length == 6) {
@@ -172,32 +168,7 @@ class _OTPAuthState extends State<OTPAuth> {
                           final userCredential = await FirebaseAuth
                               .instance.currentUser
                               ?.linkWithCredential(credential);
-                        } on FirebaseAuthException catch (e) {
-                          switch (e.code) {
-                            case "provider-already-linked":
-                              print(
-                                  "The provider has already been linked to the user.");
-                              break;
-                            case "invalid-credential":
-                              print("The provider's credential is not valid.");
-                              break;
-                            case "credential-already-in-use":
-                              print(
-                                  "The account corresponding to the credential already exists, "
-                                  "or is already linked to a Firebase User.");
-                              break;
-                            // See the API reference for the full list of error codes.
-                            default:
-                              print("Unknown error.");
-                          }
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                '${widget.phoneNumber} is already linked to another account, please use another phone number.'),
-                          ));
-                          Navigator.of(context)
-                              .pushNamedAndRemoveUntil(GmailAuthScreen.routeName, (route) => false);
-                        }
-                        try {
+                              try {
                           final guser = await FirebaseAuth.instance.currentUser;
 
                           await FirebaseAuth
@@ -225,6 +196,32 @@ class _OTPAuthState extends State<OTPAuth> {
                         } catch (e) {
                           errorSnackbar(context, 'Invalid OTP');
                         }
+                        } on FirebaseAuthException catch (e) {
+                          switch (e.code) {
+                            case "provider-already-linked":
+                              print(
+                                  "The provider has already been linked to the user.");
+                              break;
+                            case "invalid-credential":
+                              print("The provider's credential is not valid.");
+                              break;
+                            case "credential-already-in-use":
+                              print(
+                                  "The account corresponding to the credential already exists, "
+                                  "or is already linked to a Firebase User.");
+                              break;
+                            // See the API reference for the full list of error codes.
+                            default:
+                              print("Unknown error.");
+                          }
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                '${widget.phoneNumber} is already linked to another account, please use another phone number.'),
+                          ));
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              GmailAuthScreen.routeName, (route) => false);
+                        }
+                        
                       }
                     },
                     // onTap: () {
@@ -259,6 +256,21 @@ class _OTPAuthState extends State<OTPAuth> {
           try {
             final userCredential = await FirebaseAuth.instance.currentUser
                 ?.linkWithCredential(phoneAuthCredential);
+                await FirebaseAuth.instance
+              .signInWithCredential(phoneAuthCredential)
+              .then((value) async {
+            if (value.user != null) {
+              print('User is logged in.');
+              final user = await FirebaseAuth.instance.currentUser;
+              await FirebaseFirestore.instance
+                  .collection('Profiles')
+                  .doc(user!.uid)
+                  .set({'phoneNumber': widget.phoneNumber, 'email': user.email},
+                      SetOptions(merge: true));
+              await Navigator.of(context)
+                  .pushReplacementNamed(InitializerWidget.routeName);
+            }
+          });
           } on FirebaseAuthException catch (e) {
             switch (e.code) {
               case "provider-already-linked":
@@ -276,23 +288,15 @@ class _OTPAuthState extends State<OTPAuth> {
               default:
                 print("Unknown error.");
             }
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                  '${widget.phoneNumber} is already linked to another account, please use another phone number.'),
+            ));
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                GmailAuthScreen.routeName, (route) => false);
           }
 
-          FirebaseAuth.instance
-              .signInWithCredential(phoneAuthCredential)
-              .then((value) async {
-            if (value.user != null) {
-              print('User is logged in.');
-              final user = await FirebaseAuth.instance.currentUser;
-              await FirebaseFirestore.instance
-                  .collection('Profiles')
-                  .doc(user!.uid)
-                  .set({'phoneNumber': widget.phoneNumber, 'email': user.email},
-                      SetOptions(merge: true));
-              await Navigator.of(context)
-                  .pushReplacementNamed(InitializerWidget.routeName);
-            }
-          });
+          
         },
         verificationFailed: (FirebaseAuthException firebaseAuthException) {
           print(firebaseAuthException.message);
