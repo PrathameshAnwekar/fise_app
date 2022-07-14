@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class GeneralReturnsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('Returns'),
+              AutoSizeText('Returns',maxLines: 1, style: TextStyle(fontSize: 15),),
               Container(
                 height: 1,
                 color: Colors.grey,
@@ -30,15 +31,20 @@ class GeneralReturnsWidget extends StatelessWidget {
               Container(
                 height: 2,
               ),
-              Text('+4000.0',
+              AutoSizeText('+4000.0',
+              maxLines: 1,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                      fontSize: 30,
                       color: AppThemeData.lightColorScheme.primary)),
               Container(
                 height: 2,
               ),
-              Text('+30.7%')
+              Text('+30.7%',maxLines: 1,
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 13,
+                      color: AppThemeData.lightColorScheme.primary))
             ]),
       ),
     );

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
@@ -65,7 +66,7 @@ class _OTPAuthState extends State<OTPAuth> {
           backgroundColor: AppThemeData.lightColorScheme.primary,
         ),
         appBar: AppBar(
-          title: Text('Verify OTP'),
+          title: Text(''),
           backgroundColor: Colors.transparent,
         ),
         body: Stack(children: [
@@ -93,9 +94,10 @@ class _OTPAuthState extends State<OTPAuth> {
                   SizeConfig.screenHeight * 0.35,
                   SizeConfig.screenWidth * 0.1,
                   0),
-              child: Text(
+              child: AutoSizeText(
                 'we have sent you an OTP on ${widget.phoneNumber}.',
-                style: AppThemeData.textTheme.headline2,
+                maxLines: 2,
+                  style: TextStyle(color: AppThemeData.lightColorScheme.primary, fontSize: 25, fontWeight: FontWeight.bold)
               )),
           Container(
               margin: EdgeInsets.fromLTRB(

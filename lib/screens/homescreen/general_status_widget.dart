@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -12,16 +13,22 @@ class GeneralStatusWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const AutoSizeText(
             'Savings',
-            style: AppThemeData.textTheme.headline5,
+            maxLines: 1,
+            style:  TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
           ),
           SizedBox(
             height: SizeConfig.screenHeight * 0.01,
           ),
-          Text(
+          const AutoSizeText(
             '\$13,000',
-            style: AppThemeData.textTheme.bodyText1,
+            maxLines: 1,
+            style:  TextStyle(
+                color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: SizeConfig.screenHeight * 0.02,
@@ -37,16 +44,22 @@ class GeneralStatusWidget extends StatelessWidget {
             height: SizeConfig.screenHeight * 0.02,
           ),
 
-          Text(
+          const AutoSizeText(
             'Current Value',
-            style: AppThemeData.textTheme.headline5,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+            maxLines: 1,
           ),
           SizedBox(
             height: SizeConfig.screenHeight * 0.01,
           ),
-          Text(
+          const AutoSizeText(
             '\$17,000',
-            style: AppThemeData.textTheme.bodyText1,
+            style:  TextStyle(
+                color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
+            maxLines: 1,
           )
         ],
       ),

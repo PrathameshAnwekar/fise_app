@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fise_app/constants/constants.dart';
@@ -28,9 +29,14 @@ class _GmailAuthScreenState extends State<GmailAuthScreen> {
         Container(
           margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.1,
               SizeConfig.screenHeight * 0.35, SizeConfig.screenWidth * 0.1, 0),
-          child: Text(
+          child: AutoSizeText(
+
               'For seamless one-tap logins, please use your Google account to continue.',
-              style: AppThemeData.textTheme.headline2),
+              maxLines: 2,
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: AppThemeData.lightColorScheme.primary)),
         ),
         Container(
           margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.45,

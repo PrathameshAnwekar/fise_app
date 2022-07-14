@@ -97,24 +97,5 @@ class AppThemeData {
   static const _semiBold = FontWeight.w600;
   static const _bold = FontWeight.w700;
 
-  static final TextTheme textTheme = TextTheme(
-    headline2: GoogleFonts.montserrat(
-        fontSize: 20,
-        color: AppThemeData.lightColorScheme.primary,
-        fontWeight: _bold),
-    headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 35.0),
-    headline3: GoogleFonts.montserrat(
-        fontWeight: _bold, fontSize: 35.0, color: Colors.grey),
-    headline5: GoogleFonts.montserrat(
-        fontWeight: _medium, fontSize: 16.0, color: Colors.white),
-    headline6: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 35.0),
-    caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
-    subtitle1: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
-    subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
-    overline: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
-    bodyText1: GoogleFonts.montserrat(
-        fontWeight: _bold, fontSize: 35.0, color: Colors.white),
-    bodyText2: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
-    button: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
-  );
+  static final TextTheme textTheme = GoogleFonts.robotoFlexTextTheme();
 }
