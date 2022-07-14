@@ -53,10 +53,10 @@ class _GoogleButtonState extends State<GoogleButton> {
               .doc(user!.uid)
               .get();
           if (doc.exists) {
-            Navigator.of(context)
+            await Navigator.of(context)
                 .pushReplacementNamed(InitializerWidget.routeName);
           } else {
-            Navigator.of(context).pushReplacementNamed(PhoneAuth.routeName);
+            await Navigator.of(context).pushReplacementNamed(PhoneAuth.routeName);
           }
         },
         splashColor: Colors.black,
