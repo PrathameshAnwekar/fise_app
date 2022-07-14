@@ -26,145 +26,152 @@ class SettingsPage extends StatelessWidget {
                 image: AssetImage(
                   'assets/images/login/enter_number_bg.png',
                 ))),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.05,
-                SizeConfig.screenHeight * 0.3, 0, 0),
-            child: Text(
-              'settings',
-              style: AppThemeData.textTheme.headline6,
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.05,
+                  SizeConfig.screenHeight * 0.3, 0, 0),
+              child: Text(
+                'settings',
+                style: AppThemeData.textTheme.headline6,
               ),
-              child: SingleChildScrollView(
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                ),
+                child: SingleChildScrollView(
                   child: Column(
-                children: [
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SettingTile(
-                    title: 'Personal Info',
-                    tile_Icon: 'assets/images/setting_icons/personal.png',
-                    routeLink: () {
-                      //              Route here
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: ((context) {
-                        return PersonalInfoPage();
-                      })));
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Privacy and Security',
-                    tile_Icon: 'assets/images/setting_icons/privacy.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Payment Settings',
-                    tile_Icon: 'assets/images/setting_icons/payment.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Transactions',
-                    tile_Icon: 'assets/images/setting_icons/transactions.png',
-                    routeLink: () {
-                      //              Route here
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: ((context) {
-                        return Transactions_Page();
-                      })));
-                    },
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    indent: 40,
-                    endIndent: 40,
-                  ),
-                  SettingTile(
-                    title: 'App Settings',
-                    tile_Icon: 'assets/images/setting_icons/App_settings.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Connected Accounts',
-                    tile_Icon: 'assets/images/setting_icons/User_Account.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Notification and Emails',
-                    tile_Icon: 'assets/images/setting_icons/Notification.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Help and Support',
-                    tile_Icon: 'assets/images/setting_icons/Help.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    indent: 40,
-                    endIndent: 40,
-                  ),
-                  SettingTile(
-                    title: 'About Us',
-                    tile_Icon: 'assets/images/setting_icons/Info.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Privacy Policy',
-                    tile_Icon: 'assets/images/setting_icons/Privacy_Policy.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Terms and Conditions',
-                    tile_Icon:
-                        'assets/images/setting_icons/Terms_and_Conditions.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
-                    title: 'Feedback',
-                    tile_Icon: 'assets/images/setting_icons/Feedback.png',
-                    routeLink: () {
-                      //              Route here
-                    },
-                  ),
-                  SettingTile(
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SettingTile(
+                        title: 'Personal Info',
+                        tileIcon: 'assets/images/setting_icons/personal.png',
+                        routeLink: () {
+                          //              Route here
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: ((context) {
+                            return PersonalInfoPage();
+                          })));
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Privacy and Security',
+                        tileIcon: 'assets/images/setting_icons/privacy.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Payment Settings',
+                        tileIcon: 'assets/images/setting_icons/payment.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Transactions',
+                        tileIcon:
+                            'assets/images/setting_icons/transactions.png',
+                        routeLink: () {
+                          //              Route here
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: ((context) {
+                            return Transactions_Page();
+                          })));
+                        },
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        indent: 40,
+                        endIndent: 40,
+                      ),
+                      SettingTile(
+                        title: 'App Settings',
+                        tileIcon:
+                            'assets/images/setting_icons/App_settings.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Connected Accounts',
+                        tileIcon:
+                            'assets/images/setting_icons/User_Account.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Notification and Emails',
+                        tileIcon:
+                            'assets/images/setting_icons/Notification.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Help and Support',
+                        tileIcon: 'assets/images/setting_icons/Help.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        indent: 40,
+                        endIndent: 40,
+                      ),
+                      SettingTile(
+                        title: 'About Us',
+                        tileIcon: 'assets/images/setting_icons/Info.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Privacy Policy',
+                        tileIcon:
+                            'assets/images/setting_icons/Privacy_Policy.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Terms and Conditions',
+                        tileIcon:
+                            'assets/images/setting_icons/Terms_and_Conditions.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                      ),
+                      SettingTile(
+                        title: 'Feedback',
+                        tileIcon: 'assets/images/setting_icons/Feedback.png',
+                        routeLink: () {
+                          //              Route here
+                        },
+                        
+                      ),SettingTile(
                       title: 'Log Out',
-                      tile_Icon: 'assets/images/setting_icons/Feedback.png',
+                      tileIcon: 'assets/images/setting_icons/Feedback.png',
                       routeLink: () async {
                         await auth.signOut();
              
@@ -175,11 +182,13 @@ class SettingsPage extends StatelessWidget {
                               (Route<dynamic> route) => false);
                         });
                       }),
-                ],
-              )),
-            ),
-          )
-        ]),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -189,12 +198,12 @@ class SettingTile extends StatelessWidget {
   const SettingTile(
       {Key? key,
       required this.title,
-      required this.tile_Icon,
+      required this.tileIcon,
       required this.routeLink})
       : super(key: key);
 
   final String title;
-  final String tile_Icon;
+  final String tileIcon;
   final VoidCallback routeLink;
 
   @override
@@ -204,7 +213,7 @@ class SettingTile extends StatelessWidget {
         title,
         style: AppThemeData.textTheme.subtitle1,
       ),
-      leading: Image.asset(tile_Icon, height: 27),
+      leading: Image.asset(tileIcon, height: 27),
       trailing: const Icon(
         Icons.arrow_forward_ios,
         size: 18,
