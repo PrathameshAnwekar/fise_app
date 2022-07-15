@@ -6,6 +6,7 @@ import 'package:fise_app/screens/settings/transactions.dart';
 import 'package:fise_app/screens/settings/user_info/personal_info.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SettingsPage extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -172,7 +173,20 @@ class SettingsPage extends StatelessWidget {
                         routeLink: () {
                           //              Route here
                         },
-                      ),
+                        
+                      ),SettingTile(
+                      title: 'Log Out',
+                      tileIcon: 'assets/images/setting_icons/Feedback.png',
+                      routeLink: () async {
+                        await auth.signOut();
+             
+                        await GoogleSignIn().signOut();
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              InitializerWidget.routeName,
+                              (Route<dynamic> route) => false);
+                        });
+                      }),
                     ],
                   ),
                 ),

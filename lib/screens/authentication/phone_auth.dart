@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/authentication/otp.dart';
 import 'package:flutter/material.dart';
@@ -49,9 +50,10 @@ class _PhoneAuthState extends State<PhoneAuth> {
                     SizeConfig.screenHeight * 0.35,
                     SizeConfig.screenWidth * 0.1,
                     0),
-                child: Text(
+                child: AutoSizeText(
                   'You will recieve a 6-digit OTP on this number.',
-                  style: AppThemeData.textTheme.headline2,
+                  maxLines: 2,
+                  style: TextStyle(color: AppThemeData.lightColorScheme.primary, fontSize: 25, fontWeight: FontWeight.bold),
                 )),
             Container(
               margin: EdgeInsets.fromLTRB(SizeConfig.screenWidth * 0.1,
@@ -59,9 +61,10 @@ class _PhoneAuthState extends State<PhoneAuth> {
               child: Container(
                 height: 100,
                 child: Row(children: [
-                  Text(
+                  AutoSizeText(
+                    
                     '+91',
-                    style: AppThemeData.textTheme.headline4,
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     width: 10,
@@ -92,7 +95,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                                           phoneNumberController.text)),(Route<dynamic> route) => false);
                             }
                           }),
-                          style: AppThemeData.textTheme.headline4,
+                          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                           controller: phoneNumberController,
                           decoration: InputDecoration(
                               counter: null,
