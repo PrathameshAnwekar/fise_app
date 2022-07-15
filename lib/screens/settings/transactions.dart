@@ -27,9 +27,9 @@ class _Transactions_PageState extends State<Transactions_Page> {
               height: 1.0,
             )),
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           "transactions",
-          style: AppThemeData.textTheme.headline6,
+          style: TextStyle(fontSize: 24),
         ),
       ),
       body: SingleChildScrollView(

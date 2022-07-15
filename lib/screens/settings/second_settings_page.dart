@@ -1,151 +1,204 @@
-import 'package:fise_app/screens/settings/transactions.dart';
-import 'package:fise_app/screens/settings/user_info/personal_info.dart';
+import 'package:fise_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/app_theme.dart';
-import '../../constants/size_config.dart';
-
-class SecondsettingsPage extends StatefulWidget {
-  const SecondsettingsPage({Key? key}) : super(key: key);
+class AppsettingsPage extends StatefulWidget {
+  const AppsettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<SecondsettingsPage> createState() => _SecondsettingsPageState();
+  State<AppsettingsPage> createState() => _AppsettingsPageState();
 }
 
-class _SecondsettingsPageState extends State<SecondsettingsPage> {
+class _AppsettingsPageState extends State<AppsettingsPage> {
+  bool normalRoundup = true;
+  bool adaptiveRoundup = false;
+  int multiplierValue = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       appBar: AppBar(
         //
-        leading: const Icon(Icons.arrow_back_ios),
         bottom: PreferredSize(
             preferredSize: const Size.fromHeight(4.0),
             child: Container(
               color: Colors.black26,
               height: 1.0,
             )),
-
-        //
         backgroundColor: Colors.white,
-        title: Text(
-          "settings",
-          style: AppThemeData.textTheme.headline6,
+        title: const Text(
+          "app settings",
+          style: TextStyle(fontSize: 24),
         ),
+        actions: [
+          Image.asset(
+            "assets/images/setting_icons/App_settings.png",
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 100),
-//
-            settingTile(
-              title: 'Personal Info',
-              tileIcon: 'assets/images/setting_icons/personal.png',
-              routeLink: () {
-                //              Route here
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return PersonalInfoPage();
-                })));
-              },
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 15.0),
+              child: Text(
+                "Roundups",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
             ),
-            settingTile(
-              title: 'Privacy and Security',
-              tileIcon: 'assets/images/setting_icons/privacy.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            settingTile(
-              title: 'Payment Settings',
-              tileIcon: 'assets/images/setting_icons/payment.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            settingTile(
-              title: 'Transactions',
-              tileIcon: 'assets/images/setting_icons/privacy.png',
-              routeLink: () {
-                //              Route here
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return Transactions_Page();
-                })));
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Checkbox(
+                    shape: const CircleBorder(),
+                    value: normalRoundup,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        normalRoundup = value!;
+                      });
+                    }),
+                const Text("Normal Roundups"),
+                const Spacer(),
+                IconButton(
+                    onPressed: () {
+                      //
+                    },
+                    icon: const Icon(Icons.info_outline))
+              ],
             ),
 
+            Row(
+              children: [
+                Checkbox(
+                    shape: const CircleBorder(),
+                    activeColor: Colors.blue,
+                    value: adaptiveRoundup,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        adaptiveRoundup = value!;
+                      });
+                    }),
+                const Text("Adaptive Spend Roundups"),
+                const Spacer(),
+                IconButton(
+                    onPressed: () {
+                      //
+                    },
+                    icon: const Icon(Icons.info_outline))
+              ],
+            ),
             const Divider(
-              thickness: 1,
-              indent: 40,
-              endIndent: 40,
+                thickness: 9, color: Color.fromARGB(255, 193, 193, 193)),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 15.0),
+              child: Text(
+                "Multiplier",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
             ),
-
-            settingTile(
-              title: 'App Settings',
-              tileIcon: 'assets/images/setting_icons/App_settings.png',
-              routeLink: () {
-                //              Route here
+            const SizedBox(height: 30),
+            //
+            //
+            Slider(
+              value: multiplierValue.toDouble(),
+              min: 0,
+              max: 10,
+              divisions: 5,
+              label: multiplierValue.round().toString() + "x",
+              onChanged: (double NewValue) {
+                setState(() {
+                  multiplierValue = NewValue.round();
+                });
               },
             ),
-            settingTile(
-              title: 'Connected Accounts',
-              tileIcon: 'assets/images/setting_icons/User_Account.png',
-              routeLink: () {
-                //              Route here
-              },
+            Row(
+              children: [
+                SizedBox(width: SizeConfig.screenWidth * 0.04),
+                const Text("0x"),
+                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                const Text("2x"),
+                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                const Text("4x"),
+                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                const Text("6x"),
+                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                const Text("8x"),
+                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                const Text("10x"),
+              ],
             ),
-            settingTile(
-              title: 'Notification and Emails',
-              tileIcon: 'assets/images/setting_icons/Notification.png',
-              routeLink: () {
-                //              Route here
-              },
+            //
+            //
+            const SizedBox(height: 30),
+            const Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Daily fixed amount option",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
-            settingTile(
-              title: 'Help and Support',
-              tileIcon: 'assets/images/setting_icons/Help.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-
             const Divider(
-              thickness: 1,
-              indent: 40,
-              endIndent: 40,
+                thickness: 9, color: Color.fromARGB(255, 193, 193, 193)),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Row(
+                children: [
+                  const Text(
+                    "Asset Allocation",
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.info_outline)),
+                ],
+              ),
             ),
-
-            settingTile(
-              title: 'About Us',
-              tileIcon: 'assets/images/setting_icons/Info.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            settingTile(
-              title: 'Privacy Policy',
-              tileIcon: 'assets/images/setting_icons/Privacy_Policy.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            settingTile(
-              title: 'Terms and Conditions',
-              tileIcon: 'assets/images/setting_icons/Terms_and_Conditions.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            settingTile(
-              title: 'Feedback',
-              tileIcon: 'assets/images/setting_icons/Feedback.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-
+            const SizedBox(height: 80),
 //
+//     COLOR PALETTE FROM FIGMA HERE
+//
+            assetTile(
+                asset: "Equity",
+                allocatedPercentage: "20",
+                colour: Colors.yellow),
+            assetTile(
+                asset: "Gold",
+                allocatedPercentage: "20",
+                colour: Colors.orange),
+            assetTile(
+                asset: "Bonds",
+                allocatedPercentage: "0",
+                colour: Colors.greenAccent),
+            assetTile(
+                asset: "Mutual Fund",
+                allocatedPercentage: "20",
+                colour: Colors.blue),
+            assetTile(
+                asset: "Crypto",
+                allocatedPercentage: "20",
+                colour: Colors.purple),
+            assetTile(
+                asset: "US Stocks",
+                allocatedPercentage: "20",
+                colour: Colors.red),
           ],
         ),
       ),
@@ -153,34 +206,34 @@ class _SecondsettingsPageState extends State<SecondsettingsPage> {
   }
 }
 
-class settingTile extends StatelessWidget {
-  const settingTile(
+class assetTile extends StatelessWidget {
+  const assetTile(
       {Key? key,
-      required this.title,
-      required this.tileIcon,
-      required this.routeLink})
+      required this.asset,
+      required this.allocatedPercentage,
+      required this.colour})
       : super(key: key);
-
-  final String title;
-  final String tileIcon;
-  final VoidCallback routeLink;
+  final String asset;
+  final String allocatedPercentage;
+  final Color colour;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        title,
-        style: AppThemeData.textTheme.subtitle1,
+    return Padding(
+      padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15),
+      child: Row(
+        children: [
+          Text(asset),
+          const Spacer(),
+          Text(allocatedPercentage + "%"),
+          const SizedBox(width: 10),
+          Container(
+            height: 20,
+            width: 20,
+            color: colour,
+          ),
+        ],
       ),
-      leading: Image.asset(
-        tileIcon,
-        height: 30,
-      ),
-      trailing: const Icon(
-        Icons.arrow_forward_ios,
-        size: 18,
-      ),
-      onTap: routeLink,
     );
   }
 }
