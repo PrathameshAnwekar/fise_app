@@ -41,14 +41,14 @@ class _AppsettingsPageState extends State<AppsettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Padding(
               padding: EdgeInsets.only(left: 15.0),
               child: Text(
                 "Roundups",
                 style: TextStyle(
                   fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   decoration: TextDecoration.underline,
                 ),
               ),
@@ -96,19 +96,19 @@ class _AppsettingsPageState extends State<AppsettingsPage> {
             ),
             const Divider(
                 thickness: 9, color: Color.fromARGB(255, 193, 193, 193)),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Padding(
               padding: EdgeInsets.only(left: 15.0),
               child: Text(
                 "Multiplier",
                 style: TextStyle(
                   fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   decoration: TextDecoration.underline,
                 ),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             //
             //
             Slider(
@@ -125,17 +125,17 @@ class _AppsettingsPageState extends State<AppsettingsPage> {
             ),
             Row(
               children: [
-                SizedBox(width: SizeConfig.screenWidth * 0.04),
+                SizedBox(width: SizeConfig.screenWidth * 0.05),
                 const Text("0x"),
-                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                SizedBox(width: SizeConfig.screenWidth * 0.13),
                 const Text("2x"),
-                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                SizedBox(width: SizeConfig.screenWidth * 0.13),
                 const Text("4x"),
-                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                SizedBox(width: SizeConfig.screenWidth * 0.13),
                 const Text("6x"),
-                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                SizedBox(width: SizeConfig.screenWidth * 0.13),
                 const Text("8x"),
-                SizedBox(width: SizeConfig.screenWidth * 0.12),
+                SizedBox(width: SizeConfig.screenWidth * 0.13),
                 const Text("10x"),
               ],
             ),
@@ -162,7 +162,7 @@ class _AppsettingsPageState extends State<AppsettingsPage> {
                     "Asset Allocation",
                     style: TextStyle(
                         fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline),
                   ),
                   const Spacer(),
@@ -171,9 +171,14 @@ class _AppsettingsPageState extends State<AppsettingsPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 80),
+            // const SizedBox(height: 80),
 //
 //     COLOR PALETTE FROM FIGMA HERE
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 20, 12, 40),
+              child: Image.asset(
+                  "assets/images/setting_icons/appSettings_ColorCode.png"),
+            ),
 //
             assetTile(
                 asset: "Equity",

@@ -18,7 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: AppThemeData.lightColorScheme.primary,
       appBar: AppBar(
-        title: Text('Hi Akshat', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+        title: Text(
+          'Hi Akshat',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
             onPressed: () {
