@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
+import 'package:fise_app/screens/settings/app_settings_page.dart';
 import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:fise_app/screens/settings/user_info/personal_info.dart';
 import 'package:fise_app/util/initializer.dart';
@@ -109,6 +110,10 @@ class SettingsPage extends StatelessWidget {
                             'assets/images/setting_icons/App_settings.png',
                         routeLink: () {
                           //              Route here
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: ((context) {
+                            return AppsettingsPage();
+                          })));
                         },
                       ),
                       SettingTile(
@@ -168,20 +173,20 @@ class SettingsPage extends StatelessWidget {
                         routeLink: () {
                           //              Route here
                         },
-                        
-                      ),SettingTile(
-                      title: 'Log Out',
-                      tileIcon: 'assets/images/setting_icons/Feedback.png',
-                      routeLink: () async {
-                        await auth.signOut();
-             
-                        await GoogleSignIn().signOut();
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              InitializerWidget.routeName,
-                              (Route<dynamic> route) => false);
-                        });
-                      }),
+                      ),
+                      SettingTile(
+                          title: 'Log Out',
+                          tileIcon: 'assets/images/setting_icons/Feedback.png',
+                          routeLink: () async {
+                            await auth.signOut();
+
+                            await GoogleSignIn().signOut();
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  InitializerWidget.routeName,
+                                  (Route<dynamic> route) => false);
+                            });
+                          }),
                     ],
                   ),
                 ),
