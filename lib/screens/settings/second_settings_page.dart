@@ -1,9 +1,8 @@
-import 'package:fise_app/screens/settings/transactions.dart';
+import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:fise_app/screens/settings/user_info/personal_info.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/app_theme.dart';
-import '../../constants/size_config.dart';
 
 class SecondsettingsPage extends StatefulWidget {
   const SecondsettingsPage({Key? key}) : super(key: key);
@@ -40,7 +39,7 @@ class _SecondsettingsPageState extends State<SecondsettingsPage> {
           children: [
             const SizedBox(height: 100),
 //
-            settingTile(
+            SettingTile(
               title: 'Personal Info',
               tileIcon: 'assets/images/setting_icons/personal.png',
               routeLink: () {
@@ -50,21 +49,21 @@ class _SecondsettingsPageState extends State<SecondsettingsPage> {
                 })));
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Privacy and Security',
               tileIcon: 'assets/images/setting_icons/privacy.png',
               routeLink: () {
                 //              Route here
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Payment Settings',
               tileIcon: 'assets/images/setting_icons/payment.png',
               routeLink: () {
                 //              Route here
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Transactions',
               tileIcon: 'assets/images/setting_icons/privacy.png',
               routeLink: () {
@@ -81,28 +80,28 @@ class _SecondsettingsPageState extends State<SecondsettingsPage> {
               endIndent: 40,
             ),
 
-            settingTile(
+            SettingTile(
               title: 'App Settings',
               tileIcon: 'assets/images/setting_icons/App_settings.png',
               routeLink: () {
                 //              Route here
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Connected Accounts',
               tileIcon: 'assets/images/setting_icons/User_Account.png',
               routeLink: () {
                 //              Route here
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Notification and Emails',
               tileIcon: 'assets/images/setting_icons/Notification.png',
               routeLink: () {
                 //              Route here
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Help and Support',
               tileIcon: 'assets/images/setting_icons/Help.png',
               routeLink: () {
@@ -116,28 +115,28 @@ class _SecondsettingsPageState extends State<SecondsettingsPage> {
               endIndent: 40,
             ),
 
-            settingTile(
+            SettingTile(
               title: 'About Us',
               tileIcon: 'assets/images/setting_icons/Info.png',
               routeLink: () {
                 //              Route here
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Privacy Policy',
               tileIcon: 'assets/images/setting_icons/Privacy_Policy.png',
               routeLink: () {
                 //              Route here
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Terms and Conditions',
               tileIcon: 'assets/images/setting_icons/Terms_and_Conditions.png',
               routeLink: () {
                 //              Route here
               },
             ),
-            settingTile(
+            SettingTile(
               title: 'Feedback',
               tileIcon: 'assets/images/setting_icons/Feedback.png',
               routeLink: () {
@@ -153,8 +152,8 @@ class _SecondsettingsPageState extends State<SecondsettingsPage> {
   }
 }
 
-class settingTile extends StatelessWidget {
-  const settingTile(
+class SettingTile extends StatelessWidget {
+  const SettingTile(
       {Key? key,
       required this.title,
       required this.tileIcon,

@@ -1,4 +1,5 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/homescreen/assetclass_page.dart';
 import 'package:fise_app/screens/homescreen/general_returns_widget.dart';
 import 'package:fise_app/screens/homescreen/general_status_widget.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
@@ -100,6 +101,11 @@ class FinancialAssetTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
       child: ListTile(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return FinancialAssetPage(title: 'gold',);
+          }));
+        },
         title: Text('Crypto'),
         subtitle: Text('Invested 700.29'),
         leading: Icon(
