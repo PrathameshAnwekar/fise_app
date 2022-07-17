@@ -1,5 +1,5 @@
 import 'package:fise_app/constants/constants.dart';
-import 'package:fise_app/screens/homescreen/assetclass_page.dart';
+import 'package:fise_app/screens/asset_screens/assetclass_page.dart';
 import 'package:fise_app/screens/homescreen/general_returns_widget.dart';
 import 'package:fise_app/screens/homescreen/general_status_widget.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
