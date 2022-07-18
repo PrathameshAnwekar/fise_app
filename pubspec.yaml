@@ -46,6 +46,8 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   flutter_riverpod: ^1.0.4
   auto_size_text: ^3.0.0
+  yahoofin: ^0.0.8
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:

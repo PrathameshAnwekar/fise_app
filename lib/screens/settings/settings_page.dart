@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
+import 'package:fise_app/screens/dummy_yfin.dart';
 import 'package:fise_app/screens/settings/app_settings_page.dart';
 import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:fise_app/screens/settings/user_info/personal_info.dart';
+import 'package:fise_app/screens/stock_data.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -77,7 +79,9 @@ class SettingsPage extends StatelessWidget {
                         title: 'Privacy and Security',
                         tileIcon: 'assets/images/setting_icons/privacy.png',
                         routeLink: () {
-                          //              Route here
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                            return StockDataScreen();
+                          }));
                         },
                       ),
                       SettingTile(
