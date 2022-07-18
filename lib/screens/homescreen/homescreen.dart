@@ -1,13 +1,20 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/homescreen/calender.dart';
+import 'package:fise_app/screens/homescreen/genral_roundups.dart';
+import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:table_calendar/table_calendar.dart';
 import '../settings/settings_page.dart';
+import '../settings/transactions.dart';
 import 'assetclass_page.dart';
 import 'general_returns_widget.dart';
 import 'general_status_widget.dart';
 
 class Homescreen extends StatelessWidget {
+  static const routeName = 'homepage';
+
+  const Homescreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +39,8 @@ class Homescreen extends StatelessWidget {
               paddingTop: MediaQuery.of(context).padding.top,
             ),
           ),
-          SliverFillRemaining(
-            hasScrollBody: true,
-            child: SingleChildScrollView(child: FilmContent()),
+          const SliverToBoxAdapter(
+            child: FillContent(),
           )
         ],
       ),
@@ -141,66 +147,60 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
-class FilmContent extends StatelessWidget {
+class FillContent extends StatelessWidget {
+  const FillContent({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return Column(
       children: [
-        Stack(children: [
-          Container(
-            height: 20,
-            width: SizeConfig.screenWidth,
-            color: AppThemeData.lightColorScheme.primary,
-          ),
-          Container(
-            height: 20,
-            width: SizeConfig.screenWidth,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: const Center(
-              child: Divider(
-                indent: 150,
-                endIndent: 150,
-                thickness: 3,
-                color: Colors.grey,
-              ),
-            ),
-          ),
-        ]),
-        FinancialAssetTile(),
         Divider(
-          thickness: 2,
-        ),
-        FinancialAssetTile(),
-        Divider(
-          thickness: 2,
-        ),
-        FinancialAssetTile(),
-        Divider(
-          thickness: 2,
-        ),
-        FinancialAssetTile(),
-        Divider(
-          thickness: 2,
-        ),
-        FinancialAssetTile(),
-        Divider(
-          thickness: 2,
-        ),
-        Container(
-          child: Flexible(
-            child: TableCalendar(
-              focusedDay: DateTime.utc(2022, 07, 09),
-              firstDay: DateTime.utc(2010, 10, 20),
-              lastDay: DateTime.utc(2040, 10, 20),
+            endIndent: 150,
+            indent: 150,
+            thickness: 4,
+            color: Colors.black.withOpacity(0.5)),
+        //
+        const FinancialAssetTile(),
+        const Divider(thickness: 2),
+        const FinancialAssetTile(),
+        const Divider(thickness: 2),
+        const FinancialAssetTile(),
+        const Divider(thickness: 2),
+        const FinancialAssetTile(),
+        const Divider(thickness: 2),
+        const FinancialAssetTile(),
+        //
+        const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
+//
+        Calender(),
+//
+        const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
+//
+        GenralRoundups(),
+//
+        const SizedBox(height: 20),
+//
+        const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
+//
+        GeneralTransactions(),
+//
+        const SizedBox(height: 20),
+        const Divider(thickness: 2),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: OutlinedButton(
+              onPressed: () {
+                //
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return const Transactions_Page();
+                })));
+              },
+              child: const Text("view all"),
             ),
           ),
         ),
+        const SizedBox(height: 100),
       ],
     );
   }
@@ -218,14 +218,14 @@ class FinancialAssetTile extends StatelessWidget {
       child: ListTile(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return FinancialAssetPage(
+            return const FinancialAssetPage(
               title: 'gold',
             );
           }));
         },
-        title: Text('Crypto'),
-        subtitle: Text('Invested 700.29'),
-        leading: Icon(
+        title: const Text('Crypto'),
+        subtitle: const Text('Invested 700.29'),
+        leading: const Icon(
           Icons.monetization_on_outlined,
           size: 50,
         ),

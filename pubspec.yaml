@@ -47,6 +47,7 @@ dependencies:
   flutter_riverpod: ^1.0.4
   auto_size_text: ^3.0.0
   table_calendar: ^3.0.6
+  percent_indicator: ^4.0.1
 
 
 dev_dependencies:

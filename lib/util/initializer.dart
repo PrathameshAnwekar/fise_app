@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/models/user_data.dart';
-import 'package:fise_app/screens/homescreen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
