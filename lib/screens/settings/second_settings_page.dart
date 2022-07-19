@@ -1,152 +1,309 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/settings/app_settings_page.dart';
 import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:fise_app/screens/settings/user_info/personal_info.dart';
+import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
+class SettingsPage extends StatelessWidget {
+  static const routeName = '/settingspag';
 
-class SecondsettingsPage extends StatefulWidget {
-  const SecondsettingsPage({Key? key}) : super(key: key);
+  SettingsPage({Key? key}) : super(key: key);
 
-  @override
-  State<SecondsettingsPage> createState() => _SecondsettingsPageState();
-}
-
-class _SecondsettingsPageState extends State<SecondsettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        //
-        leading: const Icon(Icons.arrow_back_ios),
-        bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(4.0),
-            child: Container(
-              color: Colors.black26,
-              height: 1.0,
-            )),
-
-        //
-        backgroundColor: Colors.white,
-        title: Text(
-          "settings",
-          style: AppThemeData.textTheme.headline6,
-        ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverCustomHeaderDelegate(
+                title: 'settings',
+                collapsedHeight: 50,
+                expandedHeight: 240,
+                paddingTop: MediaQuery.of(context).padding.top,
+                coverImg: "assets/images/test.png"),
+          ),
+          SliverToBoxAdapter(
+            child: SettingTiles(),
+          )
+        ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 100),
-//
-            SettingTile(
-              title: 'Personal Info',
-              tileIcon: 'assets/images/setting_icons/personal.png',
-              routeLink: () {
-                //              Route here
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return PersonalInfoPage();
-                })));
-              },
-            ),
-            SettingTile(
-              title: 'Privacy and Security',
-              tileIcon: 'assets/images/setting_icons/privacy.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            SettingTile(
-              title: 'Payment Settings',
-              tileIcon: 'assets/images/setting_icons/payment.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            SettingTile(
-              title: 'Transactions',
-              tileIcon: 'assets/images/setting_icons/privacy.png',
-              routeLink: () {
-                //              Route here
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return Transactions_Page();
-                })));
-              },
-            ),
+    );
+  }
+}
 
-            const Divider(
-              thickness: 1,
-              indent: 40,
-              endIndent: 40,
-            ),
+class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double collapsedHeight;
+  final double expandedHeight;
+  final double paddingTop;
+  final String coverImg;
+  final String title;
+  String statusBarMode = 'dark';
 
-            SettingTile(
-              title: 'App Settings',
-              tileIcon: 'assets/images/setting_icons/App_settings.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            SettingTile(
-              title: 'Connected Accounts',
-              tileIcon: 'assets/images/setting_icons/User_Account.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            SettingTile(
-              title: 'Notification and Emails',
-              tileIcon: 'assets/images/setting_icons/Notification.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
-            SettingTile(
-              title: 'Help and Support',
-              tileIcon: 'assets/images/setting_icons/Help.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
+  SliverCustomHeaderDelegate({
+    required this.collapsedHeight,
+    required this.expandedHeight,
+    required this.paddingTop,
+    required this.coverImg,
+    required this.title,
+  });
 
-            const Divider(
-              thickness: 1,
-              indent: 40,
-              endIndent: 40,
-            ),
+  @override
+  double get minExtent => collapsedHeight + paddingTop;
 
-            SettingTile(
-              title: 'About Us',
-              tileIcon: 'assets/images/setting_icons/Info.png',
-              routeLink: () {
-                //              Route here
-              },
+  @override
+  double get maxExtent => expandedHeight;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
+
+  void updateStatusBarBrightness(shrinkOffset) {
+    if (shrinkOffset > 50 && statusBarMode == 'dark') {
+      statusBarMode = 'light';
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+      ));
+    } else if (shrinkOffset <= 50 && statusBarMode == 'light') {
+      statusBarMode = 'dark';
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+      ));
+    }
+  }
+
+  Color makeStickyHeaderBgColor(shrinkOffset) {
+    final int alpha =
+        (shrinkOffset / (maxExtent - minExtent) * 255).clamp(0, 255).toInt();
+    return Color.fromARGB(alpha, 255, 255, 255);
+  }
+
+  Color makeStickyHeaderTextColor(shrinkOffset, isIcon) {
+    if (shrinkOffset <= 50) {
+      return isIcon ? Colors.white : Colors.transparent;
+    } else {
+      final int alpha =
+          (shrinkOffset / (maxExtent - minExtent) * 255).clamp(0, 255).toInt();
+      return Color.fromARGB(alpha, 0, 0, 0);
+    }
+  }
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    updateStatusBarBrightness(shrinkOffset);
+
+    return Container(
+      height: maxExtent,
+      width: MediaQuery.of(context).size.width,
+      color: Colors.green,
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image.asset(coverImg, fit: BoxFit.cover),
+          const Positioned(
+            bottom: 10,
+            left: 10,
+            child: Text(
+              "settings",
+              style: TextStyle(
+                fontSize: 35.0,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-            SettingTile(
-              title: 'Privacy Policy',
-              tileIcon: 'assets/images/setting_icons/Privacy_Policy.png',
-              routeLink: () {
-                //              Route here
-              },
+          ),
+          Positioned(
+            left: 0,
+            top: maxExtent / 2,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0x00000000), Color(0x90000000)],
+                ),
+              ),
             ),
-            SettingTile(
-              title: 'Terms and Conditions',
-              tileIcon: 'assets/images/setting_icons/Terms_and_Conditions.png',
-              routeLink: () {
-                //              Route here
-              },
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            child: Container(
+              color: makeStickyHeaderBgColor(shrinkOffset),
+              child: SafeArea(
+                bottom: false,
+                child: SizedBox(
+                  height: collapsedHeight,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: makeStickyHeaderTextColor(shrinkOffset, true),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: makeStickyHeaderTextColor(shrinkOffset, false),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            SettingTile(
-              title: 'Feedback',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SettingTiles extends StatelessWidget {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  SettingTiles({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 15,
+          ),
+          SettingTile(
+            title: 'Personal Info',
+            tileIcon: 'assets/images/setting_icons/personal.png',
+            routeLink: () {
+              //              Route here
+              Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                return PersonalInfoPage();
+              })));
+            },
+          ),
+          SettingTile(
+            title: 'Privacy and Security',
+            tileIcon: 'assets/images/setting_icons/privacy.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          SettingTile(
+            title: 'Payment Settings',
+            tileIcon: 'assets/images/setting_icons/payment.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          SettingTile(
+            title: 'Transactions',
+            tileIcon: 'assets/images/setting_icons/transactions.png',
+            routeLink: () {
+              //              Route here
+              Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                return Transactions_Page();
+              })));
+            },
+          ),
+          const Divider(
+            thickness: 1,
+            indent: 40,
+            endIndent: 40,
+          ),
+          SettingTile(
+            title: 'App Settings',
+            tileIcon: 'assets/images/setting_icons/App_settings.png',
+            routeLink: () {
+              //              Route here
+              Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                return AppsettingsPage();
+              })));
+            },
+          ),
+          SettingTile(
+            title: 'Connected Accounts',
+            tileIcon: 'assets/images/setting_icons/User_Account.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          SettingTile(
+            title: 'Notification and Emails',
+            tileIcon: 'assets/images/setting_icons/Notification.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          SettingTile(
+            title: 'Help and Support',
+            tileIcon: 'assets/images/setting_icons/Help.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          const Divider(
+            thickness: 1,
+            indent: 40,
+            endIndent: 40,
+          ),
+          SettingTile(
+            title: 'About Us',
+            tileIcon: 'assets/images/setting_icons/Info.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          SettingTile(
+            title: 'Privacy Policy',
+            tileIcon: 'assets/images/setting_icons/Privacy_Policy.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          SettingTile(
+            title: 'Terms and Conditions',
+            tileIcon: 'assets/images/setting_icons/Terms_and_Conditions.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          SettingTile(
+            title: 'Feedback',
+            tileIcon: 'assets/images/setting_icons/Feedback.png',
+            routeLink: () {
+              //              Route here
+            },
+          ),
+          SettingTile(
+              title: 'Log Out',
               tileIcon: 'assets/images/setting_icons/Feedback.png',
-              routeLink: () {
-                //              Route here
-              },
-            ),
+              routeLink: () async {
+                await auth.signOut();
 
-//
-          ],
-        ),
+                await GoogleSignIn().signOut();
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      InitializerWidget.routeName,
+                      (Route<dynamic> route) => false);
+                });
+              }),
+        ],
       ),
     );
   }
@@ -171,10 +328,7 @@ class SettingTile extends StatelessWidget {
         title,
         style: AppThemeData.textTheme.subtitle1,
       ),
-      leading: Image.asset(
-        tileIcon,
-        height: 30,
-      ),
+      leading: Image.asset(tileIcon, height: 27),
       trailing: const Icon(
         Icons.arrow_forward_ios,
         size: 18,

@@ -2,9 +2,9 @@ import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/homescreen/calender.dart';
 import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
+import 'package:fise_app/screens/settings/second_settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../settings/settings_page.dart';
 import '../settings/transactions.dart';
 import 'assetclass_page.dart';
 import 'general_returns_widget.dart';
@@ -19,7 +19,9 @@ class Homescreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          //   INVEST MORE =>
+        },
         icon: const Icon(Icons.add, color: Colors.white),
         label: const Text(
           "Invest More",
@@ -39,7 +41,7 @@ class Homescreen extends StatelessWidget {
               paddingTop: MediaQuery.of(context).padding.top,
             ),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: FillContent(),
           )
         ],
@@ -196,7 +198,11 @@ class FillContent extends StatelessWidget {
                   return const Transactions_Page();
                 })));
               },
-              child: const Text("view all"),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0))),
+              ),
+              child: const Text("  view all  "),
             ),
           ),
         ),
