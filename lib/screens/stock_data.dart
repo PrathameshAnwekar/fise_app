@@ -60,7 +60,7 @@ class StockDataScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData
-              ? stockDataList(snapshot.data ?? [])
+              ? stockDataList2(snapshot.data ?? [])
               : Center(child: CircularProgressIndicator());
         },
       ),
@@ -109,4 +109,22 @@ class StockDataScreen extends StatelessWidget {
               ));
         });
 }
+
+  Widget stockDataList2( List<StockDataModel> stockDataList) {
+    return ListView.builder(
+      itemCount: stockDataList.length,
+      itemBuilder: (context, index) {
+        return Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: ListTile(leading: Text(stockDataList[index].price.toString()),
+              title: Text(stockDataList[index].companyName),
+              subtitle: Text(stockDataList[index].symbol),
+              ),
+            ));
+      },
+    );
+  }
 }
+
