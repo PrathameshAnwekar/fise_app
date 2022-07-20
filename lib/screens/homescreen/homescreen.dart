@@ -1,4 +1,5 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/asset_screens/assetclass_page.dart';
 import 'package:fise_app/screens/homescreen/calender.dart';
 import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
@@ -6,7 +7,6 @@ import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../settings/transactions.dart';
-import 'assetclass_page.dart';
 import 'general_returns_widget.dart';
 import 'general_status_widget.dart';
 
