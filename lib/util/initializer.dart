@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/models/user_data.dart';
-import 'package:fise_app/screens/homescreen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/constants.dart';
+import '../screens/homescreen/homescreen.dart';
 
 final currentUserDataProvider = StateProvider((ref) => userData);
 UserData? userData;
@@ -47,11 +47,14 @@ class _InitializerWidgetState extends ConsumerState<InitializerWidget> {
         print('here2');
         print(user.uid);
 
-        ref.read(currentUserDataProvider.state).state = UserData.fromDocument(value);
-        
+        ref.read(currentUserDataProvider.state).state =
+            UserData.fromDocument(value);
+
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           await Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              // context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              context,
+              MaterialPageRoute(builder: (context) => Homescreen()));
         });
       }
     });
