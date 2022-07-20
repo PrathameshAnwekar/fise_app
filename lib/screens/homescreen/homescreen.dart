@@ -35,9 +35,9 @@ class Homescreen extends StatelessWidget {
           SliverPersistentHeader(
             pinned: true,
             delegate: SliverCustomHeaderDelegate(
-              title: 'Akshat',
+              title: "",
               collapsedHeight: 50,
-              expandedHeight: 310,
+              expandedHeight: SizeConfig.screenHeight * 0.35,
               paddingTop: MediaQuery.of(context).padding.top,
             ),
           ),
@@ -112,7 +112,13 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        const Text("hey  ", style: TextStyle(fontSize: 25)),
+                        const Text.rich(TextSpan(children: [
+                          TextSpan(text: "hey", style: TextStyle(fontSize: 25)),
+                          TextSpan(
+                              text: " Akshat",
+                              style: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.bold))
+                        ])),
                         Text(
                           title,
                           style: const TextStyle(
@@ -159,7 +165,7 @@ class FillContent extends StatelessWidget {
         Container(
           height: 20,
           width: MediaQuery.of(context).size.width,
-          color: AppThemeData.lightColorScheme.primary,
+          color: Colors.transparent,
           child: Container(
             height: 20,
             width: MediaQuery.of(context).size.width,

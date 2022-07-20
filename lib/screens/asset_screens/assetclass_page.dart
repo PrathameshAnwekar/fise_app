@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/app_theme.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/asset_screens/asset_returns_widget.dart';
+import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -27,7 +28,8 @@ class _FinancialAssetPageState extends State<FinancialAssetPage> {
         ),
         backgroundColor: AppThemeData.lightColorScheme.primary,
       ),
-      body: Stack(children: [
+      backgroundColor: AppThemeData.lightColorScheme.primary,
+      body: Column(children: [
         Container(
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight * 0.4,
@@ -36,8 +38,17 @@ class _FinancialAssetPageState extends State<FinancialAssetPage> {
           ),
           child: AssetReturnsWidget(title: 'gold'),
         ),
+        Expanded(
+            child: Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.only(
+                
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20)), color: Colors.white),
+              child: SingleChildScrollView(
+                  // margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.4),
+                  child: GeneralTransactions()),
+            ))
       ]),
     );
   }
 }
-
