@@ -2,7 +2,7 @@ import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/homescreen/calender.dart';
 import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
-import 'package:fise_app/screens/settings/second_settings_page.dart';
+import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../settings/transactions.dart';
@@ -156,11 +156,26 @@ class FillContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Divider(
-            endIndent: 150,
-            indent: 150,
-            thickness: 4,
-            color: Colors.black.withOpacity(0.5)),
+        Container(
+          height: 20,
+          width: MediaQuery.of(context).size.width,
+          color: AppThemeData.lightColorScheme.primary,
+          child: Container(
+            height: 20,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
+            child: Divider(
+                endIndent: 150,
+                indent: 150,
+                thickness: 4,
+                color: Colors.black.withOpacity(0.5)),
+          ),
+        ),
+
         //
         const FinancialAssetTile(),
         const Divider(thickness: 2),
