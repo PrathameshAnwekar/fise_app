@@ -184,8 +184,24 @@ class SettingTiles extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(
-            height: 15,
+          Container(
+            height: 20,
+            width: MediaQuery.of(context).size.width,
+            color: const Color.fromARGB(255, 107, 103, 103),
+            child: Container(
+              height: 20,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              child: Divider(
+                  endIndent: 150,
+                  indent: 150,
+                  thickness: 3,
+                  color: Colors.black.withOpacity(0.5)),
+            ),
           ),
           SettingTile(
             title: 'Personal Info',
