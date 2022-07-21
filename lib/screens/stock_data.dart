@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:fise_app/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import '../constants/size_config.dart';
 
 class StockDataModel {
@@ -50,9 +48,8 @@ Future<List<StockDataModel>> fetchStockData() async {
 
 class StockDataScreen extends StatelessWidget {
   final Future<List<StockDataModel>> stockData = fetchStockData();
-  final ValueChanged<String> onChanged;
 
-  StockDataScreen({Key? key, required this.onChanged}) : super(key: key);
+  StockDataScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,23 +64,20 @@ class StockDataScreen extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 20),
-          Container(
-            height: 45.0,
-            width: SizeConfig.screenWidth * 0.9,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.withOpacity(0.4)),
-              borderRadius: const BorderRadius.all(Radius.circular(7.0)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: TextField(
-                controller: searchController,
-                onChanged: widget.onChanged,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.search),
-                  border: InputBorder.none,
-                  hintText: "Add stocks by name or ticker",
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: TextField(
+              controller: searchController,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                contentPadding: const EdgeInsets.all(0),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7),
+                  borderSide: BorderSide.none,
                 ),
+                hintText: "Add stocks by name or ticker",
               ),
             ),
           ),
