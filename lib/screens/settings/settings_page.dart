@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SettingsPage extends StatelessWidget {
-  static const routeName = '/settingspag';
+  static const routeName = '/settingspage';
 
   SettingsPage({Key? key}) : super(key: key);
 
@@ -165,121 +165,6 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                           color: makeStickyHeaderTextColor(shrinkOffset, false),
                         ),
                       ),
-                      SettingTile(
-                        title: 'Privacy and Security',
-                        tileIcon: 'assets/images/setting_icons/privacy.png',
-                        routeLink: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                            return StockDataScreen();
-                          }));
-                        },
-                      ),
-                      SettingTile(
-                        title: 'Payment Settings',
-                        tileIcon: 'assets/images/setting_icons/payment.png',
-                        routeLink: () {
-                          //              Route here
-                        },
-                      ),
-                      SettingTile(
-                        title: 'Transactions',
-                        tileIcon:
-                            'assets/images/setting_icons/transactions.png',
-                        routeLink: () {
-                          //              Route here
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: ((context) {
-                            return Transactions_Page();
-                          })));
-                        },
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        indent: 40,
-                        endIndent: 40,
-                      ),
-                      SettingTile(
-                        title: 'App Settings',
-                        tileIcon:
-                            'assets/images/setting_icons/App_settings.png',
-                        routeLink: () {
-                          //              Route here
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: ((context) {
-                            return AppsettingsPage();
-                          })));
-                        },
-                      ),
-                      SettingTile(
-                        title: 'Connected Accounts',
-                        tileIcon:
-                            'assets/images/setting_icons/User_Account.png',
-                        routeLink: () {
-                          //              Route here
-                        },
-                      ),
-                      SettingTile(
-                        title: 'Notification and Emails',
-                        tileIcon:
-                            'assets/images/setting_icons/Notification.png',
-                        routeLink: () {
-                          //              Route here
-                        },
-                      ),
-                      SettingTile(
-                        title: 'Help and Support',
-                        tileIcon: 'assets/images/setting_icons/Help.png',
-                        routeLink: () {
-                          //              Route here
-                        },
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        indent: 40,
-                        endIndent: 40,
-                      ),
-                      SettingTile(
-                        title: 'About Us',
-                        tileIcon: 'assets/images/setting_icons/Info.png',
-                        routeLink: () {
-                          //              Route here
-                        },
-                      ),
-                      SettingTile(
-                        title: 'Privacy Policy',
-                        tileIcon:
-                            'assets/images/setting_icons/Privacy_Policy.png',
-                        routeLink: () {
-                          //              Route here
-                        },
-                      ),
-                      SettingTile(
-                        title: 'Terms and Conditions',
-                        tileIcon:
-                            'assets/images/setting_icons/Terms_and_Conditions.png',
-                        routeLink: () {
-                          //              Route here
-                        },
-                      ),
-                      SettingTile(
-                        title: 'Feedback',
-                        tileIcon: 'assets/images/setting_icons/Feedback.png',
-                        routeLink: () {
-                          //              Route here
-                        },
-                      ),
-                      SettingTile(
-                          title: 'Log Out',
-                          tileIcon: 'assets/images/setting_icons/Feedback.png',
-                          routeLink: () async {
-
-                            await GoogleSignIn().signOut();
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  InitializerWidget.routeName,
-                                  (Route<dynamic> route) => false);
-                            });
-                          }),
                     ],
                   ),
                 ),

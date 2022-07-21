@@ -11,7 +11,7 @@ class AppsettingsPage extends StatefulWidget {
 class _AppsettingsPageState extends State<AppsettingsPage> {
   bool normalRoundup = true;
   bool adaptiveRoundup = false;
-  int multiplierValue = 1;
+  int multiplierValue = 2;
 
   @override
   Widget build(BuildContext context) {

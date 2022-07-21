@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/stock_data.dart';
 import 'package:flutter/material.dart';
 
 class AssetReturnsWidget extends StatelessWidget {
@@ -97,8 +98,8 @@ class AssetReturnsWidget extends StatelessWidget {
             ),
             const TextSpan(
               text: '20% ',
-              style: TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text: 'of your roundups in ${title}',
@@ -109,22 +110,31 @@ class AssetReturnsWidget extends StatelessWidget {
           ]),
           textAlign: TextAlign.center,
         ),
-        Expanded(child: Container(),),
+        Expanded(
+          child: Container(),
+        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
-              onPressed: null,
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return StockDataScreen();
+                }));
+              },
               child: Text('Invest More',
                   style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w100)),
+                      color: Colors.black, fontWeight: FontWeight.w100)),
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 255, 187, 0,)),
+                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(
+                    255,
+                    255,
+                    187,
+                    0,
+                  )),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          )))),
+                    borderRadius: BorderRadius.circular(18.0),
+                  )))),
         )
       ],
     );
