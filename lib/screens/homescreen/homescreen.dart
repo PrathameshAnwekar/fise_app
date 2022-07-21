@@ -183,30 +183,18 @@ class FillContent extends StatelessWidget {
         ),
 
         //
-        const FinancialAssetTile(),
+        const FinancialAssetTile(title: 'Gold',),
         const Divider(thickness: 2),
-        const FinancialAssetTile(),
+        const FinancialAssetTile(title: 'Equity',),
         const Divider(thickness: 2),
-        const FinancialAssetTile(),
-        const Divider(thickness: 2),
-        const FinancialAssetTile(),
-        const Divider(thickness: 2),
-        const FinancialAssetTile(),
-        //
+        const FinancialAssetTile(title: 'Crypto',),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-//
         Calender(),
-//
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-//
         GenralRoundups(),
-//
         const SizedBox(height: 20),
-//
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-//
         GeneralTransactions(),
-//
         const SizedBox(height: 20),
         const Divider(thickness: 2),
         Center(
@@ -235,9 +223,9 @@ class FillContent extends StatelessWidget {
 
 class FinancialAssetTile extends StatelessWidget {
   const FinancialAssetTile({
-    Key? key,
+    Key? key,required this.title,
   }) : super(key: key);
-
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -245,12 +233,12 @@ class FinancialAssetTile extends StatelessWidget {
       child: ListTile(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const FinancialAssetPage(
-              title: 'gold',
+            return  FinancialAssetPage(
+              title: title,
             );
           }));
         },
-        title: const Text('Crypto'),
+        title:  Text(title),
         subtitle: const Text('Invested 700.29'),
         leading: const Icon(
           Icons.monetization_on_outlined,

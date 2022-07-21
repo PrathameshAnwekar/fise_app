@@ -65,7 +65,7 @@ class AssetReturnsWidget extends StatelessWidget {
                   child: AutoSizeText.rich(
                     TextSpan(children: [
                       TextSpan(
-                        text: 'Total Value\n\n',
+                        text: 'Current Value\n\n',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,

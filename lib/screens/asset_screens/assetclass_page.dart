@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/app_theme.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/asset_screens/asset_returns_widget.dart';
+import 'package:fise_app/screens/asset_screens/equity/basket_search.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _FinancialAssetPageState extends State<FinancialAssetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         title: AutoSizeText(
@@ -36,7 +38,7 @@ class _FinancialAssetPageState extends State<FinancialAssetPage> {
           decoration: BoxDecoration(
             color: AppThemeData.lightColorScheme.primary,
           ),
-          child: AssetReturnsWidget(title: 'gold'),
+          child: AssetReturnsWidget(title: widget.title),
         ),
         Expanded(
             child: Container(
@@ -49,6 +51,19 @@ class _FinancialAssetPageState extends State<FinancialAssetPage> {
                   child: GeneralTransactions()),
             ))
       ]),
+      floatingActionButton: widget.title == 'Equity'
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BasketSearchScreen(),
+                  ),
+                );
+              },
+              child: Icon(Icons.add),
+            )
+          : null,
     );
   }
 }
