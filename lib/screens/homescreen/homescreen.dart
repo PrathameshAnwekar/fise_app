@@ -36,9 +36,9 @@ class Homescreen extends StatelessWidget {
           SliverPersistentHeader(
             pinned: true,
             delegate: SliverCustomHeaderDelegate(
-              title: 'Akshat',
+              title: "",
               collapsedHeight: 50,
-              expandedHeight: 310,
+              expandedHeight: SizeConfig.screenHeight * 0.35,
               paddingTop: MediaQuery.of(context).padding.top,
             ),
           ),
@@ -113,7 +113,13 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        const Text("hey  ", style: TextStyle(fontSize: 25)),
+                        const Text.rich(TextSpan(children: [
+                          TextSpan(text: "hey", style: TextStyle(fontSize: 25)),
+                          TextSpan(
+                              text: " Akshat",
+                              style: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.bold))
+                        ])),
                         Text(
                           title,
                           style: const TextStyle(
@@ -160,7 +166,7 @@ class FillContent extends StatelessWidget {
         Container(
           height: 20,
           width: MediaQuery.of(context).size.width,
-          color: AppThemeData.lightColorScheme.primary,
+          color: Colors.transparent,
           child: Container(
             height: 20,
             width: MediaQuery.of(context).size.width,
@@ -178,30 +184,18 @@ class FillContent extends StatelessWidget {
         ),
 
         //
-        const FinancialAssetTile(),
+        const FinancialAssetTile(title: 'Gold',),
         const Divider(thickness: 2),
-        const FinancialAssetTile(),
+        const FinancialAssetTile(title: 'Equity',),
         const Divider(thickness: 2),
-        const FinancialAssetTile(),
-        const Divider(thickness: 2),
-        const FinancialAssetTile(),
-        const Divider(thickness: 2),
-        const FinancialAssetTile(),
-        //
+        const FinancialAssetTile(title: 'Crypto',),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-//
         Calender(),
-//
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-//
         GenralRoundups(),
-//
         const SizedBox(height: 20),
-//
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-//
         GeneralTransactions(),
-//
         const SizedBox(height: 20),
         const Divider(thickness: 2),
         Center(
@@ -230,9 +224,9 @@ class FillContent extends StatelessWidget {
 
 class FinancialAssetTile extends StatelessWidget {
   const FinancialAssetTile({
-    Key? key,
+    Key? key,required this.title,
   }) : super(key: key);
-
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -240,12 +234,18 @@ class FinancialAssetTile extends StatelessWidget {
       child: ListTile(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+<<<<<<< HEAD
             // return const FinancialAssetPage(
             //   title: 'gold',
             return Equitypage();
+=======
+            return  FinancialAssetPage(
+              title: title,
+            );
+>>>>>>> 5b5731989a3f7fefee667cf42508021b12126ae9
           }));
         },
-        title: const Text('Crypto'),
+        title:  Text(title),
         subtitle: const Text('Invested 700.29'),
         leading: const Icon(
           Icons.monetization_on_outlined,

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/stock_data.dart';
+import 'package:fise_app/screens/asset_screens/gold/investmore_gold.dart';
 import 'package:flutter/material.dart';
 
 class AssetReturnsWidget extends StatelessWidget {
@@ -65,7 +66,7 @@ class AssetReturnsWidget extends StatelessWidget {
                   child: AutoSizeText.rich(
                     TextSpan(children: [
                       TextSpan(
-                        text: 'Total Value\n\n',
+                        text: 'Current Value\n\n',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -117,9 +118,8 @@ class AssetReturnsWidget extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return StockDataScreen();
-                }));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => InvestMoreGold()));
               },
               child: Text('Invest More',
                   style: const TextStyle(
