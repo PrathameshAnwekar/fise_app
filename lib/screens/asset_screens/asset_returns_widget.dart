@@ -7,9 +7,11 @@ class AssetReturnsWidget extends StatelessWidget {
   const AssetReturnsWidget({
     Key? key,
     required this.title,
+    required this.assetImage,
   }) : super(key: key);
 
   final String title;
+  final String assetImage;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,7 @@ class AssetReturnsWidget extends StatelessWidget {
         Container(
           margin: const EdgeInsets.all(10),
           width: SizeConfig.screenWidth * 0.20,
-          child: Image.asset(
-            'assets/images/financialAssets/gold.png',
-          ),
+          child: Image.asset(assetImage),
         ),
         SizedBox(
           height: SizeConfig.screenHeight * 0.1,
@@ -125,12 +125,8 @@ class AssetReturnsWidget extends StatelessWidget {
                   style: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.w100)),
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(
-                    255,
-                    255,
-                    187,
-                    0,
-                  )),
+                  backgroundColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 255, 187, 0)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),

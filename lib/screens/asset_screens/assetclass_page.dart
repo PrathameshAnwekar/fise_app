@@ -27,17 +27,21 @@ class _FinancialAssetPageState extends State<FinancialAssetPage> {
         ),
         backgroundColor: AppThemeData.lightColorScheme.primary,
       ),
-      body: Stack(children: [
-        Container(
-          width: SizeConfig.screenWidth,
-          height: SizeConfig.screenHeight * 0.4,
-          decoration: BoxDecoration(
-            color: AppThemeData.lightColorScheme.primary,
+      body: Stack(
+        children: [
+          Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.4,
+            decoration: BoxDecoration(
+              color: AppThemeData.lightColorScheme.primary,
+            ),
+            child: const AssetReturnsWidget(
+              title: 'gold',
+              assetImage: 'assets/images/financialAssets/gold.png',
+            ),
           ),
-          child: AssetReturnsWidget(title: 'gold'),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
-

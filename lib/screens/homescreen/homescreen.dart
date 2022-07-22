@@ -6,6 +6,7 @@ import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../asset_screens/equity_page.dart';
 import '../settings/transactions.dart';
 import 'general_returns_widget.dart';
 import 'general_status_widget.dart';
@@ -239,9 +240,9 @@ class FinancialAssetTile extends StatelessWidget {
       child: ListTile(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const FinancialAssetPage(
-              title: 'gold',
-            );
+            // return const FinancialAssetPage(
+            //   title: 'gold',
+            return Equitypage();
           }));
         },
         title: const Text('Crypto'),
