@@ -4,8 +4,7 @@ import 'package:fise_app/screens/homescreen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import '../stock_data.dart';
-import 'asset_returns_widget.dart';
+import '../../stock_data.dart';
 
 class Equitypage extends StatelessWidget {
   static const routeName = 'Equitypage';
@@ -100,10 +99,7 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                         IconButton(
                           onPressed: () {
                             //
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: ((context) {
-                              return HomeScreen();
-                            })));
+                            Navigator.pop(context);
                           },
                           icon: const FaIcon(
                             Icons.arrow_back_ios,

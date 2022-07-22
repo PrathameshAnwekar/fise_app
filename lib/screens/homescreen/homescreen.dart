@@ -1,12 +1,13 @@
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/asset_screens/assetclass_page.dart';
+import 'package:fise_app/screens/asset_screens/gold/investmore_gold.dart';
 import 'package:fise_app/screens/homescreen/calender.dart';
 import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../asset_screens/equity_page.dart';
+import '../asset_screens/equity/equity_page.dart';
 import '../settings/transactions.dart';
 import 'general_returns_widget.dart';
 import 'general_status_widget.dart';
@@ -38,7 +39,7 @@ class Homescreen extends StatelessWidget {
             delegate: SliverCustomHeaderDelegate(
               title: "",
               collapsedHeight: 50,
-              expandedHeight: SizeConfig.screenHeight * 0.35,
+              expandedHeight: SizeConfig.screenHeight * 0.38,
               paddingTop: MediaQuery.of(context).padding.top,
             ),
           ),
@@ -166,7 +167,7 @@ class FillContent extends StatelessWidget {
         Container(
           height: 20,
           width: MediaQuery.of(context).size.width,
-          color: Colors.transparent,
+          color: AppThemeData.lightColorScheme.primary,
           child: Container(
             height: 20,
             width: MediaQuery.of(context).size.width,
@@ -184,11 +185,28 @@ class FillContent extends StatelessWidget {
         ),
 
         //
-        const FinancialAssetTile(title: 'Gold',),
+        FinancialAssetTile(
+          title: 'Gold',
+          routeLink: () {
+            Navigator.push(context, MaterialPageRoute(builder: ((context) {
+              return FinancialAssetPage(title: "Gold");
+            })));
+          },
+        ),
         const Divider(thickness: 2),
-        const FinancialAssetTile(title: 'Equity',),
+        FinancialAssetTile(
+          title: 'Equity',
+          routeLink: () {
+            Navigator.push(context, MaterialPageRoute(builder: ((context) {
+              return Equitypage();
+            })));
+          },
+        ),
         const Divider(thickness: 2),
-        const FinancialAssetTile(title: 'Crypto',),
+        FinancialAssetTile(
+          title: 'Crypto',
+          routeLink: () {},
+        ),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         Calender(),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
@@ -224,28 +242,20 @@ class FillContent extends StatelessWidget {
 
 class FinancialAssetTile extends StatelessWidget {
   const FinancialAssetTile({
-    Key? key,required this.title,
+    Key? key,
+    required this.title,
+    required this.routeLink,
   }) : super(key: key);
   final String title;
+  final VoidCallback routeLink;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
       child: ListTile(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-<<<<<<< HEAD
-            // return const FinancialAssetPage(
-            //   title: 'gold',
-            return Equitypage();
-=======
-            return  FinancialAssetPage(
-              title: title,
-            );
->>>>>>> 5b5731989a3f7fefee667cf42508021b12126ae9
-          }));
-        },
-        title:  Text(title),
+        onTap: routeLink,
+        title: Text(title),
         subtitle: const Text('Invested 700.29'),
         leading: const Icon(
           Icons.monetization_on_outlined,
