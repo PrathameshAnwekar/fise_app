@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/stock_data.dart';
 import 'package:fise_app/screens/asset_screens/gold/investmore_gold.dart';
 import 'package:flutter/material.dart';
 
