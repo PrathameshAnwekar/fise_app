@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 var stockList;
+var basketMap;
 
 class BasketSearchScreen extends ConsumerStatefulWidget {
   BasketSearchScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class BasketSearchScreen extends ConsumerStatefulWidget {
 class _BasketSearchScreenState extends ConsumerState<BasketSearchScreen> {
   @override
   Widget build(BuildContext context) {
-    var basketMap = ref.read(basketStocksProvider.state).state;
+    basketMap = ref.read(basketStocksProvider.state).state;
     return Scaffold(
       appBar: AppBar(title: Text('basket')),
       body: Center(
@@ -88,8 +89,8 @@ class _BasketSearchScreenState extends ConsumerState<BasketSearchScreen> {
                     color: AppThemeData.lightColorScheme.primary,
                   ),
                   onPressed: () {
-                    basketMap.update(
-                        stockDataList[index], (int value) => value + 1,
+                    basketMap.update(stockDataList[index].symbol,
+                        (int value) => value + 1,
                         ifAbsent: () => 1);
                     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
                     ScaffoldMessenger.of(context)
@@ -122,12 +123,8 @@ class _BasketSearchScreenState extends ConsumerState<BasketSearchScreen> {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-  // Demo list to show querying
   List searchTerms = stockList;
-  // List searchTerms = stockList.map((e) => e.companyName.toString()).toList();
 
-  // first overwrite to
-  // clear the search text
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -181,23 +178,6 @@ class CustomSearchDelegate extends SearchDelegate {
         matchQuery.add(stock);
       }
     }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return Card(
-          child: ListTile(
-            trailing: IconButton(
-                icon: Icon(
-                  Icons.add_circle_outline_sharp,
-                  color: AppThemeData.lightColorScheme.primary,
-                ),
-                onPressed: () {}),
-            title: Text(result.symbol),
-            subtitle: Text(result.companyName),
-          ),
-        );
-      },
-    );
+    return stockList(matchQuery, basketMap);
   }
 }

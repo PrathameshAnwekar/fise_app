@@ -10,6 +10,9 @@ import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:fise_app/util/custom_routes.dart';
 
+
+
+
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await FlutterDisplayMode.setHighRefreshRate();

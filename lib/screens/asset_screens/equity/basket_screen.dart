@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,12 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
   int sum = 0;
   @override
   Widget build(BuildContext context) {
+    var user = ref.read(currentUserDataProvider.state).state;
     var basketMap = ref.read(basketStocksProvider.state).state;
     var keys = basketMap.keys.toList();
     basketMap.forEach(
       (key, value) {
-        sum += value;
+        sum += int.parse(value);
       },
     );
     print(sum);
@@ -54,7 +56,7 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
                 itemBuilder: ((context, index) {
                   return ListTile(
                     title: AutoSizeText(
-                      keys[index].companyName,
+                      keys[index],
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -90,7 +92,16 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
         height: 50,
         width: SizeConfig.screenWidth * 0.8,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Map<String, int> modifiedMap = {};
+            basketMap.forEach((key, value) {
+              modifiedMap[key] = int.parse(value);
+            });
+            FirebaseFirestore.instance
+                .collection('baskets')
+                .doc(user!.uid.toString())
+                .set( modifiedMap);
+          },
           child: Text(
             'Save',
             style: TextStyle(color: Colors.white),
@@ -100,7 +111,3 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
     );
   }
 }
-
-
-
-  

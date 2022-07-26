@@ -25,6 +25,12 @@ class StockDataModel {
       price: json['price'],
     );
   }
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'symbol': symbol,
+        'company': companyName,
+        'price': price,
+      };
 }
 
 List<StockDataModel> decodeStockData(String responseBody) {
@@ -43,4 +49,6 @@ Future<List<StockDataModel>> fetchStockData() async {
   } else {
     throw Exception('Unable to fetch data from the REST API');
   }
+
+  
 }

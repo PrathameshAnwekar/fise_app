@@ -11,7 +11,7 @@ import '../screens/homescreen/homescreen.dart';
 
 final currentUserDataProvider = StateProvider((ref) => userData);
 UserData? userData;
-final basketStocksProvider = StateProvider((ref) => <StockDataModel, int>{});
+final basketStocksProvider = StateProvider((ref) => <String, dynamic>{});
 
 class InitializerWidget extends ConsumerStatefulWidget {
   const InitializerWidget({Key? key}) : super(key: key);
@@ -51,6 +51,11 @@ class _InitializerWidgetState extends ConsumerState<InitializerWidget> {
 
         ref.read(currentUserDataProvider.state).state =
             UserData.fromDocument(value);
+        FirebaseFirestore.instance.collection('baskets').doc(user.uid).get().then((value) {
+          if (value.exists) {
+            ref.read(basketStocksProvider.state).state = value.data()!;
+          }
+        });
 
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           await Navigator.pushReplacement(

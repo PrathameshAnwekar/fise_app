@@ -50,6 +50,7 @@ dependencies:
   percent_indicator: ^4.0.1
   yahoofin: ^0.0.8
   http: ^0.13.4
+  cashfree_pg: ^2.0.10+30
 
 dev_dependencies:
   flutter_test:
