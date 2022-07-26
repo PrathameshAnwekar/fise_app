@@ -22,10 +22,9 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
     var keys = basketMap.keys.toList();
     basketMap.forEach(
       (key, value) {
-        sum += int.parse(value);
+        sum += int.parse(value.toString());
       },
     );
-    print(sum);
     return Scaffold(
       appBar: AppBar(title: Text('basket')),
       body: Column(
@@ -53,7 +52,7 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
           ),
           Expanded(
             child: ListView.builder(
-                itemCount: basketMap.length,
+                itemCount: keys.length,
                 itemBuilder: ((context, index) {
                   return ListTile(
                     title: AutoSizeText(
@@ -77,7 +76,9 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
                           ),
                         ),
                         AutoSizeText(
-                          (basketMap[keys[index]]! / sum * 100)
+                          (int.parse(basketMap[keys[index]].toString()) /
+                                      sum *
+                                      100)
                                   .toStringAsFixed(0) +
                               '%',
                         ),
@@ -94,14 +95,18 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
         width: SizeConfig.screenWidth * 0.8,
         child: ElevatedButton(
           onPressed: () {
-            Map<String, int> modifiedMap = {};
+            Map<String, dynamic> modifiedMap = {};
             basketMap.forEach((key, value) {
-              modifiedMap[key] = int.parse(value);
+              modifiedMap[key] = int.parse(value.toString());
             });
             FirebaseFirestore.instance
                 .collection('baskets')
                 .doc(user!.uid.toString())
-                .set( modifiedMap);
+                .set(modifiedMap)
+                .then((value) =>
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Basket Saved!'),
+                    )));
           },
           child: Text(
             'Save',

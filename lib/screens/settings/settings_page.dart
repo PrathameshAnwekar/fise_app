@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/payments/cashfree_pg.dart';
-import 'package:fise_app/screens/authentication/gmail_auth.dart';
-import 'package:fise_app/screens/dummy_yfin.dart';
 import 'package:fise_app/screens/settings/app_settings_page.dart';
 import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:fise_app/screens/settings/user_info/personal_info.dart';
