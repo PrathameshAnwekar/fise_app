@@ -35,22 +35,18 @@ class _CashfreePageState extends State<CashfreePage> {
 
   String orderId = DateTime.now().microsecondsSinceEpoch.toString();
   String stage = "PROD";
-  String orderAmount = "";
-  String customerName = "";
-  String orderNote = "";
+  String orderAmount = "1";
+  String customerName = "Customer Name";
+  String orderNote = "Order_Note";
   String orderCurrency = "INR";
   String appId = appID_prod;
-  String customerPhone = "";
-  String customerEmail = "";
-  String notifyUrl = "https://api.gocashfree.com/notify";
+  String customerPhone = 7888209001.toString();
+  String customerEmail = "sample@gmail.com";
+  String notifyUrl = "https://test.gocashfree.com/notify";
 
   @override
   void initState() {
-    orderAmount = widget.orderAmount;
-    customerName = widget.customerName;
-    customerEmail = widget.customerEmail;
-    customerPhone = widget.customerPhone;
-    orderNote = widget.orderNote;
+    // TODO: implement initState
     super.initState();
   }
 
@@ -81,31 +77,19 @@ class _CashfreePageState extends State<CashfreePage> {
                 onPressed: () => seamlessUPIPayment(),
               ),
             ),
-            Center(
-              child: RaisedButton(
-                child: Text('UPI INTENT'),
-                onPressed: () => makeUpiPayment(),
-              ),
-            ),
-            Center(
-              child: RaisedButton(
-                child: Text('GET INSTALLED UPI APPS'),
-                onPressed: () {
-                  getUPIApps();
-                },
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  void getUPIApps() {
+  void getUPIApps() async {
     // CashfreePGSDK.getUPIApps().then((value) => {
-    //       if (value != null && value.length > 0) {_selectedApp = value}
+    //       if (value != null && value.length > 0) {_selectedApp = value[0]}
     //     });
-    print( CashfreePGSDK.getUPIApps().toString());
+
+    var x = await CashfreePGSDK.getUPIApps();
+    print(x.toString());
   }
 
   // WEB Intent

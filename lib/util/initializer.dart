@@ -1,16 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/models/user_data.dart';
-import 'package:fise_app/screens/asset_screens/equity/stock_data.dart';
 import 'package:flutter/material.dart';
-
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/constants.dart';
 import '../screens/homescreen/homescreen.dart';
 
-final currentUserDataProvider = StateProvider((ref) => userData);
-UserData? userData;
+
 final basketStocksProvider = StateProvider((ref) => <String, dynamic>{});
 
 class InitializerWidget extends ConsumerStatefulWidget {
