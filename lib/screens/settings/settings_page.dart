@@ -172,7 +172,7 @@ class SettingTiles extends StatelessWidget {
           Container(
             height: 20,
             width: MediaQuery.of(context).size.width,
-            color: const Color.fromARGB(255, 107, 103, 103),
+            color: Color.fromARGB(255, 231, 229, 229),
             child: Container(
               height: 20,
               width: MediaQuery.of(context).size.width,
@@ -188,6 +188,7 @@ class SettingTiles extends StatelessWidget {
                   color: Colors.black.withOpacity(0.5)),
             ),
           ),
+          const SizedBox(height: 10),
           SettingTile(
             title: 'Personal Info',
             tileIcon: 'assets/images/setting_icons/personal.png',
