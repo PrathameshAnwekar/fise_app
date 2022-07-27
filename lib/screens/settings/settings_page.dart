@@ -226,7 +226,7 @@ class SettingTiles extends StatelessWidget {
             tileIcon: 'assets/images/setting_icons/payment.png',
             routeLink: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return CashfreePage();
+              return CashfreePage(orderAmount: 1,orderNote: 'trial',);
             }));
             
             },

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:cashfree_pg/cashfree_pg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fise_app/models/user_data.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 var appID = '60329d41e4c7d454f4c79742a92306';
@@ -11,37 +13,29 @@ var secretKey = '22d4e69dd0bfb5b6c02fc81235815b381be23d13';
 var appID_prod = '106001614693e59e7ec07bca13100601';
 var secretKey_prod = 'dd71189f4ed9712a9efe664fc1e394fc9190b369';
 
-class CashfreePage extends StatefulWidget {
+class CashfreePage extends ConsumerStatefulWidget {
   final orderAmount;
-  final customerName;
-  final customerEmail;
-  final customerPhone;
   final orderNote;
 
   const CashfreePage(
-      {Key? key,
-      this.orderAmount,
-      this.customerName,
-      this.customerEmail,
-      this.customerPhone,
-      this.orderNote})
+      {Key? key, required this.orderAmount, required this.orderNote})
       : super(key: key);
   @override
   _CashfreePageState createState() => _CashfreePageState();
 }
 
-class _CashfreePageState extends State<CashfreePage> {
+class _CashfreePageState extends ConsumerState<CashfreePage> {
   var _selectedApp;
 
-  String orderId = DateTime.now().microsecondsSinceEpoch.toString();
+  var currentUser;
   String stage = "PROD";
   String orderAmount = "1";
-  String customerName = "Customer Name";
+  String customerName = "";
   String orderNote = "Order_Note";
   String orderCurrency = "INR";
   String appId = appID_prod;
-  String customerPhone = 7888209001.toString();
-  String customerEmail = "sample@gmail.com";
+  String customerPhone = "";
+  String customerEmail = "";
   String notifyUrl = "https://test.gocashfree.com/notify";
 
   @override
@@ -52,6 +46,10 @@ class _CashfreePageState extends State<CashfreePage> {
 
   @override
   Widget build(BuildContext context) {
+    currentUser = ref.watch(currentUserDataProvider.state).state;
+    customerEmail = currentUser.email;
+    customerPhone = currentUser.phoneNumber;
+    customerName = currentUser.username;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -84,9 +82,9 @@ class _CashfreePageState extends State<CashfreePage> {
   }
 
   void getUPIApps() async {
-    // CashfreePGSDK.getUPIApps().then((value) => {
-    //       if (value != null && value.length > 0) {_selectedApp = value[0]}
-    //     });
+    CashfreePGSDK.getUPIApps().then((value) => {
+          if (value != null && value.length > 0) {_selectedApp = value[0]}
+        });
 
     var x = await CashfreePGSDK.getUPIApps();
     print(x.toString());
@@ -94,7 +92,7 @@ class _CashfreePageState extends State<CashfreePage> {
 
   // WEB Intent
   makePayment() async {
-    //Replace with actual values
+    String orderId = DateTime.now().microsecondsSinceEpoch.toString();
     String tokenData = await makeBackendPayment(orderId, orderAmount);
 
     Map<String, dynamic> inputParams = {
@@ -110,49 +108,23 @@ class _CashfreePageState extends State<CashfreePage> {
       "tokenData": tokenData,
       "notifyUrl": notifyUrl
     };
-
-    CashfreePGSDK.doPayment(inputParams)
-        .then((value) => value?.forEach((key, value) {
+    Map<String, String> result = {};
+    await CashfreePGSDK.doPayment(inputParams)
+        .then((value) => value?.forEach((key, value) async {
               print("$key : $value");
-              //Do something with the result
-            }));
-  }
-
-  // SEAMLESS - CARD
-  Future<void> seamlessCardPayment() async {
-    String tokenData = await makeBackendPayment(orderId, orderAmount);
-
-    Map<String, dynamic> inputParams = {
-      "orderId": orderId,
-      "orderAmount": orderAmount,
-      "customerName": customerName,
-      "orderNote": orderNote,
-      "orderCurrency": orderCurrency,
-      "appId": appId,
-      "customerPhone": customerPhone,
-      "customerEmail": customerEmail,
-      "stage": stage,
-      "tokenData": tokenData,
-      "notifyUrl": notifyUrl,
-
-      // EXTRA THINGS THAT NEEDS TO BE ADDED
-      "paymentOption": "card",
-      "card_number": "ENTER CARD NUMBER",
-      "card_expiryMonth": "MONTH IN MM format",
-      "card_expiryYear": "EXPIRY IN YYYY format",
-      "card_holder": "Card Holder Name",
-      "card_cvv": "Card CVV"
-    };
-
-    CashfreePGSDK.doPayment(inputParams)
-        .then((value) => value?.forEach((key, value) {
-              print("$key : $value");
-              //Do something with the result
+              result[key.toString()] = value.toString();
+              result[orderNote.toString()] = orderNote.toString();
+              await FirebaseFirestore.instance
+                  .collection('transactions/payments/${currentUser.uid}')
+                  .doc(orderId)
+                  .set(result, SetOptions(merge: true));
             }));
   }
 
   // SEAMLESS - UPI
   Future<void> seamlessUPIPayment() async {
+    String orderId = DateTime.now().microsecondsSinceEpoch.toString();
+
     String tokenData = await makeBackendPayment(orderId, orderAmount);
 
     Map<String, dynamic> inputParams = {
@@ -173,70 +145,22 @@ class _CashfreePageState extends State<CashfreePage> {
       "upi_vpa": "7888209001@paytm"
     };
 
-    CashfreePGSDK.doPayment(inputParams)
-        .then((value) => value?.forEach((key, value) {
+    Map<String, String> result = {};
+    await CashfreePGSDK.doPayment(inputParams)
+        .then((value) => value?.forEach((key, value) async {
               print("$key : $value");
-              //Do something with the result
+              result[key.toString()] = value.toString();
+              result[orderNote.toString()] = orderNote.toString();
+
+              await FirebaseFirestore.instance
+                  .collection('transactions/payments/${currentUser.uid}')
+                  .doc(orderId)
+                  .set(result, SetOptions(merge: true));
             }));
   }
 
-  // UPI Intent
-  Future<void> makeUpiPayment() async {
-    //Replace with actual values
-    String tokenData = await makeBackendPayment(orderId, orderAmount);
-
-    Map<String, dynamic> inputParams = {
-      "orderId": orderId,
-      "orderAmount": orderAmount,
-      "customerName": customerName,
-      "orderNote": orderNote,
-      "orderCurrency": orderCurrency,
-      "appId": appId,
-      "customerPhone": customerPhone,
-      "customerEmail": customerEmail,
-      "stage": stage,
-      "tokenData": tokenData,
-      "notifyUrl": notifyUrl
-    };
-
-    CashfreePGSDK.doUPIPayment(inputParams)
-        .then((value) => value?.forEach((key, value) {
-              print("$key : $value");
-              //Do something with the result
-            }));
-  }
-
-  // SEAMLESS UPI Intent
-  Future<void> seamlessUPIIntent() async {
-    //Replace with actual values
-    String tokenData = await makeBackendPayment(orderId, orderAmount);
-
-    Map<String, dynamic> inputParams = {
-      "orderId": orderId,
-      "orderAmount": orderAmount,
-      "customerName": customerName,
-      "orderNote": orderNote,
-      "orderCurrency": orderCurrency,
-      "appId": appId,
-      "customerPhone": customerPhone,
-      "customerEmail": customerEmail,
-      "stage": stage,
-      "tokenData": tokenData,
-      "notifyUrl": notifyUrl,
-
-      // For seamless UPI Intent
-      "appName": _selectedApp
-    };
-
-    CashfreePGSDK.doUPIPayment(inputParams)
-        .then((value) => value?.forEach((key, value) {
-              print("$key : $value");
-              //Do something with the result
-            }));
-  }
-
+  ///IMPORTANT TO IMPLEMENT IN SOME BACKEND LATER
   Future<String> makeBackendPayment(
-    ///IMPORTANT TO IMPLEMENT IN SOME BACKEND LATER
     orderId,
     orderAmount,
   ) async {
