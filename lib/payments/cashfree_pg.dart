@@ -113,7 +113,7 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
         .then((value) => value?.forEach((key, value) async {
               print("$key : $value");
               result[key.toString()] = value.toString();
-              result[orderNote.toString()] = orderNote.toString();
+              result['orderNote'] = orderNote.toString();
               await FirebaseFirestore.instance
                   .collection('transactions/payments/${currentUser.uid}')
                   .doc(orderId)
@@ -150,7 +150,7 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
         .then((value) => value?.forEach((key, value) async {
               print("$key : $value");
               result[key.toString()] = value.toString();
-              result[orderNote.toString()] = orderNote.toString();
+              result['orderNote'] = orderNote.toString();
 
               await FirebaseFirestore.instance
                   .collection('transactions/payments/${currentUser.uid}')
