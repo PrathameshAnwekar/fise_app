@@ -50,6 +50,8 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
     customerEmail = currentUser.email;
     customerPhone = currentUser.phoneNumber;
     customerName = currentUser.username;
+    orderAmount = widget.orderAmount;
+    orderNote = widget.orderNote;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(

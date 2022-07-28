@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/payments/cashfree_pg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -13,6 +14,7 @@ class InvestMoreGold extends StatefulWidget {
 }
 
 class _InvestMoreGoldState extends State<InvestMoreGold> {
+  final focusNode = FocusNode();
 
   double _doubleError(String value) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -24,7 +26,7 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
 
   TextEditingController _controller = TextEditingController();
   bool _value = false;
-  int val = -1;
+  int val = 1;
   var suffixText = "0.00 gm";
   @override
   Widget build(BuildContext context) {
@@ -126,25 +128,32 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
           margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.25),
           padding: EdgeInsets.all(20),
           child: TextFormField(
-            // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            focusNode: focusNode,
             controller: _controller,
-            onChanged: (val) {
+            onChanged: (value) {
               setState(() {
-                suffixText = '=' +
-                    (_controller.text == ""
-                            ? 0
-                            : double.parse(
-                                  _controller.text,_doubleError
-                                ) /
-                                45000)
-                        .toStringAsFixed(4) +
-                    ' gm';
+                if (val == 1) {
+                  suffixText = (_controller.text == ""
+                              ? 0
+                              : double.parse(_controller.text, _doubleError) /
+                                  45000)
+                          .toStringAsFixed(4) +
+                      ' gm';
+                } else {
+                  suffixText = (_controller.text == ""
+                              ? 0
+                              : double.parse(_controller.text, _doubleError) *
+                                  45000)
+                          .toStringAsFixed(1) +
+                      ' rupees';
+                }
               });
             },
             decoration: InputDecoration(
-              hintText: '\$ 0.00',
+              hintText: val == 1 ? '\$ 0.00' : '0.00 gm',
               labelStyle: TextStyle(color: Colors.black),
-              suffix: Text(suffixText),
+              suffix:
+                  StatefulBuilder(builder: (context, _) => Text(suffixText)),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -159,8 +168,11 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
               left: SizeConfig.screenWidth * 0.40),
           child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => InvestMoreGold()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CashfreePage(
+                          orderAmount: _controller.text,
+                          orderNote: 'gold',
+                        )));
               },
               child: Text('Buy Now',
                   style: const TextStyle(

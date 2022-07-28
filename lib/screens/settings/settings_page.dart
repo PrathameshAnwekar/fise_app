@@ -4,6 +4,7 @@ import 'package:fise_app/payments/cashfree_pg.dart';
 import 'package:fise_app/screens/settings/app_settings_page.dart';
 import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:fise_app/screens/settings/user_info/personal_info.dart';
+import 'package:fise_app/sms_retriever/sms.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -226,7 +227,7 @@ class SettingTiles extends StatelessWidget {
             tileIcon: 'assets/images/setting_icons/payment.png',
             routeLink: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return CashfreePage(orderAmount: 1,orderNote: 'trial',);
+              return SMSTestPage();
             }));
             
             },
