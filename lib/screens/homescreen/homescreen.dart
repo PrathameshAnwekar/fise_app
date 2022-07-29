@@ -1,22 +1,34 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/models/user_data.dart';
 import 'package:fise_app/screens/asset_screens/assetclass_page.dart';
 import 'package:fise_app/screens/homescreen/calender.dart';
 import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../settings/transactions.dart';
 import 'general_returns_widget.dart';
 import 'general_status_widget.dart';
 
-class Homescreen extends StatelessWidget {
+var username;
+
+
+class Homescreen extends ConsumerStatefulWidget {
   static const routeName = 'homepage';
 
   const Homescreen({Key? key}) : super(key: key);
 
   @override
+  ConsumerState<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends ConsumerState<Homescreen> {
+  @override
   Widget build(BuildContext context) {
+    username =
+        ref.read(currentUserDataProvider.state).state?.username.split(' ')[0];
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -112,10 +124,11 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        const Text.rich(TextSpan(children: [
-                          TextSpan(text: "hey", style: TextStyle(fontSize: 25)),
+                        Text.rich(TextSpan(children: [
                           TextSpan(
-                              text: " Akshat",
+                              text: "hey ", style: TextStyle(fontSize: 25)),
+                          TextSpan(
+                              text: username.toString(),
                               style: TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.bold))
                         ])),
@@ -183,11 +196,17 @@ class FillContent extends StatelessWidget {
         ),
 
         //
-        const FinancialAssetTile(title: 'Gold',),
+        const FinancialAssetTile(
+          title: 'Gold',
+        ),
         const Divider(thickness: 2),
-        const FinancialAssetTile(title: 'Equity',),
+        const FinancialAssetTile(
+          title: 'Equity',
+        ),
         const Divider(thickness: 2),
-        const FinancialAssetTile(title: 'Crypto',),
+        const FinancialAssetTile(
+          title: 'Crypto',
+        ),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         Calender(),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
@@ -223,7 +242,8 @@ class FillContent extends StatelessWidget {
 
 class FinancialAssetTile extends StatelessWidget {
   const FinancialAssetTile({
-    Key? key,required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
   final String title;
   @override
@@ -233,12 +253,12 @@ class FinancialAssetTile extends StatelessWidget {
       child: ListTile(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return  FinancialAssetPage(
+            return FinancialAssetPage(
               title: title,
             );
           }));
         },
-        title:  Text(title),
+        title: Text(title),
         subtitle: const Text('Invested 700.29'),
         leading: const Icon(
           Icons.monetization_on_outlined,

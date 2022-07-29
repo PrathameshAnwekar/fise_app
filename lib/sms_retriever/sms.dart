@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-void main() {
-  runApp(const SMSTestPage());
-}
+final SmsQuery _query = SmsQuery();
+
+List<SmsMessage> _messages = [];
 
 class SMSTestPage extends StatefulWidget {
   const SMSTestPage({Key? key}) : super(key: key);
@@ -14,9 +15,6 @@ class SMSTestPage extends StatefulWidget {
 }
 
 class _SMSTestPageState extends State<SMSTestPage> {
-  final SmsQuery _query = SmsQuery();
-  List<SmsMessage> _messages = [];
-
   @override
   void initState() {
     super.initState();
@@ -46,45 +44,7 @@ class _SMSTestPageState extends State<SMSTestPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            var permission = await Permission.sms.status;
-            if (permission.isGranted) {
-              final messages = await _query.querySms(
-                  kinds: [SmsQueryKind.inbox], sort: true, count: 100);
-
-              messages.retainWhere((e) {
-                var sbi = e.sender!.contains('SBI');
-                var hdfc = e.sender!.contains('HDFC');
-                var kotak = e.sender!.contains('KOTAK');
-                var icici = e.sender!.contains('ICICI');
-                var axis = e.sender!.contains('AXIS');
-                return (sbi || hdfc || kotak || icici || axis) 
-                // &&
-                //     e.date!.isAfter(DateTime(DateTime.now().year,
-                //         DateTime.now().month, DateTime.now().day))
-                        ;
-              });
-              debugPrint('sms inbox messages: ${messages.length}');
-              messages.forEach((e) {
-                print(e.body! + DateTime.parse(e.date.toString()).toString());
-              });
-              var rslist = [];
-              messages.forEach((e) {
-                RegExp exp = RegExp(
-                    r'[0-9]*\.[0-9]+');
-
-                Iterable<Match> matches = exp.allMatches(e.body!);
-                for (final Match m in matches) {
-                  String match = m[0]!;
-                  print(match);
-                }
-              });
-
-              setState(() {
-                _messages = messages;
-              });
-            } else {
-              await Permission.sms.request();
-            }
+            await todaysRoundUp();
           },
           child: const Icon(Icons.refresh),
         ),
@@ -92,3 +52,70 @@ class _SMSTestPageState extends State<SMSTestPage> {
     );
   }
 }
+
+Future<int> todaysRoundUp() async {
+  var permission = await Permission.sms.status;
+  if (permission.isGranted) {
+    final messages = await _query
+        .querySms(kinds: [SmsQueryKind.inbox], sort: true, count: 100);
+    ////FILTER FOR GETTING SMS FROM BANKS ACCORDING TO SENDERS NAMES
+    messages.retainWhere((e) {
+      bool bank = false;
+      for (int i = 0; i < banks.length; i++) {
+        bank = bank || e.sender!.contains(banks[i]);
+      }
+      return (bank) &&
+          e.date!.isAfter(DateTime(DateTime.now().year, DateTime.now().month,
+              DateTime.now().day - 2));
+    });
+    debugPrint('sms inbox messages: ${messages.length}');
+    messages.forEach((e) {
+      print(e.body! + DateTime.parse(e.date.toString()).toString());
+    });
+    var amount = 0;
+    ////FINDING DEBIT AMOUNT IN EACH SMS
+    messages.forEach((e) {
+      RegExp exp = RegExp(r'[0-9]*\.[0-9]+');
+      Iterable<Match> matches = exp.allMatches(e.body!);
+      for (final Match m in matches) {
+        String match = m[0]!;
+        print(match);
+        ///BUG DUE TO FILTERING, FIXED USING BELOW CONDITION
+        if (double.parse(match) < 1) continue;
+        var x = 10 - (double.parse(match).toInt() % 10);
+        debugPrint('indi amount is ' + amount.toString());
+        amount += x == 0 ? 10 : x;
+      }
+    });
+    debugPrint('the amount is ' + amount.toString());
+    return amount;
+  } else {
+    await Permission.sms.request();
+    return 0;
+  }
+}
+
+List<String> banks = [
+  ' HDFC',
+  'INDUS',
+  'ICICI',
+  'SBI',
+  'PNB',
+  'YES',
+  'RBL',
+  'OBC',
+  'UCO',
+  'UNION',
+  'TNBL',
+  'TJSB',
+  'PSBANK',
+  "PAYTMB",
+  'HSBC',
+  'AMEX',
+  'ONECRD',
+  'AXIS',
+  'DENA',
+  'BOB',
+  'KOTAK',
+  'CENT'
+];
