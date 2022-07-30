@@ -50,6 +50,10 @@ dependencies:
   percent_indicator: ^4.0.1
   yahoofin: ^0.0.8
   http: ^0.13.4
+  cashfree_pg: ^2.0.10+30
+  telephony: ^0.2.0
+  flutter_sms_inbox: ^1.0.1
+  permission_handler: ^10.0.0
 
 dev_dependencies:
   flutter_test:

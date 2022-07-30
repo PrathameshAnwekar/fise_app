@@ -1,4 +1,5 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/models/user_data.dart';
 import 'package:fise_app/screens/asset_screens/assetclass_page.dart';
 import 'package:fise_app/screens/asset_screens/gold/investmore_gold.dart';
 import 'package:fise_app/screens/homescreen/calender.dart';
@@ -6,19 +7,30 @@ import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../asset_screens/equity/equity_page.dart';
 import '../settings/transactions.dart';
 import 'general_returns_widget.dart';
 import 'general_status_widget.dart';
 
-class Homescreen extends StatelessWidget {
+var username;
+
+
+class Homescreen extends ConsumerStatefulWidget {
   static const routeName = 'homepage';
 
   const Homescreen({Key? key}) : super(key: key);
 
   @override
+  ConsumerState<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends ConsumerState<Homescreen> {
+  @override
   Widget build(BuildContext context) {
+    username =
+        ref.read(currentUserDataProvider.state).state?.username.split(' ')[0];
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -35,6 +47,7 @@ class Homescreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
+            
             pinned: true,
             delegate: SliverCustomHeaderDelegate(
               title: "",
@@ -114,10 +127,11 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        const Text.rich(TextSpan(children: [
-                          TextSpan(text: "hey", style: TextStyle(fontSize: 25)),
+                        Text.rich(TextSpan(children: [
                           TextSpan(
-                              text: " Akshat",
+                              text: "hey ", style: TextStyle(fontSize: 25)),
+                          TextSpan(
+                              text: username.toString(),
                               style: TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.bold))
                         ])),

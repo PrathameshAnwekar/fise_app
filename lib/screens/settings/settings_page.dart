@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/payments/cashfree_pg.dart';
 import 'package:fise_app/screens/settings/app_settings_page.dart';
 import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:fise_app/screens/settings/user_info/personal_info.dart';
+import 'package:fise_app/sms_retriever/sms.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -103,7 +105,6 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     return Container(
       height: maxExtent,
       width: MediaQuery.of(context).size.width,
-      color: Colors.green,
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -170,6 +171,7 @@ class SettingTiles extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            
             height: 20,
             width: MediaQuery.of(context).size.width,
             color: Color.fromARGB(255, 231, 229, 229),
@@ -210,14 +212,17 @@ class SettingTiles extends StatelessWidget {
             title: 'Payment Settings',
             tileIcon: 'assets/images/setting_icons/payment.png',
             routeLink: () {
-              //              Route here
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return SMSTestPage();
+            }));
+            
             },
           ),
           SettingTile(
             title: 'Transactions',
             tileIcon: 'assets/images/setting_icons/transactions.png',
             routeLink: () {
-              //              Route here
+              //              Route hereT
               Navigator.push(context, MaterialPageRoute(builder: ((context) {
                 return Transactions_Page();
               })));

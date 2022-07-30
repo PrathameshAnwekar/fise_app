@@ -185,7 +185,9 @@ class _OTPAuthState extends State<OTPAuth> {
                                   .doc(guser!.uid)
                                   .set({
                                 'phoneNumber': widget.phoneNumber,
-                                'email': guser.email
+                                'email': guser.email,
+                                'uid':guser.uid
+                                
                               }, SetOptions(merge: true));
                               await Navigator.of(context)
                                   .pushNamedAndRemoveUntil(
@@ -265,7 +267,7 @@ class _OTPAuthState extends State<OTPAuth> {
               await FirebaseFirestore.instance
                   .collection('Profiles')
                   .doc(user!.uid)
-                  .set({'phoneNumber': widget.phoneNumber, 'email': user.email},
+                  .set({'phoneNumber': widget.phoneNumber, 'email': user.email,'uid': guser!.uid},
                       SetOptions(merge: true));
               await Navigator.of(context)
                   .pushReplacementNamed(InitializerWidget.routeName);
