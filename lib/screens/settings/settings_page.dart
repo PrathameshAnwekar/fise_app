@@ -105,7 +105,6 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     return Container(
       height: maxExtent,
       width: MediaQuery.of(context).size.width,
-      color: Colors.green,
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -187,6 +186,7 @@ class SettingTiles extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            
             height: 20,
             width: MediaQuery.of(context).size.width,
             color: const Color.fromARGB(255, 107, 103, 103),
@@ -236,7 +236,7 @@ class SettingTiles extends StatelessWidget {
             title: 'Transactions',
             tileIcon: 'assets/images/setting_icons/transactions.png',
             routeLink: () {
-              //              Route here
+              //              Route hereT
               Navigator.push(context, MaterialPageRoute(builder: ((context) {
                 return Transactions_Page();
               })));

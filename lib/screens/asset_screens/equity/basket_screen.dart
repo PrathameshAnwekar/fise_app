@@ -94,19 +94,23 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
         height: 50,
         width: SizeConfig.screenWidth * 0.8,
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             Map<String, dynamic> modifiedMap = {};
             basketMap.forEach((key, value) {
               modifiedMap[key] = int.parse(value.toString());
             });
-            FirebaseFirestore.instance
-                .collection('baskets')
-                .doc(user!.uid.toString())
-                .set(modifiedMap)
-                .then((value) =>
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Basket Saved!'),
-                    )));
+            modifiedMap.forEach((key, value) async {
+              await FirebaseFirestore.instance
+                  .collection('Profiles')
+                  .doc(user!.uid.toString().trim())
+                  .collection('basket')
+                  .doc(key)
+                  .set(
+                {'remaining': value, 'name': key},
+              );
+            });
+            await ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Basket Saved!')));
           },
           child: Text(
             'Save',
