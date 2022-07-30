@@ -122,21 +122,6 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
           ),
           Positioned(
             left: 0,
-            top: maxExtent / 2,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0x00000000), Color(0x90000000)],
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
             right: 0,
             top: 0,
             child: Container(
@@ -189,7 +174,7 @@ class SettingTiles extends StatelessWidget {
             
             height: 20,
             width: MediaQuery.of(context).size.width,
-            color: const Color.fromARGB(255, 107, 103, 103),
+            color: Color.fromARGB(255, 231, 229, 229),
             child: Container(
               height: 20,
               width: MediaQuery.of(context).size.width,
@@ -205,6 +190,7 @@ class SettingTiles extends StatelessWidget {
                   color: Colors.black.withOpacity(0.5)),
             ),
           ),
+          const SizedBox(height: 10),
           SettingTile(
             title: 'Personal Info',
             tileIcon: 'assets/images/setting_icons/personal.png',
