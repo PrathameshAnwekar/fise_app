@@ -8,8 +8,20 @@ import '../../constants/size_config.dart';
 
 var roundUpValue = 0;
 
-class GenralRoundups extends StatelessWidget {
+class GenralRoundups extends StatefulWidget {
   const GenralRoundups({Key? key}) : super(key: key);
+
+  @override
+  State<GenralRoundups> createState() => _GenralRoundupsState();
+}
+
+class _GenralRoundupsState extends State<GenralRoundups> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    todaysRoundUp();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

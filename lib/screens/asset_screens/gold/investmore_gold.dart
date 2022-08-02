@@ -171,7 +171,7 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => CashfreePage(
                           orderAmount: _controller.text,
-                          orderNote: 'gold',
+                          orderNote: 'GOLD',
                         )));
               },
               child: Text('Buy Now',
