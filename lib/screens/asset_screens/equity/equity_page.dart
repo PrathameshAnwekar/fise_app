@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/asset_screens/equity/basket_screen.dart';
+import 'package:fise_app/screens/asset_screens/equity/basket_search.dart';
 import 'package:fise_app/screens/homescreen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -366,7 +368,7 @@ class StockReturnsWidget extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return StockDataScreen();
+                      return BasketSearchScreen();
                     }));
                   },
                   child: Text('Invest More',
@@ -386,7 +388,7 @@ class StockReturnsWidget extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return StockDataScreen();
+                      return BasketScreen();
                     }));
                   },
                   child: Text('Edit Basket',

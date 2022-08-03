@@ -1,4 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
+final currentUserDataProvider = StateProvider((ref) => userData);
+UserData? userData;
 
 class UserData {
   String email;
