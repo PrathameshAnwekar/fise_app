@@ -89,8 +89,10 @@ class _BasketSearchScreenState extends ConsumerState<BasketSearchScreen> {
                     color: AppThemeData.lightColorScheme.primary,
                   ),
                   onPressed: () {
-                    basketMap.update(stockDataList[index].companyName,
+                    basketMap.update(
+                        stockDataList[index].companyName,
                         (value) => int.parse(value) + 1,
+                        (value) => int.parse(value.toString()) + 1,
                         ifAbsent: () => 1);
                     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
                     ScaffoldMessenger.of(context)
