@@ -26,7 +26,7 @@ class TransactionsTile extends StatelessWidget {
               deductedFrom,
               style: const TextStyle(fontSize: 20),
             ),
-            subtitle: Text("spent - ₹ " + spent),
+            subtitle: Text(spent),
             trailing: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,

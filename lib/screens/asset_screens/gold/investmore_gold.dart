@@ -25,6 +25,7 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
   }
 
   TextEditingController _controller = TextEditingController();
+  var live_price = 5338.5;
   bool _value = false;
   int val = 1;
   var suffixText = "0.00 gm";
@@ -67,7 +68,7 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
                   ),
                   SizedBox(height: 10),
                   AutoSizeText(
-                    '\$15,602.3' + '/gm',
+                    '₹ $live_price' + '/gm',
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
                 ],
@@ -136,21 +137,21 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
                   suffixText = (_controller.text == ""
                               ? 0
                               : double.parse(_controller.text, _doubleError) /
-                                  45000)
+                                  live_price)
                           .toStringAsFixed(4) +
                       ' gm';
                 } else {
-                  suffixText = (_controller.text == ""
+                  suffixText = '₹' +
+                      (_controller.text == ""
                               ? 0
                               : double.parse(_controller.text, _doubleError) *
                                   45000)
-                          .toStringAsFixed(1) +
-                      ' rupees';
+                          .toStringAsFixed(1);
                 }
               });
             },
             decoration: InputDecoration(
-              hintText: val == 1 ? '\$ 0.00' : '0.00 gm',
+              hintText: val == 1 ? '₹ 0.00' : '0.00 gm',
               labelStyle: TextStyle(color: Colors.black),
               suffix:
                   StatefulBuilder(builder: (context, _) => Text(suffixText)),

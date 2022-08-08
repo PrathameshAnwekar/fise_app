@@ -70,7 +70,7 @@ Future<int> todaysRoundUp() async {
     });
     debugPrint('sms inbox messages: ${messages.length}');
     messages.forEach((e) {
-      print(e.body! + DateTime.parse(e.date.toString()).toString());
+      // print(e.body! + DateTime.parse(e.date.toString()).toString());
     });
     var amount = 0;
     ////FINDING DEBIT AMOUNT IN EACH SMS
@@ -79,11 +79,11 @@ Future<int> todaysRoundUp() async {
       Iterable<Match> matches = exp.allMatches(e.body!);
       for (final Match m in matches) {
         String match = m[0]!;
-        print(match);
+        // print(match);
         ///BUG DUE TO FILTERING, FIXED USING BELOW CONDITION
         if (double.parse(match) < 1) continue;
         var x = 10 - (double.parse(match).toInt() % 10);
-        debugPrint('indi amount is ' + amount.toString());
+        // debugPrint('indi amount is ' + amount.toString());
         amount += x == 0 ? 10 : x;
       }
     });
