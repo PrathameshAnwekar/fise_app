@@ -23,7 +23,7 @@ class Equitypage extends StatelessWidget {
             delegate: SliverCustomHeaderDelegate(
               title: 'equity',
               collapsedHeight: 50,
-              expandedHeight: 440,
+              expandedHeight: SizeConfig.screenHeight * 0.52,
               paddingTop: MediaQuery.of(context).padding.top,
             ),
           ),
