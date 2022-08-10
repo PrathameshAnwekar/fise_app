@@ -2,11 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_screen.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_search.dart';
-import 'package:fise_app/screens/homescreen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import '../../stock_data.dart';
 
 class Equitypage extends StatelessWidget {
   static const routeName = 'Equitypage';

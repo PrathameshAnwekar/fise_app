@@ -16,7 +16,6 @@ import 'general_status_widget.dart';
 
 var username;
 
-
 class Homescreen extends ConsumerStatefulWidget {
   static const routeName = 'homepage';
 
@@ -47,7 +46,6 @@ class _HomescreenState extends ConsumerState<Homescreen> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
-            
             pinned: true,
             delegate: SliverCustomHeaderDelegate(
               title: "",
@@ -203,7 +201,8 @@ class FillContent extends StatelessWidget {
           title: 'Gold',
           routeLink: () {
             Navigator.push(context, MaterialPageRoute(builder: ((context) {
-              return const FinancialAssetPage(title: "Gold");
+              return const FinancialAssetPage();
+              // return const FinancialAssetPage(title: "Gold");
             })));
           },
         ),
