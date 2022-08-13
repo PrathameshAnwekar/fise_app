@@ -205,6 +205,7 @@ class FillContent extends StatelessWidget {
               // return const FinancialAssetPage(title: "Gold");
             })));
           },
+          imgRoute: 'assets/images/financialAssets/gold.png',
         ),
         const Divider(thickness: 2),
         FinancialAssetTile(
@@ -214,11 +215,13 @@ class FillContent extends StatelessWidget {
               return const Equitypage();
             })));
           },
+          imgRoute: 'assets/images/financialAssets/gold.png',
         ),
         const Divider(thickness: 2),
         FinancialAssetTile(
           title: 'Crypto',
           routeLink: () {},
+          imgRoute: 'assets/images/financialAssets/gold.png',
         ),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const Calender(),
@@ -258,8 +261,10 @@ class FinancialAssetTile extends StatelessWidget {
     Key? key,
     required this.title,
     required this.routeLink,
+    required this.imgRoute,
   }) : super(key: key);
   final String title;
+  final String imgRoute;
   final VoidCallback routeLink;
 
   @override
@@ -270,10 +275,11 @@ class FinancialAssetTile extends StatelessWidget {
         onTap: routeLink,
         title: Text(title),
         subtitle: const Text('Invested 700.29'),
-        leading: const Icon(
-          Icons.monetization_on_outlined,
-          size: 50,
-        ),
+        // leading: const Icon(
+        //   Icons.monetization_on_outlined,
+        //   size: 50,
+        // ),
+        leading: Image(image: AssetImage(imgRoute)),
         trailing: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
