@@ -17,34 +17,32 @@ class TransactionsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-      child: Column(
-        children: [
-          ListTile(
-            title: Text(
-              deductedFrom,
-              style: const TextStyle(fontSize: 20),
-            ),
-            subtitle: Text("spent - ₹ " + spent),
-            trailing: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  invested,
-                  style: AppThemeData.textTheme.titleMedium,
-                ),
-                Text(
-                  debitDate,
-                  style: AppThemeData.textTheme.labelSmall,
-                )
-              ],
-            ),
+    return Column(
+      children: [
+        ListTile(
+          visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+          title: Text(
+            deductedFrom,
+            style: const TextStyle(fontSize: 20),
           ),
-          Divider(thickness: 1),
-        ],
-      ),
+          subtitle: Text("spent - ₹ " + spent),
+          trailing: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                invested,
+                style: AppThemeData.textTheme.titleMedium,
+              ),
+              Text(
+                debitDate,
+                style: AppThemeData.textTheme.labelSmall,
+              )
+            ],
+          ),
+        ),
+        Divider(thickness: 1),
+      ],
     );
   }
 }

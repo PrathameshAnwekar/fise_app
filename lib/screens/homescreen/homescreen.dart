@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/models/user_data.dart';
 import 'package:fise_app/screens/asset_screens/assetclass_page.dart';

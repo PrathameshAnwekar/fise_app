@@ -15,6 +15,7 @@ class _Transactions_PageState extends State<Transactions_Page> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 1,
         actions: [
           IconButton(
               onPressed: null,
@@ -24,13 +25,6 @@ class _Transactions_PageState extends State<Transactions_Page> {
                 fit: BoxFit.contain,
               )),
         ],
-        bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(4.0),
-            child: Container(
-              color: Colors.black26,
-              height: 1.0,
-            )),
-        backgroundColor: Colors.white,
         title: Text(
           "transactions",
           style: AppThemeData.textTheme.headline6,
