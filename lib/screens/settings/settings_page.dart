@@ -171,7 +171,6 @@ class SettingTiles extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            
             height: 20,
             width: MediaQuery.of(context).size.width,
             color: Color.fromARGB(255, 231, 229, 229),
@@ -212,10 +211,16 @@ class SettingTiles extends StatelessWidget {
             title: 'Payment Settings',
             tileIcon: 'assets/images/setting_icons/payment.png',
             routeLink: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return SMSTestPage();
-            }));
-            
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return CashfreePage(
+                  orderAmount: 1,
+                  orderNote: 'trial',
+                );
+              }));
+
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return SMSTestPage();
+              }));
             },
           ),
           SettingTile(

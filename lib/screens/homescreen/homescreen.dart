@@ -56,7 +56,7 @@ class _HomescreenState extends ConsumerState<Homescreen> {
               paddingTop: MediaQuery.of(context).padding.top,
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: FillContent(),
           )
         ],
@@ -128,11 +128,11 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                     child: Row(
                       children: [
                         Text.rich(TextSpan(children: [
-                          TextSpan(
+                          const TextSpan(
                               text: "hey ", style: TextStyle(fontSize: 25)),
                           TextSpan(
                               text: username.toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.bold))
                         ])),
                         Text(
@@ -203,7 +203,7 @@ class FillContent extends StatelessWidget {
           title: 'Gold',
           routeLink: () {
             Navigator.push(context, MaterialPageRoute(builder: ((context) {
-              return FinancialAssetPage(title: "Gold");
+              return const FinancialAssetPage(title: "Gold");
             })));
           },
         ),
@@ -212,7 +212,7 @@ class FillContent extends StatelessWidget {
           title: 'Equity',
           routeLink: () {
             Navigator.push(context, MaterialPageRoute(builder: ((context) {
-              return Equitypage();
+              return const Equitypage();
             })));
           },
         ),
@@ -222,12 +222,12 @@ class FillContent extends StatelessWidget {
           routeLink: () {},
         ),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-        Calender(),
+        const Calender(),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-        GenralRoundups(),
+        const GenralRoundups(),
         const SizedBox(height: 20),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-        GeneralTransactions(),
+        const GeneralTransactions(),
         const SizedBox(height: 20),
         const Divider(thickness: 2),
         Center(

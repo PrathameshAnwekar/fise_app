@@ -46,6 +46,7 @@ Future<List<StockDataModel>> fetchStockData() async {
   }
 }
 
+
 class StockDataScreen extends StatelessWidget {
   final Future<List<StockDataModel>> stockData = fetchStockData();
 
