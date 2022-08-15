@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/models/user_data.dart';
+import 'package:fise_app/screens/asset_screens/gold/gold_liveprice.dart';
 import 'package:fise_app/util/userCheck.dart';
 import 'package:flutter/material.dart';
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
@@ -10,6 +11,7 @@ import '../screens/homescreen/homescreen.dart';
 
 
 final basketStocksProvider = StateProvider((ref) => <String, dynamic>{});
+final liveGoldPrice = FutureProvider((ref) => getLivePrice());
 
 class InitializerWidget extends ConsumerStatefulWidget {
   const InitializerWidget({Key? key}) : super(key: key);
