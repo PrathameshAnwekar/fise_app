@@ -66,13 +66,13 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
         body: Column(
           children: [
             Center(
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text('WEB CHECKOUT'),
                 onPressed: () => makePayment(),
               ),
             ),
             Center(
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text('SEAMLESS UPI COLLECT'),
                 onPressed: () => seamlessUPIPayment(),
               ),
