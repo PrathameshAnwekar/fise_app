@@ -89,7 +89,7 @@ class _GenralRoundupsState extends State<GenralRoundups> {
                     barRadius: const Radius.circular(16),
                     width: SizeConfig.screenWidth * 0.9,
                     lineHeight: 20.0,
-                    percent: roundUpValue / 100,
+                    percent: roundUpValue / 100 > 1 ? 1 : roundUpValue / 100,
                     backgroundColor:
                         AppThemeData.lightColorScheme.primary.withOpacity(0.1),
                     progressColor: AppThemeData.lightColorScheme.primary,
