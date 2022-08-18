@@ -61,27 +61,16 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
           shadowColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.black,),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
           title: const Text(''),
         ),
-<<<<<<< HEAD
-        body: Column(
-          children: [
-            Center(
-              child: ElevatedButton(
-                child: Text('WEB CHECKOUT'),
-                onPressed: () => makePayment(),
-              ),
-            ),
-            Center(
-              child: ElevatedButton(
-                child: Text('SEAMLESS UPI COLLECT'),
-                onPressed: () => seamlessUPIPayment(),
-=======
         body: Container(
           height: SizeConfig.screenHeight,
           width: SizeConfig.screenWidth,
@@ -138,7 +127,6 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
                     ),
                   ),
                 ),
->>>>>>> origin/main
               ),
               // Center(
               //   child: RaisedButton(
