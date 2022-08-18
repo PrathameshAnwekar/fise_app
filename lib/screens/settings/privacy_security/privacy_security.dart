@@ -16,8 +16,8 @@ class PrivacyAndSecurity extends StatefulWidget {
 class _PrivacyAndSecurityState extends State<PrivacyAndSecurity> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  // bool _loginPinBool = UserSharedPrefs().getBool('loginPinBool') ?? false;
-  // bool _fingerprintBool = UserSharedPrefs().getBool('fingerprintBool') ?? false;
+  bool _loginPinBool = UserSharedPrefs().getBool('loginPinBool') ?? false;
+  bool _fingerprintBool = UserSharedPrefs().getBool('fingerprintBool') ?? false;
 
   @override
   void initState() {
@@ -84,21 +84,21 @@ class _PrivacyAndSecurityState extends State<PrivacyAndSecurity> {
                     SizedBox(
                       height: 5,
                     ),
-                    // Text(_loginPinBool ? 'Enabled' : 'Disabled',
-                    //     style: TextStyle(
-                    //         fontSize: 15,
-                    //         color: _loginPinBool ? Colors.green : Colors.red)),
+                    Text(_loginPinBool ? 'Enabled' : 'Disabled',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: _loginPinBool ? Colors.green : Colors.red)),
                   ],
                 ),
-                // CupertinoSwitch(
-                // value: _loginPinBool,
-                // onChanged: (val) {
-                //   setState(() {
-                //     _loginPinBool = !_loginPinBool;
-                //     UserSharedPrefs()
-                //         .setBool('loginPinBool', _loginPinBool);
-                // });
-                // })
+                CupertinoSwitch(
+                    value: _loginPinBool,
+                    onChanged: (val) {
+                      setState(() {
+                        _loginPinBool = !_loginPinBool;
+                        UserSharedPrefs()
+                            .setBool('loginPinBool', _loginPinBool);
+                      });
+                    })
               ],
             ),
           ),
@@ -127,23 +127,23 @@ class _PrivacyAndSecurityState extends State<PrivacyAndSecurity> {
                     SizedBox(
                       height: 5,
                     ),
-                    // Text(_fingerprintBool ? 'Enabled' : 'Disabled',
-                    //     style: TextStyle(
-                    //         fontSize: 15,
-                    //         color:
-                    //             _fingerprintBool ? Colors.green : Colors.red)),
+                    Text(_fingerprintBool ? 'Enabled' : 'Disabled',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color:
+                                _fingerprintBool ? Colors.green : Colors.red)),
                   ],
                 ),
-                // CupertinoSwitch(
-                //   value: _fingerprintBool,
-                //   onChanged: (val) {
-                //     setState(() {
-                //       _fingerprintBool = !_fingerprintBool;
-                //       UserSharedPrefs()
-                //           .setBool('fingerprintBool', _fingerprintBool);
-                //     });
-                //   },
-                // )
+                CupertinoSwitch(
+                  value: _fingerprintBool,
+                  onChanged: (val) {
+                    setState(() {
+                      _fingerprintBool = !_fingerprintBool;
+                      UserSharedPrefs()
+                          .setBool('fingerprintBool', _fingerprintBool);
+                    });
+                  },
+                )
               ],
             ),
           ),
