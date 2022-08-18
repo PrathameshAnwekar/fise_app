@@ -17,6 +17,7 @@ class TransactionsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Column(
       children: [
         ListTile(
@@ -24,6 +25,32 @@ class TransactionsTile extends StatelessWidget {
           title: Text(
             deductedFrom,
             style: const TextStyle(fontSize: 20),
+=======
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              deductedFrom,
+              style: const TextStyle(fontSize: 20),
+            ),
+            subtitle: Text(spent),
+            trailing: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  invested,
+                  style: AppThemeData.textTheme.titleMedium,
+                ),
+                Text(
+                  debitDate,
+                  style: AppThemeData.textTheme.labelSmall,
+                )
+              ],
+            ),
+>>>>>>> origin/main
           ),
           subtitle: Text("spent - ₹ " + spent),
           trailing: Column(

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/payments/cashfree_pg.dart';
+import 'package:fise_app/screens/asset_screens/gold/gold_liveprice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -21,10 +22,22 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
       content: Text('Please enter a valid number'),
       backgroundColor: Colors.red,
     ));
-    return 0.0;
+    return 1.0;
   }
 
+  var live_price_future;
+  double live_price = 1.0;
+
   TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    live_price_future = getLivePrice();
+  }
+
   bool _value = false;
   int val = 1;
   var suffixText = "0.00 gm";
@@ -66,10 +79,19 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  AutoSizeText(
-                    '\$15,602.3' + '/gm',
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                  ),
+                  FutureBuilder(
+                      future: live_price_future,
+                      builder: (context, s) {
+                        if (s.connectionState == ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else {
+                          live_price = double.parse(s.data.toString());
+                          return AutoSizeText(
+                            '₹ $live_price' + '/gm',
+                            style: TextStyle(fontSize: 20, color: Colors.black),
+                          );
+                        }
+                      }),
                 ],
               ),
             ),
@@ -136,21 +158,21 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
                   suffixText = (_controller.text == ""
                               ? 0
                               : double.parse(_controller.text, _doubleError) /
-                                  45000)
+                                  live_price)
                           .toStringAsFixed(4) +
                       ' gm';
                 } else {
-                  suffixText = (_controller.text == ""
+                  suffixText = '₹' +
+                      (_controller.text == ""
                               ? 0
                               : double.parse(_controller.text, _doubleError) *
                                   45000)
-                          .toStringAsFixed(1) +
-                      ' rupees';
+                          .toStringAsFixed(1);
                 }
               });
             },
             decoration: InputDecoration(
-              hintText: val == 1 ? '\$ 0.00' : '0.00 gm',
+              hintText: val == 1 ? '₹ 0.00' : '0.00 gm',
               labelStyle: TextStyle(color: Colors.black),
               suffix:
                   StatefulBuilder(builder: (context, _) => Text(suffixText)),
@@ -171,7 +193,7 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => CashfreePage(
                           orderAmount: _controller.text,
-                          orderNote: 'gold',
+                          orderNote: 'GOLD',
                         )));
               },
               child: Text('Buy Now',

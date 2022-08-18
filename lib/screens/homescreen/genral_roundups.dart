@@ -8,8 +8,20 @@ import '../../constants/size_config.dart';
 
 var roundUpValue = 0;
 
-class GenralRoundups extends StatelessWidget {
+class GenralRoundups extends StatefulWidget {
   const GenralRoundups({Key? key}) : super(key: key);
+
+  @override
+  State<GenralRoundups> createState() => _GenralRoundupsState();
+}
+
+class _GenralRoundupsState extends State<GenralRoundups> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    todaysRoundUp();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +89,7 @@ class GenralRoundups extends StatelessWidget {
                     barRadius: const Radius.circular(16),
                     width: SizeConfig.screenWidth * 0.9,
                     lineHeight: 20.0,
-                    percent: roundUpValue / 100,
+                    percent: roundUpValue / 100 > 1 ? 1 : roundUpValue / 100,
                     backgroundColor:
                         AppThemeData.lightColorScheme.primary.withOpacity(0.1),
                     progressColor: AppThemeData.lightColorScheme.primary,

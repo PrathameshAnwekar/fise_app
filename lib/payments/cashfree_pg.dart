@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cashfree_pg/cashfree_pg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/models/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,15 +56,19 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
     orderNote = widget.orderNote;
     return MaterialApp(
       home: Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
+          shadowColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.black,),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
-          title: const Text('Cashfree SDK Sample'),
+          title: const Text(''),
         ),
+<<<<<<< HEAD
         body: Column(
           children: [
             Center(
@@ -75,9 +81,73 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
               child: ElevatedButton(
                 child: Text('SEAMLESS UPI COLLECT'),
                 onPressed: () => seamlessUPIPayment(),
+=======
+        body: Container(
+          height: SizeConfig.screenHeight,
+          width: SizeConfig.screenWidth,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    'assets/images/login/enter_number_bg.png',
+                  ))),
+          child: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.3),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50))),
               ),
-            ),
-          ],
+              Positioned(
+                  top: SizeConfig.screenHeight * 0.33,
+                  left: SizeConfig.screenWidth * 0.07,
+                  child: Column(
+                    children: [
+                      AutoSizeText(
+                        'choose a payment\nmethod',
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ],
+                  )),
+              Positioned(
+                  top: SizeConfig.screenHeight * 0.43,
+                  left: SizeConfig.screenWidth * 0.07,
+                  child: Container(
+                    color: Colors.grey,
+                    width: SizeConfig.screenWidth * 0.3,
+                    height: 1,
+                  )),
+              Positioned(
+                left: SizeConfig.screenWidth * 0.1,
+                top: SizeConfig.screenHeight * 0.5,
+                child: GestureDetector(
+                  onTap: makePayment,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10),
+                    elevation: 2,
+                    color: Colors.transparent,
+                    child: Container(
+                      width: SizeConfig.screenWidth * 0.8,
+                      child: Image.asset(
+                        'assets/images/login/cf_button.png',
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                  ),
+                ),
+>>>>>>> origin/main
+              ),
+              // Center(
+              //   child: RaisedButton(
+              //     child: Text('SEAMLESS UPI COLLECT'),
+              //     onPressed: () => seamlessUPIPayment(),
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
     );
