@@ -84,6 +84,7 @@ flutter:
   assets:
     - assets/images/login/
     - assets/images/test.png
+    - assets/images/background.png
     - assets/images/setting_icons/
     - assets/images/financialAssets/
   #   - images/a_dot_ham.jpeg
