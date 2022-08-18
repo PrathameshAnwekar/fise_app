@@ -76,14 +76,12 @@ class _AppsettingsPageState extends State<AppsettingsPage> {
               allocatedPercentage: "0",
               containerColor: Color(0xFF7698A0),
             ),
-            const Flexible(
-              child: Text(
-                "To know more about roundups, multiplier, daily savings or asset allocation, head towards FAQ.",
-                overflow: TextOverflow.clip,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF636363),
-                ),
+            Text(
+              "To know more about roundups, multiplier, daily savings or asset allocation, head towards FAQ.",
+              overflow: TextOverflow.clip,
+              style: TextStyle(
+                fontSize: 16,
+                color: Color(0xFF636363),
               ),
             ),
           ],
