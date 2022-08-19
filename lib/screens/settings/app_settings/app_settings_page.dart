@@ -39,6 +39,7 @@ class _AppsettingsPageState extends State<AppsettingsPage> {
         ],
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

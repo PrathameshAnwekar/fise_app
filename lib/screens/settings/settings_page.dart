@@ -186,6 +186,7 @@ class SettingTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Column(
         children: [
           SettingTile(

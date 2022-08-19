@@ -33,6 +33,7 @@ class _Transactions_PageState extends State<Transactions_Page> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: ListView(
           shrinkWrap: true,
           children: const [
