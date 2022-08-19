@@ -158,11 +158,10 @@ class _sensitivePersonalInfoTileState extends State<sensitivePersonalInfoTile> {
                       setState(() {
                         showInfo = !showInfo;
                       });
-                      log(showInfo.toString());
                     },
                     icon: showInfo
-                        ? Icon(Icons.hide_source)
-                        : Icon(Icons.remove_red_eye))
+                        ? Icon(Icons.visibility)
+                        : Icon(Icons.visibility_off))
               ],
             ),
           ),
