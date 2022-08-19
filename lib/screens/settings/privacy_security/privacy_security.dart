@@ -93,14 +93,14 @@ class _PrivacyAndSecurityState extends State<PrivacyAndSecurity> {
                   ],
                 ),
                 CupertinoSwitch(
-                    value: _loginPinBool,
-                    onChanged: (val) {
-                      setState(() {
-                        _loginPinBool = !_loginPinBool;
-                        UserSharedPrefs()
-                            .setBool('loginPinBool', _loginPinBool);
-                      });
-                    })
+                  value: _loginPinBool,
+                  onChanged: (val) {
+                    setState(() {
+                      _loginPinBool = !_loginPinBool;
+                      UserSharedPrefs().setBool('loginPinBool', _loginPinBool);
+                    });
+                  },
+                )
               ],
             ),
           ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../constants/size_config.dart';
-
 class setNewPinpage extends StatelessWidget {
   const setNewPinpage({super.key});
 
