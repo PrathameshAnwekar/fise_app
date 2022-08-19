@@ -5,12 +5,17 @@ import 'package:fise_app/models/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PersonalInfoPage extends ConsumerWidget {
-  const PersonalInfoPage({Key? key}) : super(key: key);
+class PersonalInfoPage extends ConsumerStatefulWidget {
+  const PersonalInfoPage({super.key});
   static const routeName = '/personal-info';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PersonalInfoPage> createState() => _PersonalInfoPageState();
+}
+
+class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
+  @override
+  Widget build(BuildContext context) {
     var _userData = ref.watch(currentUserDataProvider);
     return Scaffold(
       appBar: AppBar(
@@ -42,9 +47,13 @@ class PersonalInfoPage extends ConsumerWidget {
             personalInfoTile('address', _userData?.address ?? 'not set'),
             personalInfoTile('aadhar', _userData?.aadhar ?? 'not set'),
             sensitivePersonalInfoTile(
-                title: 'pan', data: _userData?.pancard ?? 'not set'),
+              title: 'pan',
+              data: _userData?.pancard ?? 'not set',
+            ),
             sensitivePersonalInfoTile(
-                title: 'kyc', data: _userData?.kyc ?? 'not set'),
+              title: 'kyc',
+              data: _userData?.kyc ?? 'not set',
+            ),
             const Text("To change personal info on this page"),
             TextButton(
               onPressed: () {
@@ -59,6 +68,7 @@ class PersonalInfoPage extends ConsumerWidget {
   }
 
   Widget personalInfoTile(title, data) {
+    var _userData = ref.watch(currentUserDataProvider);
     return Container(
       width: SizeConfig.screenWidth,
       child: Column(
@@ -108,10 +118,10 @@ class sensitivePersonalInfoTile extends StatefulWidget {
 }
 
 class _sensitivePersonalInfoTileState extends State<sensitivePersonalInfoTile> {
+  bool showInfo = false;
+
   @override
   Widget build(BuildContext context) {
-    bool showInfo = true;
-
     return Container(
       width: SizeConfig.screenWidth,
       child: Column(
@@ -134,7 +144,14 @@ class _sensitivePersonalInfoTileState extends State<sensitivePersonalInfoTile> {
             padding: const EdgeInsets.only(left: 15, bottom: 8),
             child: Row(
               children: [
-                Text(""),
+                Text(
+                  showInfo ? widget.data : "XXX XXXXX XXX",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Color(0xFF1D1D1D),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
                 const Spacer(),
                 IconButton(
                     onPressed: () {
@@ -155,9 +172,3 @@ class _sensitivePersonalInfoTileState extends State<sensitivePersonalInfoTile> {
     );
   }
 }
-
-// style: TextStyle(
-//                 fontSize: 20,
-//                 color: Color(0xFF1D1D1D),
-//                 fontWeight: FontWeight.w400,
-//               ),
