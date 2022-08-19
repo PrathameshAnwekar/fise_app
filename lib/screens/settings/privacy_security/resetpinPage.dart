@@ -72,6 +72,8 @@ class ResetPinpage extends StatelessWidget {
                                     BorderSide(width: 1, color: Colors.black)),
                           ),
                         ),
+
+                        // validator and routing
                         validator: (value) {
                           return value == '0000' ? null : "incorrect pin";
                         },

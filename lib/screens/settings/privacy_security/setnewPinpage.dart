@@ -71,7 +71,9 @@ class setNewPinpage extends StatelessWidget {
                                     BorderSide(width: 1, color: Colors.black)),
                           ),
                         ),
-                        validator: (value) {},
+                        validator: (value) {
+                          //
+                        },
                       ),
                     )
                   ],

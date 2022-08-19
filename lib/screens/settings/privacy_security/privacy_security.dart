@@ -84,10 +84,12 @@ class _PrivacyAndSecurityState extends State<PrivacyAndSecurity> {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(_loginPinBool ? 'Enabled' : 'Disabled',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: _loginPinBool ? Colors.green : Colors.red)),
+                    Text(
+                      _loginPinBool ? 'Enabled' : 'Disabled',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: _loginPinBool ? Colors.green : Colors.red),
+                    ),
                   ],
                 ),
                 CupertinoSwitch(
@@ -127,11 +129,12 @@ class _PrivacyAndSecurityState extends State<PrivacyAndSecurity> {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(_fingerprintBool ? 'Enabled' : 'Disabled',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color:
-                                _fingerprintBool ? Colors.green : Colors.red)),
+                    Text(
+                      _fingerprintBool ? 'Enabled' : 'Disabled',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: _fingerprintBool ? Colors.green : Colors.red),
+                    ),
                   ],
                 ),
                 CupertinoSwitch(
