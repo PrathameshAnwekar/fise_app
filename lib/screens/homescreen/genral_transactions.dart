@@ -53,6 +53,7 @@ class _GeneralTransactionsState extends ConsumerState<GeneralTransactions> {
 
               return Expanded(
                 child: ListView.builder(
+                  shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var docData = data[index].data()! as Map;
                     return TransactionsTile(

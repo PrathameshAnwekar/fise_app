@@ -7,11 +7,11 @@ import 'package:fise_app/screens/homescreen/calender.dart';
 import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
+import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../asset_screens/equity/equity_page.dart';
-import '../settings/transactions.dart';
 import 'general_returns_widget.dart';
 import 'general_status_widget.dart';
 

@@ -106,8 +106,29 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
                   .collection('basket')
                   .doc(key)
                   .set(
-                {'remaining': value, 'name': key},
+                {'remaining': value, 'name': key, 'addedOn': DateTime.now()},
               );
+            });
+
+            basketMap.forEach((key, value) {
+              modifiedMap[key] = int.parse(value.toString());
+            });
+            modifiedMap.forEach((key, value) async {
+              await FirebaseFirestore.instance
+                  .collection('devbasket')
+                  .doc(key)
+                  .set({'stockName': key});
+            });
+            basketMap.forEach((key, value) {
+              modifiedMap[key] = int.parse(value.toString());
+            });
+            modifiedMap.forEach((key, value) async {
+              await FirebaseFirestore.instance
+                  .collection('devbasket')
+                  .doc(key)
+                  .collection(key)
+                  .doc(user!.uid.toString().trim())
+                  .set({'user': user.username.toString().trim()});
             });
             await ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text('Basket Saved!')));

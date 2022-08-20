@@ -45,16 +45,32 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
             personalInfoTile('phone', _userData?.phoneNumber ?? 'not set'),
             personalInfoTile('dob  ', _userData?.dob ?? 'not set'),
             personalInfoTile('address', _userData?.address ?? 'not set'),
-            personalInfoTile('aadhar', _userData?.aadhar ?? 'not set'),
+            sensitivePersonalInfoTile(
+              title: 'aadhar',
+              data: _userData?.aadhar ?? 'not set',
+            ),
             sensitivePersonalInfoTile(
               title: 'pan',
               data: _userData?.pancard ?? 'not set',
             ),
-            sensitivePersonalInfoTile(
-              title: 'kyc',
-              data: _userData?.kyc ?? 'not set',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "KYC  ",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
+                ),
+                Text(
+                  _userData?.kyc ?? 'not set',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                Icon((_userData?.kyc == "verified") ? Icons.done : null)
+              ],
             ),
-            const Text("To change personal info on this page"),
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: const Text("To change personal info on this page"),
+            ),
             TextButton(
               onPressed: () {
                 //
