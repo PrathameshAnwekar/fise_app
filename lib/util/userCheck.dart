@@ -35,6 +35,7 @@ Future<void> userCheck(ref, context) async {
             .then((value) {
           if (value.docs.isNotEmpty) {
             value.docs.forEach((element) {
+              if(element.get('remaining') > 0)
               ref.read(basketStocksProvider.state).state[element.get('name')] =
                   element.get('remaining');
             });

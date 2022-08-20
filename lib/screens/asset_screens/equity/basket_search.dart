@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 var stockList;
-var basketMap;
+Map basketMap = {};
 
 class BasketSearchScreen extends ConsumerStatefulWidget {
   BasketSearchScreen({Key? key}) : super(key: key);
@@ -89,9 +89,9 @@ class _BasketSearchScreenState extends ConsumerState<BasketSearchScreen> {
                     color: AppThemeData.lightColorScheme.primary,
                   ),
                   onPressed: () {
-                    basketMap.update(
+
+                    ref.read(basketStocksProvider.state).state.update(
                         stockDataList[index].companyName,
-                        (value) => int.parse(value) + 1,
                         (value) => int.parse(value.toString()) + 1,
                         ifAbsent: () => 1);
 
