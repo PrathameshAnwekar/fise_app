@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-///THIS FILE IS INTENTIONALLY EMBEDDED WITH ALL NEEDED FUNCTIONS, ITS MESSY BUT MAKES SURE IT WORKS////
+///THIS FILE IS  EMBEDDED WITH ALL NEEDED FUNCTIONS, ITS MESSY BUT MAKES SURE IT WORKS////
 
 class OTPAuth extends StatefulWidget {
   const OTPAuth({Key? key, required this.phoneNumber}) : super(key: key);
@@ -22,21 +22,20 @@ class OTPAuth extends StatefulWidget {
 
 class _OTPAuthState extends State<OTPAuth> {
   TextEditingController textEditingController = TextEditingController();
-  // ..text = "123456";
 
-  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
   late final guser = FirebaseAuth.instance.currentUser;
 
   bool hasError = false;
   String currentText = "";
   final formKey = GlobalKey<FormState>();
+  bool once = true;
 
   @override
   void initState() {
-    _verifyPhone();
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
+    if(once)_verifyPhone();
   }
 
   @override
@@ -168,36 +167,36 @@ class _OTPAuthState extends State<OTPAuth> {
                           final userCredential = await FirebaseAuth
                               .instance.currentUser
                               ?.linkWithCredential(credential);
-                              try {
-                          final guser = await FirebaseAuth.instance.currentUser;
+                          try {
+                            final guser =
+                                await FirebaseAuth.instance.currentUser;
 
-                          await FirebaseAuth
-                              .instance ////Sign in manually and initialise userprofiile
-                              .signInWithCredential(
-                                  PhoneAuthProvider.credential(
-                                      verificationId: _verificationCode,
-                                      smsCode: v))
-                              .then((value) async {
-                            if (value.user != null) {
-                              print('correct pin, logging in.');
-                              await FirebaseFirestore.instance
-                                  .collection('Profiles')
-                                  .doc(guser!.uid)
-                                  .set({
-                                'phoneNumber': widget.phoneNumber,
-                                'email': guser.email,
-                                'uid':guser.uid
-                                
-                              }, SetOptions(merge: true));
-                              await Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(
-                                      InitializerWidget.routeName,
-                                      (Route<dynamic> route) => false);
-                            }
-                          });
-                        } catch (e) {
-                          errorSnackbar(context, 'Invalid OTP');
-                        }
+                            await FirebaseAuth
+                                .instance ////Sign in manually and initialise userprofiile
+                                .signInWithCredential(
+                                    PhoneAuthProvider.credential(
+                                        verificationId: _verificationCode,
+                                        smsCode: v))
+                                .then((value) async {
+                              if (value.user != null) {
+                                print('correct pin via keyboard, logging in.');
+                                await FirebaseFirestore.instance
+                                    .collection('Profiles')
+                                    .doc(guser!.uid)
+                                    .set({
+                                  'phoneNumber': widget.phoneNumber,
+                                  'email': guser.email,
+                                  'uid': guser.uid
+                                }, SetOptions(merge: true));
+                                await Navigator.of(context)
+                                    .pushNamedAndRemoveUntil(
+                                        InitializerWidget.routeName,
+                                        (Route<dynamic> route) => false);
+                              }
+                            });
+                          } catch (e) {
+                            errorSnackbar(context, 'Invalid OTP');
+                          }
                         } on FirebaseAuthException catch (e) {
                           switch (e.code) {
                             case "provider-already-linked":
@@ -223,7 +222,6 @@ class _OTPAuthState extends State<OTPAuth> {
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               GmailAuthScreen.routeName, (route) => false);
                         }
-                        
                       }
                     },
                     // onTap: () {
@@ -248,31 +246,37 @@ class _OTPAuthState extends State<OTPAuth> {
   }
 
   late String _verificationCode;
-  final idToken = FirebaseAuth.instance.currentUser!.getIdToken();
 
   _verifyPhone() async {
+    setState(() {
+      once = false;
+    });
     ////Verify phone function
+    debugPrint('VerifyPhone is being executed');
     FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91' + widget.phoneNumber,
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
           try {
             final userCredential = await FirebaseAuth.instance.currentUser
                 ?.linkWithCredential(phoneAuthCredential);
-                await FirebaseAuth.instance
-              .signInWithCredential(phoneAuthCredential)
-              .then((value) async {
-            if (value.user != null) {
-              print('User is logged in.');
-              final user = await FirebaseAuth.instance.currentUser;
-              await FirebaseFirestore.instance
-                  .collection('Profiles')
-                  .doc(user!.uid)
-                  .set({'phoneNumber': widget.phoneNumber, 'email': user.email,'uid': guser!.uid},
-                      SetOptions(merge: true));
-              await Navigator.of(context)
-                  .pushReplacementNamed(InitializerWidget.routeName);
-            }
-          });
+            await FirebaseAuth.instance
+                .signInWithCredential(phoneAuthCredential)
+                .then((value) async {
+              if (value.user != null) {
+                print('User is logged in.');
+                final user = await FirebaseAuth.instance.currentUser;
+                await FirebaseFirestore.instance
+                    .collection('Profiles')
+                    .doc(user!.uid)
+                    .set({
+                  'phoneNumber': widget.phoneNumber,
+                  'email': user.email,
+                  'uid': guser!.uid
+                }, SetOptions(merge: true));
+                await Navigator.of(context)
+                    .pushReplacementNamed(InitializerWidget.routeName);
+              }
+            });
           } on FirebaseAuthException catch (e) {
             switch (e.code) {
               case "provider-already-linked":
@@ -297,8 +301,6 @@ class _OTPAuthState extends State<OTPAuth> {
             Navigator.of(context).pushNamedAndRemoveUntil(
                 GmailAuthScreen.routeName, (route) => false);
           }
-
-          
         },
         verificationFailed: (FirebaseAuthException firebaseAuthException) {
           print(firebaseAuthException.message);
