@@ -7,10 +7,15 @@ import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 ///THIS FILE IS  EMBEDDED WITH ALL NEEDED FUNCTIONS, ITS MESSY BUT MAKES SURE IT WORKS////
+
+String _verificationId = "";
+String smsCode = '';
+bool once = true;
 
 class OTPAuth extends StatefulWidget {
   const OTPAuth({Key? key, required this.phoneNumber}) : super(key: key);
@@ -24,24 +29,24 @@ class _OTPAuthState extends State<OTPAuth> {
   TextEditingController textEditingController = TextEditingController();
 
   StreamController<ErrorAnimationType>? errorController;
-  late final guser = FirebaseAuth.instance.currentUser;
 
   bool hasError = false;
   String currentText = "";
   final formKey = GlobalKey<FormState>();
   bool once = true;
 
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
-    if(once)_verifyPhone();
+    if (once) _verifyPhone();
+    once = false;
   }
 
   @override
   void dispose() {
     errorController!.close();
-
     super.dispose();
   }
 
@@ -121,14 +126,12 @@ class _OTPAuthState extends State<OTPAuth> {
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                   child: PinCodeTextField(
                     backgroundColor: Colors.white,
-
                     appContext: context,
                     pastedTextStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                     length: 6,
                     obscureText: false,
-
                     animationType: AnimationType.fade,
                     validator: (v) {
                       if (v != null && v.length < 6) {
@@ -151,82 +154,17 @@ class _OTPAuthState extends State<OTPAuth> {
                     cursorColor: Colors.black,
                     animationDuration: const Duration(milliseconds: 300),
                     enableActiveFill: false,
-
                     errorAnimationController: errorController,
                     controller: textEditingController,
                     keyboardType: TextInputType.number,
-
                     onCompleted: (v) async {
                       debugPrint("Completed");
-                      if (v.length == 6) {
-                        try {
-                          final credential = PhoneAuthProvider.credential(
-                              ////Function for linking with gmail account
-                              verificationId: _verificationCode,
+                      PhoneAuthCredential credential =
+                          PhoneAuthProvider.credential(
+                              verificationId: _verificationId,
                               smsCode: v);
-                          final userCredential = await FirebaseAuth
-                              .instance.currentUser
-                              ?.linkWithCredential(credential);
-                          try {
-                            final guser =
-                                await FirebaseAuth.instance.currentUser;
-
-                            await FirebaseAuth
-                                .instance ////Sign in manually and initialise userprofiile
-                                .signInWithCredential(
-                                    PhoneAuthProvider.credential(
-                                        verificationId: _verificationCode,
-                                        smsCode: v))
-                                .then((value) async {
-                              if (value.user != null) {
-                                print('correct pin via keyboard, logging in.');
-                                await FirebaseFirestore.instance
-                                    .collection('Profiles')
-                                    .doc(guser!.uid)
-                                    .set({
-                                  'phoneNumber': widget.phoneNumber,
-                                  'email': guser.email,
-                                  'uid': guser.uid
-                                }, SetOptions(merge: true));
-                                await Navigator.of(context)
-                                    .pushNamedAndRemoveUntil(
-                                        InitializerWidget.routeName,
-                                        (Route<dynamic> route) => false);
-                              }
-                            });
-                          } catch (e) {
-                            errorSnackbar(context, 'Invalid OTP');
-                          }
-                        } on FirebaseAuthException catch (e) {
-                          switch (e.code) {
-                            case "provider-already-linked":
-                              print(
-                                  "The provider has already been linked to the user.");
-                              break;
-                            case "invalid-credential":
-                              print("The provider's credential is not valid.");
-                              break;
-                            case "credential-already-in-use":
-                              print(
-                                  "The account corresponding to the credential already exists, "
-                                  "or is already linked to a Firebase User.");
-                              break;
-                            // See the API reference for the full list of error codes.
-                            default:
-                              print("Unknown error.");
-                          }
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                '${widget.phoneNumber} is already linked to another account, please use another phone number.'),
-                          ));
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              GmailAuthScreen.routeName, (route) => false);
-                        }
-                      }
+                      await linkAndCreateProfile(credential);
                     },
-                    // onTap: () {
-                    //   print("Pressed");
-                    // },
                     onChanged: (value) {
                       debugPrint(value);
                       setState(() {
@@ -245,76 +183,54 @@ class _OTPAuthState extends State<OTPAuth> {
         ]));
   }
 
-  late String _verificationCode;
-
   _verifyPhone() async {
-    setState(() {
-      once = false;
-    });
-    ////Verify phone function
     debugPrint('VerifyPhone is being executed');
-    FirebaseAuth.instance.verifyPhoneNumber(
+    await auth.verifyPhoneNumber(
         phoneNumber: '+91' + widget.phoneNumber,
-        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
-          try {
-            final userCredential = await FirebaseAuth.instance.currentUser
-                ?.linkWithCredential(phoneAuthCredential);
-            await FirebaseAuth.instance
-                .signInWithCredential(phoneAuthCredential)
-                .then((value) async {
-              if (value.user != null) {
-                print('User is logged in.');
-                final user = await FirebaseAuth.instance.currentUser;
-                await FirebaseFirestore.instance
-                    .collection('Profiles')
-                    .doc(user!.uid)
-                    .set({
-                  'phoneNumber': widget.phoneNumber,
-                  'email': user.email,
-                  'uid': guser!.uid
-                }, SetOptions(merge: true));
-                await Navigator.of(context)
-                    .pushReplacementNamed(InitializerWidget.routeName);
-              }
-            });
-          } on FirebaseAuthException catch (e) {
-            switch (e.code) {
-              case "provider-already-linked":
-                print("The provider has already been linked to the user.");
-                break;
-              case "invalid-credential":
-                print("The provider's credential is not valid.");
-                break;
-              case "credential-already-in-use":
-                print(
-                    "The account corresponding to the credential already exists, "
-                    "or is already linked to a Firebase User.");
-                break;
-              // See the API reference for the full list of error codes.
-              default:
-                print("Unknown error.");
-            }
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                  '${widget.phoneNumber} is already linked to another account, please use another phone number.'),
-            ));
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                GmailAuthScreen.routeName, (route) => false);
+        timeout: Duration(seconds: 120),
+        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationFailed: (FirebaseAuthException e) {
+          if (e.code == 'invalid-phone-number') {
+            print('The provided phone number is not valid.');
           }
         },
-        verificationFailed: (FirebaseAuthException firebaseAuthException) {
-          print(firebaseAuthException.message);
+        codeSent: (String verificationId, int? resendToken) async {
+          _verificationId = verificationId;
         },
-        codeSent: (String verificationID, int? resendToken) {
-          setState(() {
-            _verificationCode = verificationID;
-          });
-        },
-        codeAutoRetrievalTimeout: (String verificationID) {
-          setState(() {
-            _verificationCode = verificationID;
-          });
+        codeAutoRetrievalTimeout: (String verificationId) {
+          debugPrint('CodeAutoretrieval timeout');
         });
+  }
+
+  Future<void> linkAndCreateProfile(PhoneAuthCredential credential) async {
+    debugPrint('link and crete profile is being executed');
+    try {
+      await createFirestoreProfileDoc();
+      await auth.currentUser?.linkWithCredential(credential);
+      await auth.signInWithCredential(credential).then((value) async {
+        if (value.user != null) {
+          print('User is logged in.');
+          await Navigator.of(context)
+              .pushReplacementNamed(InitializerWidget.routeName);
+        }
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+      FirebaseAuth.instance.signOut();
+      GoogleSignIn().signOut();
+      errorSnackbar(context, "Something went wrong, please try again.");
+      Navigator.pushNamedAndRemoveUntil(
+          context, GmailAuthScreen.routeName, (route) => false);
+    }
+  }
+
+  Future<void> createFirestoreProfileDoc() async {
+    final user = await FirebaseAuth.instance.currentUser;
+    await FirebaseFirestore.instance.collection('Profiles').doc(user!.uid).set({
+      'phoneNumber': '+91' + widget.phoneNumber,
+      'email': user.email,
+      'uid': auth.currentUser?.uid
+    }, SetOptions(merge: true));
   }
 
   errorSnackbar(BuildContext context, String text) {
