@@ -61,10 +61,11 @@ class _GoldTransactions_PageState extends ConsumerState<GoldTransactions_Page> {
                     itemBuilder: (context, index) {
                       var docData = data[index].data()! as Map;
                       return TransactionsTile(
-                          deductedFrom: docData['orderNote'],
-                          debitDate: docData['txTime'] ?? 'Failed',
-                          spent: docData['orderAmount'] ?? '0',
-                          invested: docData['txStatus'] ?? '0');
+                        deductedFrom: docData['orderNote'],
+                        debitDate: docData['txTime'] ?? 'Failed',
+                        spent: docData['orderAmount'] ?? '0',
+                        invested: docData['txStatus'] ?? '0',
+                      );
                     },
                     itemCount: snapshot.data!.docs.length,
                     shrinkWrap: true,

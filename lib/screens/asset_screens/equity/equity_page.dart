@@ -1,7 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/models/user_data.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_screen.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_search.dart';
+import 'package:fise_app/screens/asset_screens/equity/holdindtile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -25,9 +28,7 @@ class Equitypage extends StatelessWidget {
               paddingTop: MediaQuery.of(context).padding.top,
             ),
           ),
-          SliverToBoxAdapter(
-            child: FillContent(),
-          )
+          SliverToBoxAdapter(child: FillContent())
         ],
       ),
     );
@@ -147,7 +148,7 @@ class FillContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -172,29 +173,8 @@ class FillContent extends StatelessWidget {
         EquityCart(),
         const SizedBox(height: 14),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(22.0, 20, 0, 7.5),
-          child: Text(
-            "holdings",
-            style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(22.0, 0, 0, 22),
-          child: Container(
-            height: 2,
-            color: Colors.grey.withOpacity(0.5),
-            width: SizeConfig.screenWidth * 0.3,
-          ),
-        ),
-        Holdings(),
-        const SizedBox(height: 14),
-        Holdings(),
-        const SizedBox(height: 14),
-        Holdings(),
-        const SizedBox(height: 14),
-        Holdings(),
         const SizedBox(height: 17),
+        HoldingTile(),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const Padding(
           padding: EdgeInsets.fromLTRB(22.0, 20, 0, 7.5),
@@ -476,7 +456,8 @@ class EquityCart extends StatelessWidget {
 }
 
 class Holdings extends StatelessWidget {
-  const Holdings({Key? key}) : super(key: key);
+  const Holdings({Key? key, required this.equity}) : super(key: key);
+  final String equity;
 
   @override
   Widget build(BuildContext context) {
@@ -498,7 +479,7 @@ class Holdings extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Text("HDFC",
+                      Text(equity,
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600)),
                       const SizedBox(width: 7),

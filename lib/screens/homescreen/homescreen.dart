@@ -231,26 +231,6 @@ class FillContent extends StatelessWidget {
         const SizedBox(height: 20),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const GeneralTransactions(),
-        const SizedBox(height: 20),
-        const Divider(thickness: 2),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: OutlinedButton(
-              onPressed: () {
-                //
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return const Transactions_Page();
-                })));
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0))),
-              ),
-              child: const Text("  view all  "),
-            ),
-          ),
-        ),
         const SizedBox(height: 100),
       ],
     );
