@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-///THIS FILE IS INTENTIONALLY EMBEDDED WITH ALL NEEDED FUNCTIONS, ITS MESSY BUT MAKES SURE IT WORKS////
+///THIS FILE IS  EMBEDDED WITH ALL NEEDED FUNCTIONS, ITS MESSY BUT MAKES SURE IT WORKS////
 
 class OTPAuth extends StatefulWidget {
   const OTPAuth({Key? key, required this.phoneNumber}) : super(key: key);
@@ -22,21 +22,20 @@ class OTPAuth extends StatefulWidget {
 
 class _OTPAuthState extends State<OTPAuth> {
   TextEditingController textEditingController = TextEditingController();
-  // ..text = "123456";
 
-  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
   late final guser = FirebaseAuth.instance.currentUser;
 
   bool hasError = false;
   String currentText = "";
   final formKey = GlobalKey<FormState>();
+  bool once = true;
 
   @override
   void initState() {
-    _verifyPhone();
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
+    if (once) _verifyPhone();
   }
 
   @override
@@ -247,10 +246,13 @@ class _OTPAuthState extends State<OTPAuth> {
   }
 
   late String _verificationCode;
-  final idToken = FirebaseAuth.instance.currentUser!.getIdToken();
 
   _verifyPhone() async {
+    setState(() {
+      once = false;
+    });
     ////Verify phone function
+    debugPrint('VerifyPhone is being executed');
     FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91' + widget.phoneNumber,
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
