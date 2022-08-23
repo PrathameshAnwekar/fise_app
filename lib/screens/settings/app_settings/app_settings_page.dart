@@ -1,4 +1,5 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/screens/settings/app_settings/assetAllocationTile.dart';
 import 'package:fise_app/screens/settings/app_settings/dailySavingsTile.dart';
 import 'package:fise_app/screens/settings/app_settings/multiplierTile.dart';
 import 'package:fise_app/screens/settings/app_settings/roundupstile.dart';
@@ -46,6 +47,7 @@ class _AppsettingsPageState extends State<AppsettingsPage> {
             RoundupsTile(),
             MultiplierTile(),
             dailySavingsTile(),
+            AssetAllocationTile(),
 //
             assetTile(
               asset: "GOLD",
