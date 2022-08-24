@@ -205,10 +205,10 @@ class _OTPAuthState extends State<OTPAuth> {
   Future<void> linkAndCreateProfile(PhoneAuthCredential credential) async {
     debugPrint('link and crete profile is being executed');
     try {
-      await createFirestoreProfileDoc();
-      await auth.currentUser?.linkWithCredential(credential);
-      await auth.signInWithCredential(credential).then((value) async {
+      
+      await auth.currentUser?.linkWithCredential(credential).then((value) async {
         if (value.user != null) {
+          await createFirestoreProfileDoc();
           print('User is logged in.');
           await Navigator.of(context)
               .pushReplacementNamed(InitializerWidget.routeName);
