@@ -21,7 +21,7 @@ class _GeneralTransactionsState extends ConsumerState<GeneralTransactions> {
 
     return Container(
       // color: Colors.lightGreenAccent,
-      height: 330,
+      height: 350,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -58,8 +58,8 @@ class _GeneralTransactionsState extends ConsumerState<GeneralTransactions> {
 
                   return Expanded(
                     child: Container(
-                      // color: Colors.lightGreenAccent,
                       child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: (snapshot.data!.docs.length > 3)
                             ? 3

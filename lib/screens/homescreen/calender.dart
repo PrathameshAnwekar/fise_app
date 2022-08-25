@@ -10,22 +10,23 @@ class Calender extends StatefulWidget {
 }
 
 class _CalenderState extends State<Calender> {
-
   var calendarFormat = CalendarFormat.month;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      TableCalendar(
-        
-        focusedDay: DateTime.utc(2022, 07, 09),
-        firstDay: DateTime.utc(2010, 10, 20),
-        lastDay: DateTime.utc(2040, 10, 20),
-        calendarFormat: calendarFormat,
-        onFormatChanged: (value) {setState(() {
-          calendarFormat = value;
-        
-        });},
-        
+      SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: TableCalendar(
+          focusedDay: DateTime.utc(2022, 07, 09),
+          firstDay: DateTime.utc(2010, 10, 20),
+          lastDay: DateTime.utc(2040, 10, 20),
+          calendarFormat: calendarFormat,
+          onFormatChanged: (value) {
+            setState(() {
+              calendarFormat = value;
+            });
+          },
+        ),
       ),
       const Padding(
         padding: EdgeInsets.fromLTRB(20, 8, 20, 8),

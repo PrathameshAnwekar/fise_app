@@ -22,8 +22,7 @@ class TransactionsTile extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-            dense: true,
+            visualDensity: VisualDensity(horizontal: 0, vertical: -2),
             title: Text(
               deductedFrom,
               style: const TextStyle(fontSize: 20),
