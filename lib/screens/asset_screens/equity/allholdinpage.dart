@@ -28,12 +28,11 @@ class AllHoldingPage extends StatelessWidget {
             return ListView.builder(
               shrinkWrap: true,
               itemCount: snapshot.data!.docs.length,
-              // itemCount: 2,
               itemBuilder: (context, index) {
                 var docData = data[index].data()! as Map;
 
                 return ListTile(
-                  title: docData["name"],
+                  title: Text(docData["name"]),
                 );
               },
             );

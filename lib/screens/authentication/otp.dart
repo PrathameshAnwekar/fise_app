@@ -41,10 +41,7 @@ class _OTPAuthState extends State<OTPAuth> {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
     if (once) _verifyPhone();
-<<<<<<< HEAD
-=======
     once = false;
->>>>>>> origin/main
   }
 
   @override
@@ -126,7 +123,7 @@ class _OTPAuthState extends State<OTPAuth> {
               key: formKey,
               child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                   child: PinCodeTextField(
                     backgroundColor: Colors.white,
                     appContext: context,
@@ -164,71 +161,8 @@ class _OTPAuthState extends State<OTPAuth> {
                       debugPrint("Completed");
                       PhoneAuthCredential credential =
                           PhoneAuthProvider.credential(
-                              verificationId: _verificationId,
-                              smsCode: v);
-<<<<<<< HEAD
-                          final userCredential = await FirebaseAuth
-                              .instance.currentUser
-                              ?.linkWithCredential(credential);
-                          try {
-                            final guser =
-                                await FirebaseAuth.instance.currentUser;
-
-                            await FirebaseAuth
-                                .instance ////Sign in manually and initialise userprofiile
-                                .signInWithCredential(
-                                    PhoneAuthProvider.credential(
-                                        verificationId: _verificationCode,
-                                        smsCode: v))
-                                .then((value) async {
-                              if (value.user != null) {
-                                print('correct pin, logging in.');
-                                await FirebaseFirestore.instance
-                                    .collection('Profiles')
-                                    .doc(guser!.uid)
-                                    .set({
-                                  'phoneNumber': widget.phoneNumber,
-                                  'email': guser.email,
-                                  'uid': guser.uid
-                                }, SetOptions(merge: true));
-                                await Navigator.of(context)
-                                    .pushNamedAndRemoveUntil(
-                                        InitializerWidget.routeName,
-                                        (Route<dynamic> route) => false);
-                              }
-                            });
-                          } catch (e) {
-                            errorSnackbar(context, 'Invalid OTP');
-                          }
-                        } on FirebaseAuthException catch (e) {
-                          switch (e.code) {
-                            case "provider-already-linked":
-                              print(
-                                  "The provider has already been linked to the user.");
-                              break;
-                            case "invalid-credential":
-                              print("The provider's credential is not valid.");
-                              break;
-                            case "credential-already-in-use":
-                              print(
-                                  "The account corresponding to the credential already exists, "
-                                  "or is already linked to a Firebase User.");
-                              break;
-                            // See the API reference for the full list of error codes.
-                            default:
-                              print("Unknown error.");
-                          }
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                '${widget.phoneNumber} is already linked to another account, please use another phone number.'),
-                          ));
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              GmailAuthScreen.routeName, (route) => false);
-                        }
-                      }
-=======
+                              verificationId: _verificationId, smsCode: v);
                       await linkAndCreateProfile(credential);
->>>>>>> origin/main
                     },
                     onChanged: (value) {
                       debugPrint(value);
