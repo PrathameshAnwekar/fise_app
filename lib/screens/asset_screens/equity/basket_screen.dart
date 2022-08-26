@@ -109,6 +109,7 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
                 {
                   'remaining': value,
                   'name': key,
+                  'bought': 0,
                   'addedOn': DateTime.now(),
                 },
               );

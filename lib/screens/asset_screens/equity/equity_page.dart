@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fise_app/constants/constants.dart';
-import 'package:fise_app/models/user_data.dart';
+import 'package:fise_app/screens/asset_screens/equity/allEquityHoldingspage.dart';
+import 'package:fise_app/screens/asset_screens/equity/allholdinpage.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_screen.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_search.dart';
 import 'package:fise_app/screens/asset_screens/equity/holdindtile.dart';
@@ -171,11 +171,30 @@ class FillContent extends StatelessWidget {
                 color: Colors.black.withOpacity(0.5)),
           ),
         ),
+
+        // EQUITY CART WITH PROGRESS BAR HERE
         EquityCart(),
         const SizedBox(height: 14),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const SizedBox(height: 17),
+
+        // HOLDING TILE HERE
         HoldingTile(),
+        Center(
+          child: OutlinedButton(
+              onPressed: () {
+                //
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return const AllHoldingPage();
+                })));
+              },
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0))),
+              ),
+              child: Text("  view all  ")),
+        ),
+
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const Padding(
           padding: EdgeInsets.fromLTRB(22.0, 20, 0, 7.5),
@@ -192,8 +211,24 @@ class FillContent extends StatelessWidget {
             width: SizeConfig.screenWidth * 0.4,
           ),
         ),
+
+        // RECENT INVESTMENT IN EQUITY
         RecentIvestments(),
-        const Divider(),
+        const SizedBox(height: 5),
+        Center(
+          child: OutlinedButton(
+              onPressed: () {
+                //
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return const EquityrecentInvstment();
+                })));
+              },
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0))),
+              ),
+              child: Text("  view all  ")),
+        ),
       ],
     );
   }

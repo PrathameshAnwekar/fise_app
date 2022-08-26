@@ -7,6 +7,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../constants/app_theme.dart';
 import '../../../constants/size_config.dart';
 import '../../../models/user_data.dart';
+import '../../../util/initializer.dart';
 
 class HoldingTile extends ConsumerStatefulWidget {
   const HoldingTile({super.key});
@@ -21,7 +22,8 @@ class _HoldingTileState extends ConsumerState<HoldingTile> {
     var _userData = ref.watch(currentUserDataProvider);
 
     return Container(
-      height: 470,
+      height: 420,
+      // color: Colors.red,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -40,68 +42,67 @@ class _HoldingTileState extends ConsumerState<HoldingTile> {
               width: SizeConfig.screenWidth * 0.3,
             ),
           ),
-          Container(
-            child: FutureBuilder(
-              future: FirebaseFirestore.instance
-                  .collection("Profiles")
-                  .doc(_userData?.uid)
-                  .collection("basket")
-                  .get(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasData) {
-                  var data = snapshot.data!.docs;
+          FutureBuilder(
+            future: FirebaseFirestore.instance
+                .collection("Profiles")
+                .doc(_userData?.uid)
+                .collection("basket")
+                .get(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasData) {
+                var data = snapshot.data!.docs;
 
-                  return Expanded(
-                      child: Container(
-                    // color: Colors.lightGreenAccent,
+                return Expanded(
                     child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        var docData = data[index].data()! as Map;
+                  // physics: NeverScrollableScrollPhysics(),
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.docs.length,
+                  // itemCount: 1,
+                  itemBuilder: (context, index) {
+                    var docData = data[index].data()! as Map;
 
-                        return Holdings(equity: docData["name"]);
-                      },
-                    ),
-                  ));
-                } else {
-                  return Text("You have no investments yet.");
-                }
-              },
-            ),
+                    return Holdings(
+                        equity: docData["name"],
+                        shares: docData["bought"].toString(),
+                        avgBuyPrice: docData["price"].toString());
+                  },
+                ));
+              } else {
+                return Text("You have no investments yet.");
+              }
+            },
           ),
-          Center(
-            child: OutlinedButton(
-                onPressed: () {
-                  //
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) {
-                    return const AllHoldingPage();
-                  })));
-                },
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0))),
-                ),
-                child: Text("  view all  ")),
-          )
         ],
       ),
     );
   }
 }
 
-class Holdings extends StatelessWidget {
-  const Holdings({Key? key, required this.equity}) : super(key: key);
+class Holdings extends ConsumerStatefulWidget {
+  const Holdings({
+    Key? key,
+    required this.equity,
+    required this.shares,
+    required this.avgBuyPrice,
+  }) : super(key: key);
   final String equity;
+  final String shares;
+  final String avgBuyPrice;
 
   @override
+  ConsumerState<Holdings> createState() => _HoldingsState();
+}
+
+class _HoldingsState extends ConsumerState<Holdings> {
+  @override
   Widget build(BuildContext context) {
+    var stockInfo = ref.read(basketStocksProvider.state).state;
+
     return Center(
       child: Container(
         child: Column(
@@ -128,7 +129,7 @@ class Holdings extends StatelessWidget {
                           children: [
                             Container(
                               width: 172,
-                              child: Text(equity,
+                              child: Text(widget.equity,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 20,
@@ -160,7 +161,7 @@ class Holdings extends StatelessWidget {
                           children: [
                             Column(
                               children: [
-                                Text("₹1397.1",
+                                Text("₹" + stockInfo["price"].toString(),
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500)),
@@ -172,7 +173,7 @@ class Holdings extends StatelessWidget {
                             VerticalDivider(),
                             Column(
                               children: [
-                                Text("5",
+                                Text(widget.shares,
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500)),
@@ -184,7 +185,7 @@ class Holdings extends StatelessWidget {
                             VerticalDivider(),
                             Column(
                               children: [
-                                Text("₹1200.4",
+                                Text(widget.avgBuyPrice,
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500)),

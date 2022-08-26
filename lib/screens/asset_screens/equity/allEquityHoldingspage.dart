@@ -1,26 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/models/user_data.dart';
+import 'package:fise_app/screens/asset_screens/equity/holdindtile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class RecentIvestments extends ConsumerStatefulWidget {
-  const RecentIvestments({Key? key}) : super(key: key);
+import '../../../constants/size_config.dart';
+
+class EquityrecentInvstment extends ConsumerStatefulWidget {
+  const EquityrecentInvstment({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<RecentIvestments> createState() => _RecentIvestmentsState();
+  ConsumerState<EquityrecentInvstment> createState() =>
+      _EquityrecentInvstmentState();
 }
 
-class _RecentIvestmentsState extends ConsumerState<RecentIvestments> {
+class _EquityrecentInvstmentState extends ConsumerState<EquityrecentInvstment> {
   @override
   Widget build(BuildContext context) {
     var _userData = ref.watch(currentUserDataProvider);
 
-    return Container(
-      height: 220,
-      child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("equity portfolio"),
+        elevation: 2,
+      ),
+      body: Column(
         children: [
+          SizedBox(height: 20),
           Expanded(
             child: FutureBuilder(
               future: FirebaseFirestore.instance
@@ -104,7 +111,7 @@ class _RecentIvestmentsState extends ConsumerState<RecentIvestments> {
                 }
               },
             ),
-          )
+          ),
         ],
       ),
     );
