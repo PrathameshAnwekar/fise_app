@@ -103,96 +103,106 @@ class Holdings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: [
-          Container(
-            height: 120,
-            width: SizeConfig.screenWidth,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: Column(
-                children: [
-                  SizedBox(height: 7),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Flexible(
-                          flex: 6,
-                          child: Text(equity,
-                              overflow: TextOverflow.ellipsis,
+      child: Container(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: Container(
+                height: 115,
+                width: SizeConfig.screenWidth,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 241, 240, 240),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(11),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Column(
+                    children: [
+                      // SizedBox(height: 7),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 172,
+                              child: Text(equity,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600)),
+                            ),
+                            Text(
+                              "^3.75%",
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600)),
-                        ),
-                        const Flexible(
-                            flex: 1, child: const SizedBox(width: 7)),
-                        Flexible(
-                          flex: 1,
-                          child: Text(
-                            "^3.75%",
-                            style: TextStyle(
-                                color: AppThemeData.lightColorScheme.primary),
-                          ),
-                        ),
-                        Flexible(flex: 1, child: const SizedBox(width: 7)),
-                        Flexible(flex: 1, child: Text("Wt: 50%"))
-                      ],
-                    ),
-                  ),
-                  LinearPercentIndicator(
-                    barRadius: const Radius.circular(16),
-                    width: SizeConfig.screenWidth * 0.9,
-                    lineHeight: 10.0,
-                    percent: 0.75,
-                    backgroundColor:
-                        AppThemeData.lightColorScheme.primary.withOpacity(0.1),
-                    progressColor: AppThemeData.lightColorScheme.primary,
-                  ),
-                  const SizedBox(height: 15),
-                  IntrinsicHeight(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Text("₹1397.1",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w500)),
-                            Text("Current Price",
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.5)))
+                                  color: AppThemeData.lightColorScheme.primary),
+                            ),
+                            const Spacer(),
+                            Text("Wt: 50%")
                           ],
                         ),
-                        VerticalDivider(),
-                        Column(
+                      ),
+                      LinearPercentIndicator(
+                        barRadius: const Radius.circular(16),
+                        width: SizeConfig.screenWidth * 0.9,
+                        lineHeight: 10.0,
+                        percent: 0.75,
+                        backgroundColor: AppThemeData.lightColorScheme.primary
+                            .withOpacity(0.1),
+                        progressColor: AppThemeData.lightColorScheme.primary,
+                      ),
+                      const SizedBox(height: 15),
+                      IntrinsicHeight(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text("5",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w500)),
-                            Text("Shares",
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.5)))
+                            Column(
+                              children: [
+                                Text("₹1397.1",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500)),
+                                Text("Current Price",
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.5)))
+                              ],
+                            ),
+                            VerticalDivider(),
+                            Column(
+                              children: [
+                                Text("5",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500)),
+                                Text("Shares",
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.5)))
+                              ],
+                            ),
+                            VerticalDivider(),
+                            Column(
+                              children: [
+                                Text("₹1200.4",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500)),
+                                Text("Avg Buy Price",
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.5))),
+                              ],
+                            ),
                           ],
                         ),
-                        VerticalDivider(),
-                        Column(
-                          children: [
-                            Text("₹1200.4",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w500)),
-                            Text("Avg Buy Price",
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.5)))
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

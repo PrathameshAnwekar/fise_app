@@ -193,12 +193,6 @@ class FillContent extends StatelessWidget {
           ),
         ),
         RecentIvestments(),
-        // const Divider(),
-        // RecentIvestments(),
-        // const Divider(),
-        // RecentIvestments(),
-        // const Divider(),
-        // RecentIvestments(),
         const Divider(),
       ],
     );

@@ -106,7 +106,11 @@ class _BasketScreenState extends ConsumerState<BasketScreen> {
                   .collection('basket')
                   .doc(key)
                   .set(
-                {'remaining': value, 'name': key, 'addedOn': DateTime.now()},
+                {
+                  'remaining': value,
+                  'name': key,
+                  'addedOn': DateTime.now(),
+                },
               );
             });
 
