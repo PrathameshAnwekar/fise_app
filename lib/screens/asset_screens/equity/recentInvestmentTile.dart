@@ -35,69 +35,68 @@ class _RecentIvestmentsState extends ConsumerState<RecentIvestments> {
                 if (snapshot.hasData) {
                   var data = snapshot.data!.docs;
 
-                  return Expanded(
-                    child: Container(
-                        child: ListView.builder(
+                  return SingleChildScrollView(
+                    child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        var docData = data[index].data() as Map;
-                        DateTime dt =
-                            (docData['boughton'] as Timestamp).toDate();
-                        String formattedDate =
-                            DateFormat("yyyy-MM-dd").format(dt);
+                    var docData = data[index].data() as Map;
+                    DateTime dt =
+                        (docData['boughton'] as Timestamp).toDate();
+                    String formattedDate =
+                        DateFormat("yyyy-MM-dd").format(dt);
 
-                        return Container(
-                          padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-                          height: 90,
-                          width: SizeConfig.screenHeight,
-                          child: Column(
+                    return Container(
+                      padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      height: 90,
+                      width: SizeConfig.screenHeight,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "₹" + docData["price"].toString(),
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(formattedDate.toString()),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Container(
-                                          height: 1,
-                                          width: 50,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 180,
-                                        child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: Text(
-                                            docData["equity"] ?? "unknown :(",
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                              Text(
+                                "₹" + docData["price"].toString(),
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w500),
                               ),
-                              Divider(thickness: 1.5)
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(formattedDate.toString()),
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Container(
+                                      height: 1,
+                                      width: 50,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 180,
+                                    child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: Text(
+                                        docData["equity"] ?? "unknown :(",
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
-                        );
+                          Divider(thickness: 1.5)
+                        ],
+                      ),
+                    );
                       },
-                    )),
+                    ),
                   );
                 } else {
                   return Text("You have no investments yet.");
