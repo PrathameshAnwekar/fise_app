@@ -5,6 +5,7 @@ import 'package:fise_app/screens/asset_screens/equity/allholdinpage.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_screen.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_search.dart';
 import 'package:fise_app/screens/asset_screens/equity/holdindtile.dart';
+import 'package:fise_app/screens/asset_screens/equity/investMorePage.dart';
 import 'package:fise_app/screens/asset_screens/equity/recentInvestmentTile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -373,10 +374,16 @@ class StockReturnsWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
+                  // onPressed: () {
+                  //   Navigator.push(context,
+                  //       MaterialPageRoute(builder: (context) {
+                  //     return BasketSearchScreen();
+                  //   }));
+                  // },
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return BasketSearchScreen();
+                      return InvestMorePage();
                     }));
                   },
                   child: Text('Invest More',

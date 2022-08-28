@@ -54,6 +54,8 @@ class _HoldingTileState extends ConsumerState<HoldingTile> {
               }
               if (snapshot.hasData) {
                 var data = snapshot.data!.docs;
+                // int _itemCount = snapshot.data!.docs.length;
+                int _itemCount = 1;
 
                 return Expanded(
                     child: ListView.builder(
@@ -61,15 +63,31 @@ class _HoldingTileState extends ConsumerState<HoldingTile> {
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
-                  itemCount: snapshot.data!.docs.length,
-                  // itemCount: 1,
+                  // itemCount: snapshot.data!.docs.length,
+                  itemCount: _itemCount,
                   itemBuilder: (context, index) {
                     var docData = data[index].data()! as Map;
 
-                    return Holdings(
-                        equity: docData["name"],
-                        shares: docData["bought"].toString(),
-                        avgBuyPrice: docData["price"].toString());
+                    return _itemCount == 1
+                        ? Column(
+                            children: [
+                              Holdings(
+                                  equity: docData["name"],
+                                  shares: docData["bought"].toString(),
+                                  avgBuyPrice: docData["price"].toString()),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 100.0),
+                                child: Text(
+                                  "Keep Investing!",
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              )
+                            ],
+                          )
+                        : Holdings(
+                            equity: docData["name"],
+                            shares: docData["bought"].toString(),
+                            avgBuyPrice: docData["price"].toString());
                   },
                 ));
               } else {
