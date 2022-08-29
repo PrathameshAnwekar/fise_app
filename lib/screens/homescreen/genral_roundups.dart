@@ -40,26 +40,9 @@ class _GenralRoundupsState extends State<GenralRoundups> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-              child: Row(
-                children: [
-                  const Text(
-                    "Roundup cart",
-                    style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
-                  ),
-                  const Spacer(),
-                  Container(
-                    height: 34.0,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: AppThemeData.lightColorScheme.primary
-                          .withOpacity(0.3),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(17.0)),
-                    ),
-                    child: const Center(child: Text("Auto-Save is Live")),
-                  ),
-                ],
+              child: const Text(
+                "Roundup cart",
+                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w500),
               ),
             ),
             Padding(
