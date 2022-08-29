@@ -1,4 +1,5 @@
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/payments/cashfree_pg.dart';
 import 'package:fise_app/screens/asset_screens/equity/basket_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -104,7 +105,7 @@ class _InvestMorePageState extends State<InvestMorePage> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xffD8D8D8),
+                              primary: Color(0xffD8D8D8),
                             ),
                             child: Text(
                               "+500",
@@ -126,7 +127,7 @@ class _InvestMorePageState extends State<InvestMorePage> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xffD8D8D8),
+                              primary: Color(0xffD8D8D8),
                             ),
                             child: Text(
                               "+1000",
@@ -148,7 +149,7 @@ class _InvestMorePageState extends State<InvestMorePage> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xffD8D8D8),
+                              primary: Color(0xffD8D8D8),
                             ),
                             child: Text(
                               "+1500",
@@ -170,7 +171,7 @@ class _InvestMorePageState extends State<InvestMorePage> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xffD8D8D8),
+                              primary: Color(0xffD8D8D8),
                             ),
                             child: Text(
                               "+2000",
@@ -194,7 +195,7 @@ class _InvestMorePageState extends State<InvestMorePage> {
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return BasketSearchScreen();
+                                return CashfreePage(orderAmount: amountController.text, orderNote: 'EQUITY',);
                               }));
                             },
                             child: Text(
