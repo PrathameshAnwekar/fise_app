@@ -54,8 +54,7 @@ class _HoldingTileState extends ConsumerState<HoldingTile> {
               }
               if (snapshot.hasData) {
                 var data = snapshot.data!.docs;
-                // int _itemCount = snapshot.data!.docs.length;
-                int _itemCount = 1;
+                int _itemCount = snapshot.data!.docs.length;
 
                 return Expanded(
                     child: ListView.builder(

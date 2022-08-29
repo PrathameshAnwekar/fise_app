@@ -191,6 +191,7 @@ class _InvestMorePageState extends State<InvestMorePage> {
                           width: SizeConfig.screenWidth * 0.8,
                           height: 47,
                           child: ElevatedButton(
+                            //  routing of page
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {

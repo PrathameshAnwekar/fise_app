@@ -374,12 +374,6 @@ class StockReturnsWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
-                  // onPressed: () {
-                  //   Navigator.push(context,
-                  //       MaterialPageRoute(builder: (context) {
-                  //     return BasketSearchScreen();
-                  //   }));
-                  // },
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
