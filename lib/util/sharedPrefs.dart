@@ -12,7 +12,7 @@ class UserSharedPrefs {
   Future setString(String key, String value) async {
     await _prefs!.setString(key, value);
   }
-   getBool(String key) async {
+   bool? getBool(String key)  {
     return _prefs!.getBool(key);
   }
   Future getString(String key) async {
