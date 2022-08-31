@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/models/user_data.dart';
+import 'package:fise_app/screens/authentication/signupPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -74,6 +75,9 @@ class _PersonalInfoPageState extends ConsumerState<PersonalInfoPage> {
             TextButton(
               onPressed: () {
                 //
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return SignupPage();
+                })));
               },
               child: const Text("Contact Us"),
             ),
