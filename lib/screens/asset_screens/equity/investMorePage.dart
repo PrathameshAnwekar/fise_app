@@ -196,7 +196,10 @@ class _InvestMorePageState extends State<InvestMorePage> {
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return CashfreePage(orderAmount: amountController.text, orderNote: 'EQUITY',);
+                                return CashfreePage(
+                                  orderAmount: amountController.text,
+                                  orderNote: 'EQUITY',
+                                );
                               }));
                             },
                             child: Text(
