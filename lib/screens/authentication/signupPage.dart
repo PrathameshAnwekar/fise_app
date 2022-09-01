@@ -1,27 +1,34 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
-import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../models/user_data.dart';
+import '../../util/initializer.dart';
 
 final userUid = FirebaseAuth.instance.currentUser!.uid;
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   static const routeName = '/Signuppage';
 
   SignupPage({Key? key}) : super(key: key);
 
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await saveDetailsToFirebase();
+          // await saveDetailsToFirebase();
+          await checkValues();
           await Navigator.of(context).pushNamedAndRemoveUntil(
               InitializerWidget.routeName, (route) => false);
         },
@@ -172,6 +179,9 @@ class _SignupTilesState extends ConsumerState<SignupTiles> {
   Widget build(BuildContext context) {
     var _userData = ref.watch(currentUserDataProvider);
 
+    _emailController.text = _userData!.email;
+    _mobileController.text = _userData.phoneNumber;
+
     return Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,13 +224,13 @@ class _SignupTilesState extends ConsumerState<SignupTiles> {
             title: "mobile",
             useablebool: false,
             detailcontroller: _mobileController,
-            hinttext: _userData!.phoneNumber,
+            hinttext: "",
           ),
           detailTile(
             title: "email",
             useablebool: false,
             detailcontroller: _emailController,
-            hinttext: _userData.email,
+            hinttext: "",
           ),
           detailTile(
             title: "address",
@@ -296,6 +306,12 @@ class detailTile extends StatelessWidget {
             child: TextFormField(
               enabled: useablebool,
               controller: detailcontroller,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Please enter some text";
+                }
+                return null;
+              },
               style: TextStyle(fontSize: 19.7),
               decoration: InputDecoration(
                 hintText: hinttext,
@@ -318,11 +334,16 @@ class detailTile extends StatelessWidget {
   }
 }
 
-class ImagesTile extends StatelessWidget {
+class ImagesTile extends StatefulWidget {
   const ImagesTile({super.key, required this.title});
 
   final String title;
 
+  @override
+  State<ImagesTile> createState() => _ImagesTileState();
+}
+
+class _ImagesTileState extends State<ImagesTile> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -331,7 +352,7 @@ class ImagesTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
           child: Text(
-            title,
+            widget.title,
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
           ),
         ),
@@ -365,6 +386,34 @@ TextEditingController _stateController = TextEditingController();
 TextEditingController _pincodeController = TextEditingController();
 TextEditingController _aadhaarcardnoController = TextEditingController();
 TextEditingController _panNoController = TextEditingController();
+
+checkValues() async {
+  String name = _nameController.text.trim();
+  String address = _addressController.text.trim();
+  String aadhar = _aadhaarcardnoController.text.trim();
+  String pancard = _panNoController.text.trim();
+  String state = _stateController.text.trim();
+  String pincode = _pincodeController.text.trim();
+
+  if (name == "" ||
+      address == "" ||
+      aadhar == "" ||
+      pancard == "" ||
+      state == "" ||
+      pincode == "") {
+    log("please fill all the details");
+    //snackbar
+  } else if (double.tryParse(pincode) == null || pincode.length != 6) {
+    log("invalide pincode");
+    // snakbar
+  } else if (double.tryParse(aadhar) == null || aadhar.length != 12) {
+    log("invalid aadhar no.");
+    // snakbar
+  } else {
+    log("value are filled");
+    saveDetailsToFirebase();
+  }
+}
 
 saveDetailsToFirebase() async {
   await FirebaseFirestore.instance.collection('Profiles').doc(userUid).set({
