@@ -20,7 +20,7 @@ class Equitypage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        slivers: <Widget>[
+        slivers: [
           SliverPersistentHeader(
             pinned: true,
             delegate: SliverCustomHeaderDelegate(
@@ -149,88 +149,94 @@ class FillContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      // mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 20,
-          width: MediaQuery.of(context).size.width,
-          color: AppThemeData.lightColorScheme.primary,
-          child: Container(
+    return SingleChildScrollView(
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
             height: 20,
             width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
-            child: Divider(
-                endIndent: 150,
-                indent: 150,
-                thickness: 4,
-                color: Colors.black.withOpacity(0.5)),
+            color: AppThemeData.lightColorScheme.primary,
+            child: Container(
+              height: 20,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              child: Divider(
+                  endIndent: 150,
+                  indent: 150,
+                  thickness: 4,
+                  color: Colors.black.withOpacity(0.5)),
+            ),
           ),
-        ),
 
-        // EQUITY CART WITH PROGRESS BAR HERE
-        EquityCart(),
-        const SizedBox(height: 14),
-        const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-        const SizedBox(height: 17),
+          // EQUITY CART WITH PROGRESS BAR HERE
+          EquityCart(),
+          const SizedBox(height: 14),
+          const Divider(
+              thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
+          const SizedBox(height: 17),
 
-        // HOLDING TILE HERE
-        HoldingTile(),
-        Center(
-          child: OutlinedButton(
-              onPressed: () {
-                //
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return const AllHoldingPage();
-                })));
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0))),
-              ),
-              child: Text("  view all  ")),
-        ),
-
-        const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(22.0, 20, 0, 7.5),
-          child: Text(
-            "recent investments(in equity)",
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
+          // HOLDING TILE HERE
+          HoldingTile(),
+          Center(
+            child: OutlinedButton(
+                onPressed: () {
+                  //
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) {
+                    return const AllHoldingPage();
+                  })));
+                },
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
+                ),
+                child: Text("  view all  ")),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(22.0, 0, 0, 22),
-          child: Container(
-            height: 2,
-            color: Colors.grey.withOpacity(0.5),
-            width: SizeConfig.screenWidth * 0.4,
-          ),
-        ),
 
-        // RECENT INVESTMENT IN EQUITY
-        RecentIvestments(),
-        const SizedBox(height: 5),
-        Center(
-          child: OutlinedButton(
-              onPressed: () {
-                //
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return const EquityrecentInvstment();
-                })));
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0))),
-              ),
-              child: Text("  view all  ")),
-        ),
-      ],
+          const Divider(
+              thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(22.0, 20, 0, 7.5),
+            child: Text(
+              "recent investments(in equity)",
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(22.0, 0, 0, 22),
+            child: Container(
+              height: 2,
+              color: Colors.grey.withOpacity(0.5),
+              width: SizeConfig.screenWidth * 0.4,
+            ),
+          ),
+
+          // RECENT INVESTMENT IN EQUITY
+          RecentIvestments(),
+          const SizedBox(height: 5),
+          Center(
+            child: OutlinedButton(
+                onPressed: () {
+                  //
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) {
+                    return const EquityrecentInvstment();
+                  })));
+                },
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
+                ),
+                child: Text("  view all  ")),
+          ),
+        ],
+      ),
     );
   }
 }

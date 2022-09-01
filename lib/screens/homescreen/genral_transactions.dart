@@ -21,7 +21,7 @@ class _GeneralTransactionsState extends ConsumerState<GeneralTransactions> {
 
     return Container(
       // color: Colors.lightGreenAccent,
-      height: 350,
+      height: 370,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
