@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
+import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/user_data.dart';
+
+final userUid = FirebaseAuth.instance.currentUser!.uid;
 
 class SignupPage extends StatelessWidget {
   static const routeName = '/Signuppage';
@@ -15,8 +20,10 @@ class SignupPage extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          //
+        onPressed: () async {
+          await saveDetailsToFirebase();
+          await Navigator.of(context).pushNamedAndRemoveUntil(
+              InitializerWidget.routeName, (route) => false);
         },
         backgroundColor: AppThemeData.lightColorScheme.primary,
         label: Container(
@@ -34,7 +41,7 @@ class SignupPage extends StatelessWidget {
           SliverPersistentHeader(
             pinned: true,
             delegate: SliverCustomHeaderDelegate(
-                title: 'enter your details',
+                title: '   enter your details',
                 collapsedHeight: 50,
                 expandedHeight: 240,
                 paddingTop: MediaQuery.of(context).padding.top,
@@ -133,13 +140,6 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                          color: makeStickyHeaderTextColor(shrinkOffset, true),
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
                       Text(
                         title,
                         style: TextStyle(
@@ -170,103 +170,96 @@ class SignupTiles extends ConsumerStatefulWidget {
 class _SignupTilesState extends ConsumerState<SignupTiles> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController _nameController = TextEditingController();
-    TextEditingController _mobileController = TextEditingController();
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _addressController = TextEditingController();
-    TextEditingController _stateController = TextEditingController();
-    TextEditingController _pincodeController = TextEditingController();
-    TextEditingController _aadhaarcardnoController = TextEditingController();
-    TextEditingController _panNoController = TextEditingController();
-
     var _userData = ref.watch(currentUserDataProvider);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 20,
-          width: MediaQuery.of(context).size.width,
-          color: Color.fromARGB(255, 233, 233, 233),
-          child: Container(
+    return Form(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
             height: 20,
             width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
+            color: Color.fromARGB(255, 233, 233, 233),
+            child: Container(
+              height: 20,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+            ),
           ),
-        ),
-        //
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 15, 0, 4),
-          child: Text(
-            "enter your details",
-            style: TextStyle(fontSize: 25),
+          //
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 15, 0, 4),
+            child: Text(
+              "enter your details",
+              style: TextStyle(fontSize: 25),
+            ),
           ),
-        ),
-        Divider(
-          endIndent: 210,
-          indent: 20,
-          thickness: 1,
-          color: Colors.black.withOpacity(0.5),
-        ),
-        //
-        detailTile(
-          title: 'name',
-          detailcontroller: _nameController,
-          hinttext: '',
-        ),
-        detailTile(
-          title: "mobile",
-          useablebool: false,
-          detailcontroller: _mobileController,
-          hinttext: _userData!.phoneNumber,
-        ),
-        detailTile(
-          title: "email",
-          useablebool: false,
-          detailcontroller: _emailController,
-          hinttext: _userData.email,
-        ),
-        detailTile(
-          title: "address",
-          detailcontroller: _addressController,
-          hinttext: "",
-        ),
-        detailTile(
-          title: "state",
-          detailcontroller: _stateController,
-          hinttext: "",
-        ),
-        detailTile(
-          title: "pincode",
-          detailcontroller: _pincodeController,
-          hinttext: "",
-        ),
-        detailTile(
-          title: "aadhar card no.",
-          detailcontroller: _aadhaarcardnoController,
-          hinttext: "",
-        ),
-        detailTile(
-          title: "pan no.",
-          detailcontroller: _panNoController,
-          hinttext: "",
-        ),
+          Divider(
+            endIndent: 210,
+            indent: 20,
+            thickness: 1,
+            color: Colors.black.withOpacity(0.5),
+          ),
+          //
+          detailTile(
+            title: 'name',
+            detailcontroller: _nameController,
+            hinttext: '',
+          ),
+          detailTile(
+            title: "mobile",
+            useablebool: false,
+            detailcontroller: _mobileController,
+            hinttext: _userData!.phoneNumber,
+          ),
+          detailTile(
+            title: "email",
+            useablebool: false,
+            detailcontroller: _emailController,
+            hinttext: _userData.email,
+          ),
+          detailTile(
+            title: "address",
+            detailcontroller: _addressController,
+            hinttext: "",
+          ),
+          detailTile(
+            title: "state",
+            detailcontroller: _stateController,
+            hinttext: "",
+          ),
+          detailTile(
+            title: "pincode",
+            detailcontroller: _pincodeController,
+            hinttext: "",
+          ),
+          detailTile(
+            title: "aadhar card no.",
+            detailcontroller: _aadhaarcardnoController,
+            hinttext: "",
+          ),
+          detailTile(
+            title: "pan no.",
+            detailcontroller: _panNoController,
+            hinttext: "",
+          ),
 
-//
-//
-        ImagesTile(title: "upload your aadhaar front side"),
-        ImagesTile(title: "upload your aadhaar back side"),
-        ImagesTile(title: "upload your pan"),
-//
-//
-        SizedBox(
-          height: 100,
-        )
-      ],
+          //
+          //
+          ImagesTile(title: "upload your aadhaar front side"),
+          ImagesTile(title: "upload your aadhaar back side"),
+          ImagesTile(title: "upload your pan"),
+          //
+          //
+          SizedBox(
+            height: 100,
+          )
+        ],
+      ),
     );
   }
 }
@@ -300,7 +293,7 @@ class detailTile extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: TextField(
+            child: TextFormField(
               enabled: useablebool,
               controller: detailcontroller,
               style: TextStyle(fontSize: 19.7),
@@ -362,4 +355,28 @@ class ImagesTile extends StatelessWidget {
       ],
     );
   }
+}
+
+TextEditingController _nameController = TextEditingController();
+TextEditingController _mobileController = TextEditingController();
+TextEditingController _emailController = TextEditingController();
+TextEditingController _addressController = TextEditingController();
+TextEditingController _stateController = TextEditingController();
+TextEditingController _pincodeController = TextEditingController();
+TextEditingController _aadhaarcardnoController = TextEditingController();
+TextEditingController _panNoController = TextEditingController();
+
+saveDetailsToFirebase() async {
+  await FirebaseFirestore.instance.collection('Profiles').doc(userUid).set({
+    'username': _nameController.text,
+    'phoneNumber': _mobileController.text,
+    'email': _emailController.text,
+    'address': _addressController.text +
+        ',' +
+        _stateController.text +
+        ',' +
+        _pincodeController.text,
+    'aadhar': _aadhaarcardnoController.text,
+    'pancard': _panNoController.text,
+  });
 }
