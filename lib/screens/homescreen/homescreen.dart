@@ -1,13 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/models/user_data.dart';
 import 'package:fise_app/screens/asset_screens/assetclass_page.dart';
-import 'package:fise_app/screens/asset_screens/gold/investmore_gold.dart';
+import 'package:fise_app/screens/homescreen/KycTile.dart';
 import 'package:fise_app/screens/homescreen/calender.dart';
 import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
 import 'package:fise_app/screens/settings/settings_page.dart';
-import 'package:fise_app/screens/settings/transactions/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -226,6 +224,8 @@ class FillContent extends StatelessWidget {
         ),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const Calender(),
+        const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
+        kycTileHome(),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const GenralRoundups(),
         const SizedBox(height: 20),

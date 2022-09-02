@@ -6,6 +6,7 @@ import 'package:fise_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../models/user_data.dart';
 import '../../util/initializer.dart';
 
@@ -147,6 +148,16 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
+                      IconButton(
+                        onPressed: () {
+                          //
+                          Navigator.pop(context);
+                        },
+                        icon: const FaIcon(
+                          Icons.arrow_back_ios,
+                          // color: Colors.white,
+                        ),
+                      ),
                       Text(
                         title,
                         style: TextStyle(
