@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fise_app/util/sharedPrefs.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +56,7 @@ class _MultiplierTileState extends State<MultiplierTile> {
           onChanged: (double NewValue) {
             setState(() {
               multiplierValue = NewValue.round();
-              UserSharedPrefs().setInt("multiplier", multiplierValue);
+              UserSharedPrefs().setInt("multiplier", max(multiplierValue, 1));
             });
           },
         ),

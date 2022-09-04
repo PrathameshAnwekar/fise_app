@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fise_app/payments/cashfree_pg.dart';
 import 'package:fise_app/sms_retriever/sms.dart';
 import 'package:fise_app/util/sharedPrefs.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class GenralRoundups extends StatefulWidget {
 }
 
 class _GenralRoundupsState extends State<GenralRoundups> {
-  var multiplier = UserSharedPrefs().getInt("multiplier") ?? 1;
+  int multiplier = UserSharedPrefs().getInt("multiplier") ;
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ class _GenralRoundupsState extends State<GenralRoundups> {
           );
         }
 
-        roundUpValue = int.parse(val.data.toString());
+        roundUpValue = int.parse(val.data.toString()) * multiplier;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -64,7 +65,7 @@ class _GenralRoundupsState extends State<GenralRoundups> {
             Padding(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 4),
               child: Text(
-                "₹  $roundUpValue/ ₹ 100",
+                "₹  ${roundUpValue}/ ₹ 100",
                 style: TextStyle(fontSize: 30),
               ),
             ),
@@ -139,7 +140,11 @@ class RoundupPayTile extends StatelessWidget {
             width: 180,
             child: OutlinedButton(
               onPressed: () {
-                // Payment gateway
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CashfreePage(
+                          orderAmount: roundUpValue,
+                          orderNote: 'DAILYROUNDUP',
+                        )));
               },
               style: OutlinedButton.styleFrom(
                   side: BorderSide(width: 1.2, color: Color(0xff005251)),
@@ -151,7 +156,7 @@ class RoundupPayTile extends StatelessWidget {
                 children: [
                   // dot image here Image here
                   Text(
-                    "Pay " + "₹120",
+                    "Pay " + "₹" + roundUpValue.toString(),
                     style: TextStyle(
                       color: Color(0xff005251),
                       fontSize: 20,
