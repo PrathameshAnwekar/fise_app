@@ -201,7 +201,7 @@ class _kycTileState extends ConsumerState<kycTile> {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
                   ),
                   Text(
-                    _userData?.kyc ?? 'not set',
+                    _userData?.kyc == false ? "Not Done" : 'Done',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   Icon((_userData?.kyc == "verified") ? Icons.done : null)

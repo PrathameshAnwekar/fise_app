@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fise_app/sms_retriever/sms.dart';
+import 'package:fise_app/util/sharedPrefs.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../constants/app_theme.dart';
@@ -16,6 +17,8 @@ class GenralRoundups extends StatefulWidget {
 }
 
 class _GenralRoundupsState extends State<GenralRoundups> {
+  var multiplier = UserSharedPrefs().getInt("multiplier") ?? 1;
+
   @override
   void initState() {
     // TODO: implement initState

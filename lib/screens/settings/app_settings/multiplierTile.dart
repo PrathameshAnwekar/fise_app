@@ -1,3 +1,4 @@
+import 'package:fise_app/util/sharedPrefs.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/size_config.dart';
@@ -10,7 +11,7 @@ class MultiplierTile extends StatefulWidget {
 }
 
 class _MultiplierTileState extends State<MultiplierTile> {
-  int multiplierValue = 2;
+  int multiplierValue = UserSharedPrefs().getInt("multiplier") ?? 2;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,7 @@ class _MultiplierTileState extends State<MultiplierTile> {
           onChanged: (double NewValue) {
             setState(() {
               multiplierValue = NewValue.round();
+              UserSharedPrefs().setInt("multiplier", multiplierValue);
             });
           },
         ),

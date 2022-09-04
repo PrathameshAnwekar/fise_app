@@ -14,7 +14,7 @@ class UserData {
   String address;
   String phoneNumber;
   String dob;
-  String kyc;
+  bool kyc;
 
   UserData(
       {required this.username,
@@ -44,7 +44,7 @@ class UserData {
         aadhar: docData.contains('aadhar') ? doc.get('aadhar') : 'not set',
         address: docData.contains('address') ? doc.get('address') : 'not set',
         dob: docData.contains('dob') ? doc.get('dob') : 'not set',
-        kyc: docData.contains('kyc') ? doc.get('kyc') : 'not set');
+        kyc: docData.contains('kyc') ? doc.get('kyc') as bool : false);
   }
 }
 

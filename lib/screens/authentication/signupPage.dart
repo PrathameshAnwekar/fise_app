@@ -1,16 +1,22 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../models/user_data.dart';
 import '../../util/initializer.dart';
 
 final userUid = FirebaseAuth.instance.currentUser!.uid;
+var _aadharFrontImage = null;
+var _aadharBackImage = null;
+var _panCardImage = null;
 
 class SignupPage extends StatefulWidget {
   static const routeName = '/Signuppage';
@@ -186,6 +192,7 @@ class SignupTiles extends ConsumerStatefulWidget {
 }
 
 class _SignupTilesState extends ConsumerState<SignupTiles> {
+  final _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     var _userData = ref.watch(currentUserDataProvider);
@@ -271,14 +278,88 @@ class _SignupTilesState extends ConsumerState<SignupTiles> {
 
           //
           //
-          ImagesTile(title: "upload your aadhaar front side"),
-          ImagesTile(title: "upload your aadhaar back side"),
-          ImagesTile(title: "upload your pan"),
+          _aadharFrontImage == null
+              ? imagesTile(
+                  title: "upload your aadhaar front side",
+                )
+              : Center(
+                  child: Image.file(
+                    File(_aadharFrontImage.path),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+          _aadharBackImage == null
+              ? imagesTile(
+                  title: "upload your aadhaar back side",
+                )
+              : Center(
+                  child: Image.file(
+                    File(_aadharBackImage.path),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+          _panCardImage == null
+              ? imagesTile(title: "upload your pan")
+              : Center(
+                  child: Image.file(
+                    File(_panCardImage.path),
+                    fit: BoxFit.cover,
+                  ),
+                ),
           //
           //
           SizedBox(
             height: 100,
           )
+        ],
+      ),
+    );
+  }
+
+  imagesTile({required String title}) {
+    return GestureDetector(
+      onTap: () async {
+        try {
+          final XFile? pickedFile = await _picker.pickImage(
+            source: ImageSource.gallery,
+            maxWidth: SizeConfig.screenWidth,
+            maxHeight: SizeConfig.screenHeight * 0.25,
+            imageQuality: 100,
+          );
+          setState(() {
+            title.contains("back") ? _aadharBackImage = pickedFile : 0;
+            title.contains("front") ? _aadharFrontImage = pickedFile : 0;
+            title.contains("pan") ? _panCardImage = pickedFile : 0;
+          });
+        } catch (e) {}
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+            child: Container(
+              height: SizeConfig.screenHeight * 0.25,
+              width: SizeConfig.screenWidth,
+              decoration: BoxDecoration(
+                color: Color(0xffECF1F1),
+                borderRadius: BorderRadius.circular(11),
+              ),
+              child: Center(
+                  child: Icon(
+                Icons.camera_alt,
+                size: 45,
+                color: Colors.white,
+              )),
+            ),
+          ),
         ],
       ),
     );
@@ -345,50 +426,6 @@ class detailTile extends StatelessWidget {
   }
 }
 
-class ImagesTile extends StatefulWidget {
-  const ImagesTile({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<ImagesTile> createState() => _ImagesTileState();
-}
-
-class _ImagesTileState extends State<ImagesTile> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
-          child: Text(
-            widget.title,
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          child: Container(
-            height: SizeConfig.screenHeight * 0.25,
-            width: SizeConfig.screenWidth,
-            decoration: BoxDecoration(
-              color: Color(0xffECF1F1),
-              borderRadius: BorderRadius.circular(11),
-            ),
-            child: Center(
-                child: Icon(
-              Icons.camera_alt,
-              size: 45,
-              color: Colors.white,
-            )),
-          ),
-        )
-      ],
-    );
-  }
-}
-
 TextEditingController _nameController = TextEditingController();
 TextEditingController _mobileController = TextEditingController();
 TextEditingController _emailController = TextEditingController();
@@ -422,11 +459,23 @@ checkValues() async {
     // snakbar
   } else {
     log("value are filled");
-    saveDetailsToFirebase();
+    await saveDetailsToFirebase();
   }
 }
 
 saveDetailsToFirebase() async {
+  await FirebaseStorage.instance
+      .ref()
+      .child("${userUid}/aadharfront")
+      .putFile(File(_aadharFrontImage.path));
+  await FirebaseStorage.instance
+      .ref()
+      .child("${userUid}/aadharback")
+      .putFile(File(_aadharBackImage.path));
+  await FirebaseStorage.instance
+      .ref()
+      .child("${userUid}/pancard")
+      .putFile(File(_panCardImage.path));
   await FirebaseFirestore.instance.collection('Profiles').doc(userUid).set({
     'username': _nameController.text,
     'phoneNumber': _mobileController.text,
