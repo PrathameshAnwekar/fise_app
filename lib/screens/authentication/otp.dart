@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/screens/authentication/gmail_auth.dart';
+import 'package:fise_app/screens/authentication/signupPage.dart';
 import 'package:fise_app/util/initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -161,8 +162,7 @@ class _OTPAuthState extends State<OTPAuth> {
                       debugPrint("Completed");
                       PhoneAuthCredential credential =
                           PhoneAuthProvider.credential(
-                              verificationId: _verificationId,
-                              smsCode: v);
+                              verificationId: _verificationId, smsCode: v);
                       await linkAndCreateProfile(credential);
                     },
                     onChanged: (value) {
@@ -211,7 +211,7 @@ class _OTPAuthState extends State<OTPAuth> {
           await createFirestoreProfileDoc();
           print('User is logged in.');
           await Navigator.of(context)
-              .pushReplacementNamed(InitializerWidget.routeName);
+              .pushReplacementNamed(SignupPage.routeName);
         }
       });
     } catch (e) {

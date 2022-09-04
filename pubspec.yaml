@@ -53,9 +53,13 @@ dependencies:
   cashfree_pg: ^2.0.10+30
   flutter_sms_inbox: ^1.0.1
   permission_handler: ^10.0.0
+  pie_chart: ^5.3.2
   shared_preferences: ^2.0.15
   local_auth: ^2.1.2
   fluttertoast: ^8.0.9
+  image_picker: ^0.8.5+3
+  firebase_storage: ^10.3.7
+
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +87,7 @@ flutter:
   assets:
     - assets/images/login/
     - assets/images/test.png
+    - assets/images/background.png
     - assets/images/setting_icons/
     - assets/images/financialAssets/
   #   - images/a_dot_ham.jpeg

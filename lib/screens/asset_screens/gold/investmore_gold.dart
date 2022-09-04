@@ -200,12 +200,8 @@ class _InvestMoreGoldState extends State<InvestMoreGold> {
                   style: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.w100)),
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(
-                    255,
-                    255,
-                    187,
-                    0,
-                  )),
+                  backgroundColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 255, 187, 0)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),

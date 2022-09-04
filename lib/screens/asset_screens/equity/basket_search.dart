@@ -94,6 +94,7 @@ class _BasketSearchScreenState extends ConsumerState<BasketSearchScreen> {
                         stockDataList[index].companyName,
                         (value) => int.parse(value.toString()) + 1,
                         ifAbsent: () => 1);
+
                     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
                     ScaffoldMessenger.of(context)
                         .showMaterialBanner(MaterialBanner(

@@ -111,27 +111,22 @@ class AssetReturnsWidget extends StatelessWidget {
           ]),
           textAlign: TextAlign.center,
         ),
-        Expanded(
-          child: Container(),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => InvestMoreGold()));
-              },
-              child: Text('Invest More',
-                  style: const TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w100)),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 255, 187, 0)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  )))),
-        )
+        const SizedBox(height: 22),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => InvestMoreGold()));
+            },
+            child: Text('Invest More',
+                style: const TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.w100)),
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(Color.fromARGB(255, 255, 187, 0)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                )))),
       ],
     );
   }

@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:fise_app/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../constants/size_config.dart';
 
 class StockDataModel {
   String? name;
@@ -45,7 +43,6 @@ Future<List<StockDataModel>> fetchStockData() async {
     throw Exception('Unable to fetch data from the REST API');
   }
 }
-
 
 class StockDataScreen extends StatelessWidget {
   final Future<List<StockDataModel>> stockData = fetchStockData();

@@ -52,7 +52,7 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
     customerEmail = currentUser.email;
     customerPhone = currentUser.phoneNumber;
     customerName = currentUser.username;
-    orderAmount = widget.orderAmount;
+    orderAmount = widget.orderAmount.toString();
     orderNote = widget.orderNote;
     return MaterialApp(
       home: Scaffold(
@@ -61,7 +61,10 @@ class _CashfreePageState extends ConsumerState<CashfreePage> {
           shadowColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.black,),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
             onPressed: () {
               Navigator.pop(context);
             },

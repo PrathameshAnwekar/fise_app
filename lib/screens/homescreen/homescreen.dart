@@ -1,7 +1,7 @@
 import 'package:fise_app/constants/constants.dart';
 import 'package:fise_app/models/user_data.dart';
 import 'package:fise_app/screens/asset_screens/assetclass_page.dart';
-import 'package:fise_app/screens/asset_screens/gold/investmore_gold.dart';
+import 'package:fise_app/screens/homescreen/KycTile.dart';
 import 'package:fise_app/screens/homescreen/calender.dart';
 import 'package:fise_app/screens/homescreen/genral_roundups.dart';
 import 'package:fise_app/screens/homescreen/genral_transactions.dart';
@@ -10,12 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../asset_screens/equity/equity_page.dart';
-import '../settings/transactions.dart';
 import 'general_returns_widget.dart';
 import 'general_status_widget.dart';
 
 var username;
-
 
 class Homescreen extends ConsumerStatefulWidget {
   static const routeName = 'homepage';
@@ -47,7 +45,6 @@ class _HomescreenState extends ConsumerState<Homescreen> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
-            
             pinned: true,
             delegate: SliverCustomHeaderDelegate(
               title: "",
@@ -203,9 +200,11 @@ class FillContent extends StatelessWidget {
           title: 'Gold',
           routeLink: () {
             Navigator.push(context, MaterialPageRoute(builder: ((context) {
-              return const FinancialAssetPage(title: "Gold");
+              return const FinancialAssetPage();
+              // return const FinancialAssetPage(title: "Gold");
             })));
           },
+          imgRoute: 'assets/images/financialAssets/gold.png',
         ),
         const Divider(thickness: 2),
         FinancialAssetTile(
@@ -215,39 +214,23 @@ class FillContent extends StatelessWidget {
               return const Equitypage();
             })));
           },
+          imgRoute: 'assets/images/financialAssets/gold.png',
         ),
         const Divider(thickness: 2),
         FinancialAssetTile(
           title: 'Crypto',
           routeLink: () {},
+          imgRoute: 'assets/images/financialAssets/gold.png',
         ),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const Calender(),
+        const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
+        kycTileHome(),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const GenralRoundups(),
         const SizedBox(height: 20),
         const Divider(thickness: 7, color: Color.fromARGB(255, 212, 211, 211)),
         const GeneralTransactions(),
-        const SizedBox(height: 20),
-        const Divider(thickness: 2),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: OutlinedButton(
-              onPressed: () {
-                //
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return const Transactions_Page();
-                })));
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0))),
-              ),
-              child: const Text("  view all  "),
-            ),
-          ),
-        ),
         const SizedBox(height: 100),
       ],
     );
@@ -259,8 +242,10 @@ class FinancialAssetTile extends StatelessWidget {
     Key? key,
     required this.title,
     required this.routeLink,
+    required this.imgRoute,
   }) : super(key: key);
   final String title;
+  final String imgRoute;
   final VoidCallback routeLink;
 
   @override
@@ -271,10 +256,11 @@ class FinancialAssetTile extends StatelessWidget {
         onTap: routeLink,
         title: Text(title),
         subtitle: const Text('Invested 700.29'),
-        leading: const Icon(
-          Icons.monetization_on_outlined,
-          size: 50,
-        ),
+        // leading: const Icon(
+        //   Icons.monetization_on_outlined,
+        //   size: 50,
+        // ),
+        leading: Image(image: AssetImage(imgRoute)),
         trailing: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,

@@ -5,14 +5,15 @@ import 'package:fise_app/screens/settings/transactions/transaction_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Transactions_Page extends ConsumerStatefulWidget {
-  const Transactions_Page({Key? key}) : super(key: key);
+class GoldTransactions_Page extends ConsumerStatefulWidget {
+  const GoldTransactions_Page({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<Transactions_Page> createState() => _Transactions_PageState();
+  ConsumerState<GoldTransactions_Page> createState() =>
+      _GoldTransactions_PageState();
 }
 
-class _Transactions_PageState extends ConsumerState<Transactions_Page> {
+class _GoldTransactions_PageState extends ConsumerState<GoldTransactions_Page> {
   @override
   Widget build(BuildContext context) {
     var userd = ref.read(currentUserDataProvider.state).state;
@@ -42,6 +43,7 @@ class _Transactions_PageState extends ConsumerState<Transactions_Page> {
                   .collection('transactions')
                   .doc('payments')
                   .collection('${userd!.uid}')
+                  .where('orderNote', isEqualTo: 'GOLD')
                   .get(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -59,10 +61,11 @@ class _Transactions_PageState extends ConsumerState<Transactions_Page> {
                     itemBuilder: (context, index) {
                       var docData = data[index].data()! as Map;
                       return TransactionsTile(
-                          deductedFrom: docData['orderNote'],
-                          debitDate: docData['txTime'] ?? 'Failed',
-                          spent: docData['orderAmount'] ?? '0',
-                          invested: docData['txStatus'] ?? '0');
+                        deductedFrom: docData['orderNote'],
+                        debitDate: docData['txTime'] ?? 'Failed',
+                        spent: docData['orderAmount'] ?? '0',
+                        invested: docData['txStatus'] ?? '0',
+                      );
                     },
                     itemCount: snapshot.data!.docs.length,
                     shrinkWrap: true,

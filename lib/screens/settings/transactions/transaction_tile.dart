@@ -18,10 +18,11 @@ class TransactionsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
       child: Column(
         children: [
           ListTile(
+            visualDensity: VisualDensity(horizontal: 0, vertical: -2),
             title: Text(
               deductedFrom,
               style: const TextStyle(fontSize: 20),

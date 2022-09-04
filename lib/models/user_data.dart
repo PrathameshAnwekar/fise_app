@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 final currentUserDataProvider = StateProvider((ref) => userData);
 UserData? userData;
 
@@ -15,7 +14,7 @@ class UserData {
   String address;
   String phoneNumber;
   String dob;
-  String kyc;
+  bool kyc;
 
   UserData(
       {required this.username,
@@ -45,6 +44,20 @@ class UserData {
         aadhar: docData.contains('aadhar') ? doc.get('aadhar') : 'not set',
         address: docData.contains('address') ? doc.get('address') : 'not set',
         dob: docData.contains('dob') ? doc.get('dob') : 'not set',
-        kyc: docData.contains('kyc') ? doc.get('kyc') : 'not set');
+        kyc: docData.contains('kyc') ? doc.get('kyc') as bool : false);
+  }
+}
+
+class SellAlert {
+  String? user;
+  DateTime? requestedon;
+
+  SellAlert({this.user, this.requestedon});
+
+  Map<String, dynamic> toMap() {
+    return {
+      "user": user,
+      "requestedon": requestedon,
+    };
   }
 }
